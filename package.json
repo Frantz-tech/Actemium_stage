@@ -1,0 +1,55 @@
+{
+  "name": "projet-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "vitest",
+    "prepare": "husky install",
+    "commit": "cz",
+    "format": "prettier --write .",
+    "lint": "eslint '**/*.{js,cjs,mjs}'",
+    "lint:fix": "eslint '**/*.{js,cjs,mjs}' --fix",
+    "lint:all": "eslint '**/*.{js,cjs,mjs}' --fix && prettier --write .",
+    "dev": "node --watch server.js",
+    "precommit": "lint-staged"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@prisma/client": "^6.6.0",
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.13.2",
+    "prisma": "^6.6.0"
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:prettier/recommended"
+  ],
+  "config": {
+    "commitizen": {
+      "path": "@commitlint/cz-commitlint"
+    }
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.8.0",
+    "@commitlint/config-conventional": "^19.8.0",
+    "@commitlint/cz-commitlint": "^19.8.0",
+    "@eslint/js": "^9.24.0",
+    "commitizen": "^4.3.1",
+    "eslint": "^9.24.0",
+    "eslint-config-prettier": "^10.1.2",
+    "eslint-plugin-prettier": "^5.2.6",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.1",
+    "prettier": "^3.5.3",
+    "supertest": "^7.1.0",
+    "vitest": "^3.1.1"
+  }
+}
