@@ -11,7 +11,7 @@ const __dirname = dirname(__filename);
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/pages/form.html'));
+  res.sendFile(path.join(__dirname, 'public/pages/index.html'));
 });
 
 app.listen(PORT, () => {
