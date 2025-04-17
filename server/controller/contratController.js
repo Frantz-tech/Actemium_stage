@@ -32,6 +32,11 @@ const getContrat = async (req, res) => {
         error: contrats.errors,
       });
     }
+    res.status(200).json({
+      status: 'success',
+      message: 'Contrat récupéré avec succès',
+      data: contrats.data,
+    });
   } catch (error) {
     return res
       .status(500)

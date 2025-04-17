@@ -7,7 +7,7 @@ const createContrat = async contratData => {
 
     return newContrat;
   } catch (error) {
-    throw new Error(`Erreur lors de la création du pilote : ${error.message}`);
+    throw new Error(`Erreur lors de la création du contrat : ${error.message}`);
   }
 };
 
