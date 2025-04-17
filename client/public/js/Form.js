@@ -2,7 +2,7 @@
 
 function fetchContrats() {
   fetch('http://localhost:3001/contrat')
-    .then(response => response.json)
+    .then(response => response.json())
     .then(data => {
       console.log('Contrats récupérés : ', data);
     });
