@@ -11,7 +11,7 @@
     "lint": "eslint '**/*.{js,cjs,mjs}'",
     "lint:fix": "eslint '**/*.{js,cjs,mjs}' --fix",
     "lint:all": "eslint '**/*.{js,cjs,mjs}' --fix && prettier --write .",
-    "dev": "node --watch server.js",
+    "dev": "cd client && npm run dev",
     "precommit": "lint-staged"
   },
   "keywords": [],

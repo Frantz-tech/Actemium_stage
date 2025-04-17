@@ -61,10 +61,7 @@ p {
   width: 100%;
   max-width: 700px;
   background-color: var(--bg-color);
-  border: none;
+  border: transparent;
   border-radius: 8px;
   box-shadow: 0 4px 8px var(--bg-color);
-}
-
-.bottomFooter {
 }

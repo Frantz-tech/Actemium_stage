@@ -7,9 +7,7 @@ header {
   background-color: #fff;
 }
 main {
-  /* height: 82vh; */
-  /* margin: 0 5vh; */
-  background: url('../assets/bodyBg.png');
+  background: linear-gradient(to bottom left, #073973, #2479b2, #85bd21);
 }
 
 footer {
@@ -35,11 +33,16 @@ p {
 }
 .bottomFooter,
 li {
-  margin-left: 1vh;
   list-style: none;
 }
 .bottomFooter,
 a {
   text-decoration: none;
   color: var(--option-text);
+  font-size: 0.7em;
+}
+
+.rights {
+  font-weight: 400;
+  font-size: 0.5em;
 }
