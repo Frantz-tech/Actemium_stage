@@ -13,9 +13,9 @@ const createContrat = async contratData => {
 
 const getContrat = async () => {
   try {
-    const contrat = await Contrat.find();
+    const contrats = await Contrat.find();
 
-    return contrat;
+    return contrats;
   } catch (error) {
     throw new Error(`Erreur lors de la récupération des contrats :${error.message}`);
   }

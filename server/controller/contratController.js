@@ -22,6 +22,24 @@ const createContrat = async (req, res) => {
   }
 };
 
+const getContrat = async (req, res) => {
+  try {
+    const contrats = await Service.getContrat();
+    if (contrats.errors) {
+      return res.status(400).json({
+        status: 'error',
+        message: 'Des erreurs ont été rencontrées lors de la récupérations des contrats',
+        error: contrats.errors,
+      });
+    }
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ status: 'error', message: 'Une erreur interne est survenue', error: error.message });
+  }
+};
+
 export const Controller = {
   createContrat,
+  getContrat,
 };
