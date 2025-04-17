@@ -25,11 +25,16 @@ function fetchContrats() {
       contratSelect.innerHTML = '<option>Erreur de récupération des contrats</option>';
     });
 }
-const step2 = document.querySelector('.step-2');
-const step3 = document.querySelector('.step-3');
-const step4 = document.querySelector('.step-4');
-const step5 = document.querySelector('.step-5');
+const step1 = document.querySelector('.step-1 select');
+const step2 = document.querySelector('.step-2 select');
+const step3 = document.querySelector('.step-3 select');
+const step4 = document.querySelector('.step-4 select');
+const step5 = document.querySelector('.step-5 button');
 
+step1.addEventListener('change', () => {
+  const isValid = step1.value !== '';
+  step2.disabled = !isValid;
+});
 step2.addEventListener('change', () => {
   const isValid = step2.value !== '';
   step3.disabled = !isValid;
@@ -41,6 +46,20 @@ step3.addEventListener('change', () => {
 step4.addEventListener('change', () => {
   const isValid = step4.value !== '';
   step5.disabled = !isValid;
+});
+
+const allSteps = document.querySelectorAll('select');
+
+allSteps.forEach(select => {
+  select.addEventListener('change', () => {
+    if (select.value === '') {
+      select.classList.add('invalid');
+      select.classList.remove('valid');
+    } else {
+      select.classList.add('valid');
+      select.classList.remove('invalid');
+    }
+  });
 });
 
 fetchContrats();
