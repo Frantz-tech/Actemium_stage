@@ -38,7 +38,8 @@ select option {
   text-align: center;
 }
 
-label {
+label,
+button {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -53,8 +54,19 @@ p {
 .step-1,
 .step-2,
 .step-3,
-.step-4 {
+.step-4,
+.step-5,
+button {
   margin: 2vh;
+}
+button {
+  justify-self: center;
+  border-radius: 5px;
+  color: var(--option-text);
+  font-size: 0.8em;
+  width: clamp(90px, 30%, 300px);
+  border: none;
+  background-color: var(--btn-bg);
 }
 
 .formStyle {
