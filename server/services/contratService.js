@@ -25,7 +25,7 @@ const createContrat = async contratData => {
 const getContrat = async () => {
   try {
     const errors = [];
-    const contrats = await Repository.createContrat();
+    const contrats = await Repository.getContrat();
     if (!contrats) {
       errors.push('Aucun contrat trouvé');
     }
