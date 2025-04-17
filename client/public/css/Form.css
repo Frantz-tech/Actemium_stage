@@ -77,3 +77,11 @@ button {
   border-radius: 8px;
   box-shadow: 0 4px 8px var(--bg-color);
 }
+
+select.invalid {
+  border: 2px solid red;
+}
+
+select.valid {
+  border: 2px solid green;
+}
