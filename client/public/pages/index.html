@@ -28,7 +28,7 @@
           <div class="step-2">
             <label for="expertise">
               <p>Expertise Technique :</p>
-              <select name="expertiseOption" id="expertise">
+              <select name="expertiseOption" id="expertise" disabled>
                 <option value="">--Sélectionner--</option>
               </select>
             </label>
@@ -36,7 +36,7 @@
           <div class="step-3">
             <label for="clientPayeur">
               <p>Client Payeur :</p>
-              <select name="cpOption" id="clientPayeur">
+              <select name="cpOption" id="clientPayeur" disabled>
                 <option value="">--Sélectionner--</option>
               </select>
             </label>
@@ -44,10 +44,13 @@
           <div class="step-4">
             <label for="domaineActivite">
               <p>Domaine d'Activité :</p>
-              <select name="daOption" id="domaineActivite">
+              <select name="daOption" id="domaineActivite" disabled>
                 <option value="">--Sélectionner--</option>
               </select>
             </label>
+          </div>
+          <div class="step-5">
+            <button class="btnSubmit" disabled>Envoyer</button>
           </div>
         </div>
       </form>
