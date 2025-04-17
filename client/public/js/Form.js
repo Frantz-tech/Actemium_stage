@@ -25,5 +25,22 @@ function fetchContrats() {
       contratSelect.innerHTML = '<option>Erreur de récupération des contrats</option>';
     });
 }
+const step2 = document.querySelector('.step-2');
+const step3 = document.querySelector('.step-3');
+const step4 = document.querySelector('.step-4');
+const step5 = document.querySelector('.step-5');
+
+step2.addEventListener('change', () => {
+  const isValid = step2.value !== '';
+  step3.disabled = !isValid;
+});
+step3.addEventListener('change', () => {
+  const isValid = step3.value !== '';
+  step4.disabled = !isValid;
+});
+step4.addEventListener('change', () => {
+  const isValid = step4.value !== '';
+  step5.disabled = !isValid;
+});
 
 fetchContrats();
