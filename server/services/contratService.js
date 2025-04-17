@@ -22,7 +22,24 @@ const createContrat = async contratData => {
     throw new Error(`Erreur lors de la création du contrat : ${error.message}`);
   }
 };
+const getContrat = async () => {
+  try {
+    const errors = [];
+    const contrats = await Repository.createContrat();
+    if (!contrats) {
+      errors.push('Aucun contrat trouvé');
+    }
+    if (errors.length > 0) {
+      return { errors };
+    }
+
+    return { status: 'succes', data: contrats };
+  } catch (error) {
+    throw new Error(`Erreur lors de la récupération des contrats :${error.message}`);
+  }
+};
 
 export const Service = {
   createContrat,
+  getContrat,
 };
