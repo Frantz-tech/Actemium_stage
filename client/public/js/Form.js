@@ -25,6 +25,34 @@ function fetchContrats() {
       contratSelect.innerHTML = '<option>Erreur de récupération des contrats</option>';
     });
 }
+
+// Fonction pour récupérer la liste des expertises
+function fetchExpertises() {
+  fetch('http://localhost:3001/expertise')
+    .then(response => response.json())
+    .then(data => {
+      console.log('Expertises récupérées :', data);
+
+      const expertiseSelect = document.getElementById('expertise');
+      const expertises = data.data;
+      if (Array.isArray(expertises) && expertises.length > 0) {
+        expertises.forEach(expertise => {
+          const option = document.createElement('option');
+          option.value = expertise._id;
+          option.textContent = `${expertise.code} - ${expertise.type}`;
+          expertiseSelect.appendChild(option);
+        });
+      } else {
+        expertiseSelect.innerHTML = 'option>Erreur de récupération des expertises</option>';
+      }
+    })
+    .catch(error => {
+      console.error(' Erreur lors de la récupération des expertises', error);
+      const expertiseSelect = document.getElementById('contrat');
+      expertiseSelect.innerHTML = '<option>Erreur de récupération des expertises</option>';
+    });
+}
+
 const step1 = document.querySelector('.step-1 select');
 const step2 = document.querySelector('.step-2 select');
 const step3 = document.querySelector('.step-3 select');
@@ -50,6 +78,7 @@ step4.addEventListener('change', () => {
 
 const allSteps = document.querySelectorAll('select');
 
+// Fonction pour changer l'apparance du select lors du changement dans l'option
 allSteps.forEach(select => {
   select.addEventListener('change', () => {
     if (select.value === '') {
@@ -63,3 +92,4 @@ allSteps.forEach(select => {
 });
 
 fetchContrats();
+fetchExpertises();
