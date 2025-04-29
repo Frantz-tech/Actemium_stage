@@ -1,0 +1,27 @@
+.step-1,
+.step-2,
+.step-3,
+.step-4,
+.step-5,
+.step-6,
+.step-7 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.step-8 {
+  padding-top: 1.5em;
+}
+
+.devisForm {
+  gap: 1.5em;
+}
+
+select.invalid {
+  border: 2px solid red;
+}
+
+select.valid {
+  border: 2px solid green;
+}

@@ -1,0 +1,15 @@
+.btnCreerDevis,
+.btnVoirDevis {
+  cursor: pointer;
+  padding: 0.2em 1.5em;
+  border-radius: 8px;
+  border: none;
+  font-size: clamp(1.6em, calc(2vw + 0.5em), 2.8em);
+  font-weight: bold;
+}
+.devisContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 4vh 0;
+  gap: 5vh;
+}
