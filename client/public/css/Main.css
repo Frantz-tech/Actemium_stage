@@ -1,48 +1,102 @@
+@import url(./variables.css);
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(
+    to top,
+    var(--color-accent),
+    var(--color-secondary),
+    var(--color-primary)
+  );
+}
 header {
-  background: url(../assets/logo.png);
+  position: relative;
+  height: 8vh;
+  background-color: var(--color-white);
+}
+header::before {
+  content: '';
+  position: absolute;
+  left: 2vh;
+  width: 8vh;
+  height: 100%;
+  background: url(../assets/logo.png) no-repeat left center;
   background-size: contain;
-  background-repeat: no-repeat;
-  background-position: left center;
-  height: clamp(6vh, 7.5vh, 10vh);
-  background-color: #fff;
 }
+
 main {
-  background: linear-gradient(to bottom left, #073973, #2479b2, #85bd21);
-}
-
-footer {
+  flex: 1;
   display: flex;
-  justify-content: flex-end;
-  background-color: var(--bg-color);
-  height: 7.5vh;
-}
-
-.bottomFooter,
-ul {
-  display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  max-width: 1440px;
   width: 100%;
-  padding: 0;
+  margin: 0 auto;
+  padding: 0 10vw;
+}
+h1 {
+  color: var(--color-white);
+  padding: 8vh 0;
+  font-size: clamp(3.5rem, 8vw, 5rem);
+}
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 1em;
 }
 
-.bottomFooter,
-p {
-  font-size: 0.8em;
-  letter-spacing: normal;
+select,
+input {
+  border: 1px solid var(--color-black);
+  padding: 0.5em 1em;
+  border-radius: 4px;
+  width: 80%;
+  max-width: 350px;
+  box-shadow: 0 2px 3px var(--color-box-shadow);
 }
-.bottomFooter,
-li {
-  list-style: none;
+.btnSignUp,
+.btnSignIn,
+.btnCreer {
+  border-radius: 25px;
+  border: none;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  padding: 0.2rem 1rem;
 }
-.bottomFooter,
-a {
-  text-decoration: none;
-  color: var(--option-text);
-  font-size: 0.7em;
+.form-separator {
+  border: none;
+  height: 1px;
+  background-color: var(--color-border);
+  margin: 2rem 0;
+  width: 80%;
+  max-width: 400px;
+}
+footer {
+  height: 8vh;
+  display: flex;
+  justify-content: center;
 }
 
-.rights {
-  font-weight: 400;
-  font-size: 0.5em;
+.footerSignIn,
+.footerSignUp {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-white);
+  border-top: 1px solid var(--color-white);
+  width: 100%;
+}
+.signUpLink {
+  color: var(--color-white);
+  font-weight: bold;
+}
+
+@media screen and (min-width: 1024px) {
+  main {
+    padding: 0 35vh;
+  }
 }

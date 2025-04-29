@@ -1,3 +1,6 @@
+document.querySelector('h1').innerText = 'DEVIS';
+document.querySelector('.btnCreer').innerText = 'Créer';
+
 // Fonction pour récupérer la liste des contrats
 
 function fetchContrats() {
@@ -53,11 +56,14 @@ function fetchExpertises() {
     });
 }
 
-const step1 = document.querySelector('.step-1 select');
+const step1 = document.querySelector('.step-1 input');
 const step2 = document.querySelector('.step-2 select');
 const step3 = document.querySelector('.step-3 select');
 const step4 = document.querySelector('.step-4 select');
-const step5 = document.querySelector('.step-5 button');
+const step5 = document.querySelector('.step-5 select');
+const step6 = document.querySelector('.step-6 select');
+const step7 = document.querySelector('.step-7 select');
+const step8 = document.querySelector('.step-8 select');
 
 step1.addEventListener('change', () => {
   const isValid = step1.value !== '';
@@ -74,6 +80,18 @@ step3.addEventListener('change', () => {
 step4.addEventListener('change', () => {
   const isValid = step4.value !== '';
   step5.disabled = !isValid;
+});
+step5.addEventListener('change', () => {
+  const isValid = step5.value !== '';
+  step6.disabled = !isValid;
+});
+step6.addEventListener('change', () => {
+  const isValid = step6.value !== '';
+  step7.disabled = !isValid;
+});
+step7.addEventListener('change', () => {
+  const isValid = step7.value !== '';
+  step8.disabled = !isValid;
 });
 
 const allSteps = document.querySelectorAll('select');
