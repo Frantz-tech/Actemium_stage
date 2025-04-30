@@ -6,9 +6,9 @@ const footerSignIn = document.querySelector('.footerSignIn');
 const footerParag = document.createElement('p');
 footerParag.appendChild(document.createTextNode('Pas encore de compte ? '));
 
-const signUpLink = document.createElement('a');
-signUpLink.classList.add('signUpLink');
-signUpLink.textContent = 'Inscrivez-vous !';
-signUpLink.href = '../pages/signUp.html';
-footerParag.appendChild(signUpLink);
+const signInLink = document.createElement('a');
+signInLink.classList.add('signUpLink');
+signInLink.textContent = 'Inscrivez-vous !';
+signInLink.href = '../pages/signUp.html';
+footerParag.appendChild(signInLink);
 footerSignIn.appendChild(footerParag);

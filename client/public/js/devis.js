@@ -1,6 +1,10 @@
 document.querySelector('h1').innerText = 'DEVIS';
-document.querySelector('.btnCreer').innerText = 'Créer';
+const btnCreerDevis = document.querySelector('.btnCreer');
+btnCreerDevis.innerText = 'Créer';
 
+btnCreerDevis.addEventListener('click', () => {
+  window.location.href = '../pages/poste.html';
+});
 // Fonction pour récupérer la liste des contrats
 
 function fetchContrats() {
@@ -9,7 +13,7 @@ function fetchContrats() {
     .then(data => {
       console.log('Contrats récupérés : ', data);
 
-      const contratSelect = document.getElementById('contrat');
+      const contratSelect = document.getElementById('contratSegm');
       const contrats = data.data;
       if (Array.isArray(contrats) && contrats.length > 0) {
         contrats.forEach(contrat => {
@@ -24,7 +28,7 @@ function fetchContrats() {
     })
     .catch(error => {
       console.error('Erreur lors de la récupération des contrats:', error);
-      const contratSelect = document.getElementById('contrat');
+      const contratSelect = document.getElementById('contratSegm');
       contratSelect.innerHTML = '<option>Erreur de récupération des contrats</option>';
     });
 }
@@ -36,7 +40,7 @@ function fetchExpertises() {
     .then(data => {
       console.log('Expertises récupérées :', data);
 
-      const expertiseSelect = document.getElementById('expertise');
+      const expertiseSelect = document.getElementById('expertiseSegm');
       const expertises = data.data;
       if (Array.isArray(expertises) && expertises.length > 0) {
         expertises.forEach(expertise => {
@@ -46,12 +50,12 @@ function fetchExpertises() {
           expertiseSelect.appendChild(option);
         });
       } else {
-        expertiseSelect.innerHTML = 'option>Erreur de récupération des expertises</option>';
+        expertiseSelect.innerHTML = '<option>Erreur de récupération des expertises</option>';
       }
     })
     .catch(error => {
       console.error(' Erreur lors de la récupération des expertises', error);
-      const expertiseSelect = document.getElementById('contrat');
+      const expertiseSelect = document.getElementById('expertiseSegm');
       expertiseSelect.innerHTML = '<option>Erreur de récupération des expertises</option>';
     });
 }

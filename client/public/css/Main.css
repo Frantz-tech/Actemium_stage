@@ -55,7 +55,7 @@ input {
   padding: 0.5em 1em;
   border-radius: 4px;
   width: 80%;
-  max-width: 350px;
+  max-width: 450px;
   box-shadow: 0 2px 3px var(--color-box-shadow);
 }
 .btnSignUp,
@@ -66,6 +66,9 @@ input {
   background-color: var(--color-primary);
   color: var(--color-white);
   padding: 0.2rem 1rem;
+}
+.btnCreer {
+  margin-top: 2vw;
 }
 .form-separator {
   border: none;
@@ -95,8 +98,8 @@ footer {
   font-weight: bold;
 }
 
-@media screen and (min-width: 1024px) {
+/* @media screen and (min-width: 1024px) {
   main {
     padding: 0 35vh;
   }
-}
+} */

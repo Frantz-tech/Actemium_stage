@@ -1,0 +1,111 @@
+@import url(./variables.css);
+#groupeFraisChantierContainer,
+#groupeSectionContainer,
+#groupeAchatContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.contenuSection,
+.contenuAchat,
+.contenuFraisChantier {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+}
+
+.inputSection {
+  display: flex;
+  width: 80%;
+  height: 3vh;
+  margin-top: 1vh;
+  max-width: 450px;
+  gap: 3vw;
+}
+.inputAchat {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  flex-wrap: wrap;
+  max-width: 450px;
+}
+
+.nomAchat,
+.qteAchat,
+.uniteAchat,
+.prixUAchat,
+.totalAchat,
+.qteFraisChantier,
+.uniteFraisChantier,
+.prixUFraisChantier,
+.totalFraisChantier {
+  margin-top: 1vh;
+  width: 48%;
+  height: 3vh;
+}
+.nomAchat {
+  width: 80%;
+  height: 4vh;
+}
+
+.nbHeures {
+  width: 50%;
+}
+
+.deletebtn {
+  width: 20px;
+  height: 20px;
+  background-color: var(--color-delete-btn);
+  border: none;
+  border-radius: 3px;
+  position: relative;
+  cursor: pointer;
+}
+
+.deletebtn::before,
+.deletebtn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 2px;
+  background-color: var(--color-white);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.deletebtn::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.groupePoste {
+  display: flex;
+  justify-content: center;
+}
+.groupeA {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+#nomPoste {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+#libelleDevis {
+  width: 80%;
+  margin-right: 20px;
+}
+
+.btnPoste {
+  color: var(--color-white);
+  background-color: var(--color-accent);
+  border: none;
+  border-radius: 50px;
+  padding: clamp(0.3rem, 0.5vw, 1.5rem) clamp(0.5rem, 1vw, 2.5rem);
+  cursor: pointer;
+}
