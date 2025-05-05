@@ -1,0 +1,12 @@
+[
+  { "libelle": "Devis installation électrique", "code_codex": "COD-001" },
+  { "libelle": "Maintenance ligne de production", "code_codex": "COD-002" },
+  { "libelle": "Remplacement armoire électrique", "code_codex": "COD-003" },
+  { "libelle": "Mise en conformité sécurité", "code_codex": "COD-004" },
+  { "libelle": "Automatisation convoyeur", "code_codex": "COD-005" },
+  { "libelle": "Câblage machine spéciale", "code_codex": "COD-006" },
+  { "libelle": "Reprise schéma électrique", "code_codex": "COD-007" },
+  { "libelle": "Ajout variateur de fréquence", "code_codex": "COD-008" },
+  { "libelle": "Audit électrique complet", "code_codex": "COD-009" },
+  { "libelle": "Création coffret de commande", "code_codex": "COD-010" }
+]

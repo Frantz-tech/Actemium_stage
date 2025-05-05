@@ -1,5 +1,10 @@
 document.querySelector('h1').innerText = 'ACTEMIUM';
-document.querySelector('.btnSignIn').innerHTML = 'Se Connecter';
+
+const btnSignInt = document.querySelector('.btnSignIn');
+btnSignInt.innerText = 'Se Connecter';
+btnSignInt.addEventListener('click', () => {
+  window.location.href = '../pages/accueil.html';
+});
 
 const footerSignIn = document.querySelector('.footerSignIn');
 

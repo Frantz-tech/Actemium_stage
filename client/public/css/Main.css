@@ -61,6 +61,7 @@ input {
 .btnSignUp,
 .btnSignIn,
 .btnCreer {
+  cursor: pointer;
   border-radius: 25px;
   border: none;
   background-color: var(--color-primary);
@@ -68,7 +69,7 @@ input {
   padding: 0.2rem 1rem;
 }
 .btnCreer {
-  margin-top: 2vw;
+  margin-top: 3vw;
 }
 .form-separator {
   border: none;
