@@ -1,121 +1,131 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../css/main.css" />
-    <link rel="stylesheet" href="../css/reset.css" />
-    <link rel="stylesheet" href="../css/variables.css" />
-    <link rel="stylesheet" href="../css/poste.css" />
-    <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon" />
-    <title>Poste - Actemium</title>
-  </head>
 
-  <body>
-    <header></header>
-    <main>
-      <h1></h1>
-      <form action="" class="loginForm posteForm">
-        <div id="nomPoste">
-          <input type="text" id="libelleDevis" placeholder="NOM DU POSTE" required />
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/reset.css" />
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/poste.css" />
 
-        <div id="groupeSectionContainer">
-          <div class="groupeSection groupePoste">
-            <div class="contenuSection" id="hidden">
-              <div class="groupeA">
-                <select name="codeSection" class="codeSection">
-                  <option value="codeSection">Code section</option>
-                </select>
-                <div class="inputSection">
-                  <input type="number" class="nbHeures" placeholder="nbr d'h" required />
-                  <!-- Affiche le nombre d'heure -->
-                  <input type="text" class="totalSection" placeholder="Total (€)" disabled />
-                  <!-- Affiche le total, prix entre nbr d'h et le taux en fonction du code de la section -->
-                </div>
-              </div>
-              <div class="groupeB">
-                <button
-                  type="button"
-                  class="deletebtn supprimerGroupeSection"
-                  aria-label="Supprimer"
-                ></button>
+  <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon" />
+  <title>Poste - Actemium</title>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <div class="burger" id="burger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="navMenu">
+        <ul>
+          <li class="liNav"> <a href="../pages/accueil.html"> ACCUEIL </a></li>
+          <li class="liNav"><a href="../pages/devis.html"> DEVIS </a> </li>
+          <li class="liNav"><a href="../pages/devisList.html">LISTE DES DEVIS </a></li>
+        </ul>
+      </div>
+      <div class="slideMenu">
+        <ul>
+          <li class="slideNav"><a href="../pages/accueil.html"> ACCUEIL</a></li>
+          <li class="slideNav"><a href="../pages/devis.html"> DEVIS</a> </li>
+          <li class="slideNav"><a href="../pages/devisList.html">LISTE DES DEVIS</a> </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <h1></h1>
+    <form action="" class="loginForm posteForm">
+      <div id="nomPoste">
+        <input type="text" id="libelleDevis" placeholder="NOM DU POSTE" required />
+      </div>
+
+      <div id="groupeSectionContainer">
+        <div class="groupeSection groupePoste">
+          <div class="contenuSection" id="hidden">
+            <div class="groupeA">
+              <select name="codeSection" class="codeSection">
+                <option value="codeSection">Code section</option>
+              </select>
+              <div class="inputSection">
+                <input type="number" class="nbHeures" placeholder="nbr d'h" required />
+                <!-- Affiche le nombre d'heure -->
+                <input type="text" class="totalSection" placeholder="Total (€)" disabled />
+                <!-- Affiche le total, prix entre nbr d'h et le taux en fonction du code de la section -->
               </div>
             </div>
-            <!-- <button type="button" class="modifierGroupeSection">Modifier</button> -->
+            <div class="groupeB">
+              <button type="button" class="deletebtn supprimerGroupeSection" aria-label="Supprimer"></button>
+            </div>
           </div>
+          <!-- <button type="button" class="modifierGroupeSection">Modifier</button> -->
         </div>
-        <button type="button" id="ajouterGroupeSection" class="btnPoste">
-          Ajouter une Section
-        </button>
+      </div>
+      <button type="button" id="ajouterGroupeSection" class="btnPoste">
+        Ajouter une Section
+      </button>
 
-        <div id="groupeAchatContainer">
-          <div class="groupeAchat groupePoste">
-            <div class="contenuAchat" id="hidden">
-              <div class="groupeA">
-                <select name="codeAchat" class="codeAchat">
-                  <option value="codeAchat">Code Achat</option>
-                </select>
-                <input type="text" class="nomAchat" placeholder="Produit" />
-                <div class="inputAchat">
-                  <input type="number" class="qteAchat" placeholder="Qté" />
-                  <input type="text" class="uniteAchat" placeholder="Unité" />
-                  <input type="number" class="prixUAchat" placeholder="Prix U (€)" />
-                  <input type="text" class="totalAchat" placeholder="Total (€)" disabled />
-                </div>
-              </div>
-              <div class="groupeB">
-                <button
-                  type="button"
-                  class="deletebtn supprimerGroupeAchat"
-                  aria-label="Supprimer"
-                ></button>
+      <div id="groupeAchatContainer">
+        <div class="groupeAchat groupePoste">
+          <div class="contenuAchat" id="hidden">
+            <div class="groupeA">
+              <select name="codeAchat" class="codeAchat">
+                <option value="codeAchat">Code Achat</option>
+              </select>
+              <input type="text" class="nomAchat" placeholder="Produit" />
+              <div class="inputAchat">
+                <input type="number" class="qteAchat" placeholder="Qté" />
+                <input type="text" class="uniteAchat" placeholder="Unité" />
+                <input type="number" class="prixUAchat" placeholder="Prix U (€)" />
+                <input type="text" class="totalAchat" placeholder="Total (€)" disabled />
               </div>
             </div>
-            <!-- <button type="button" class="modifierGroupeAchat">Modifier</button> -->
+            <div class="groupeB">
+              <button type="button" class="deletebtn supprimerGroupeAchat" aria-label="Supprimer"></button>
+            </div>
           </div>
+          <!-- <button type="button" class="modifierGroupeAchat">Modifier</button> -->
         </div>
-        <button type="button" id="ajouterGroupeAchat" class="btnPoste">Ajouter un Achat</button>
+      </div>
+      <button type="button" id="ajouterGroupeAchat" class="btnPoste">Ajouter un Achat</button>
 
-        <div id="groupeFraisChantierContainer">
-          <div class="groupeFraisChantier groupePoste">
-            <div class="contenuFraisChantier" id="hidden">
-              <div class="groupeA">
-                <select name="codeFraisChantier" class="codeFraisChantier">
-                  <option value="codeFraisChantier">Code Frais Chantier</option>
-                </select>
-                <input type="text" class="nomAchat" placeholder="Produit" />
-                <div class="inputAchat">
-                  <input type="number" class="qteFraisChantier" placeholder="Qté" required />
-                  <input type="text" class="uniteFraisChantier" placeholder="Unité" required />
-                  <input
-                    type="number"
-                    class="prixUFraisChantier"
-                    placeholder="Prix U (€)"
-                    required
-                  />
-                  <input type="text" class="totalFraisChantier" placeholder="Total (€)" disabled />
-                </div>
-              </div>
-              <div class="groupeB">
-                <button
-                  type="button"
-                  class="deletebtn supprimerGroupeFraisChantier"
-                  aria-label="Supprimer"
-                ></button>
+      <div id="groupeFraisChantierContainer">
+        <div class="groupeFraisChantier groupePoste">
+          <div class="contenuFraisChantier" id="hidden">
+            <div class="groupeA">
+              <select name="codeFraisChantier" class="codeFraisChantier">
+                <option value="codeFraisChantier">Code Frais Chantier</option>
+              </select>
+              <input type="text" class="nomAchat" placeholder="Produit" />
+              <div class="inputAchat">
+                <input type="number" class="qteFraisChantier" placeholder="Qté" required />
+                <input type="text" class="uniteFraisChantier" placeholder="Unité" required />
+                <input type="number" class="prixUFraisChantier" placeholder="Prix U (€)" required />
+                <input type="text" class="totalFraisChantier" placeholder="Total (€)" disabled />
               </div>
             </div>
-            <!-- <button type="button" class="modifierGroupeFraisChantier">Modifier</button> -->
+            <div class="groupeB">
+              <button type="button" class="deletebtn supprimerGroupeFraisChantier" aria-label="Supprimer"></button>
+            </div>
           </div>
+          <!-- <button type="button" class="modifierGroupeFraisChantier">Modifier</button> -->
         </div>
-        <button type="button" id="ajouterGroupeFraisChantier" class="btnPoste">
-          Ajouter un Frais de Chantier
-        </button>
+      </div>
+      <button type="button" id="ajouterGroupeFraisChantier" class="btnPoste">
+        Ajouter un Frais de Chantier
+      </button>
 
-        <button class="btnCreer"></button>
-      </form>
-    </main>
-    <footer></footer>
-    <script src="../js/poste.js"></script>
-  </body>
+      <button class="btnCreer"></button>
+    </form>
+  </main>
+  <footer></footer>
+  <script src="../js/poste.js"></script>
+  <script src="../js/global.js"></script>
+
+</body>
+
 </html>

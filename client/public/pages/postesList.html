@@ -1,37 +1,71 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../css/main.css" />
-    <link rel="stylesheet" href="../css/reset.css" />
-    <link rel="stylesheet" href="../css/variables.css" />
-    <link rel="stylesheet" href="../css/poste.css" />
 
-    <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon" />
-    <title>Liste des postes - Actemium</title>
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/reset.css" />
+  <link rel="stylesheet" href="../css/variables.css" />
+  <link rel="stylesheet" href="../css/poste.css" />
 
-  <body>
-    <header></header>
-    <main>
-      <h1></h1>
-      <div id="groupePostesList">
-        <div class="groupePostes">
-          <div class="contenuPostesList">
-            <div class="groupeA">
-              <div class="container" id="containerPostesList">
-                <div id="postesList"></div>
-              </div>
+  <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon" />
+  <title>Liste des postes - Actemium</title>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <div class="burger" id="burger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="navMenu">
+        <ul>
+          <li class="liNav"> <a href="../pages/accueil.html"> ACCUEIL </a></li>
+          <li class="liNav"><a href="../pages/devis.html"> DEVIS </a> </li>
+          <li class="liNav"><a href="../pages/devisList.html">LISTE DES DEVIS </a></li>
+        </ul>
+      </div>
+      <div class="slideMenu">
+        <ul>
+          <li class="slideNav"><a href="../pages/accueil.html"> ACCUEIL</a></li>
+          <li class="slideNav"><a href="../pages/devis.html"> DEVIS</a> </li>
+          <li class="slideNav"><a href="../pages/devisList.html">LISTE DES DEVIS</a> </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <h1></h1>
+    <div id="groupePostesList">
+      <div class="groupePostes">
+        <div class="contenuPostesList">
+          <div class="groupeA">
+            <div class="container" id="containerPostesList">
+              <div id="postesList"></div>
             </div>
           </div>
         </div>
       </div>
-      <div class="btnPostes">
-        <button class="btnCreer btnCreerPoste"></button>
+    </div>
+    <div class="btnPostes">
+      <button class="btnCreer btnCreerPoste"></button>
+    </div>
+    <div id="modal" class="modal hidden">
+      <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <div id="modal_body">
+
+        </div>
+        <button class="btnModal"></button>
       </div>
-    </main>
-    <footer></footer>
-    <script src="../js/postesList.js"></script>
-  </body>
+    </div>
+  </main>
+  <footer></footer>
+  <script src="../js/postesList.js"></script>
+  <script src="../js/global.js"></script>
+</body>
+
 </html>

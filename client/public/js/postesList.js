@@ -1,8 +1,11 @@
 document.querySelector('h1').innerText = 'POSTES';
 const btnCreerPoste = document.querySelector('.btnCreerPoste');
-
 btnCreerPoste.innerText = 'Créer un poste';
-
+const btnModal = document.querySelector('.btnModal');
+btnModal.innerText = 'Modifier';
+btnModal.addEventListener('click', () => {
+  alert('Modifier le poste ');
+});
 btnCreerPoste.addEventListener('click', () => {
   alert('Création d un nouveau poste');
   window.location.href = '../pages/poste.html';
@@ -60,7 +63,76 @@ fetch('../js/postList.json')
         groupeA.appendChild(sectionItem);
 
         sectionItem.addEventListener('click', () => {
-          alert(`Souhaites-tu voir le poste : ${poste.nom}`);
+          const modal = document.getElementById('modal');
+          const modalBody = document.getElementById('modal_body');
+          const closeBtn = document.querySelector('.close-btn');
+          modalBody.innerHTML = '';
+
+          //Nom du poste
+          const posteTitle = document.createElement('div');
+          posteTitle.classList.add('modalPostTitle');
+          posteTitle.textContent = `${poste.nom}`;
+          modalBody.appendChild(posteTitle);
+
+          //SECTION
+          const sectionTitle = document.createElement('div');
+          sectionTitle.textContent = 'SECTION';
+          sectionTitle.classList.add('modalSectionAchatFraisTitle');
+          modalBody.appendChild(sectionTitle);
+
+          const section = document.createElement('div');
+          section.classList.add('blockListModal');
+          modalBody.appendChild(section);
+          const sectionList = document.createElement('ul');
+          section.appendChild(sectionList);
+
+          poste.section.forEach(sections => {
+            const liSection = document.createElement('li');
+            liSection.classList.add('liModal');
+            sectionList.appendChild(liSection);
+            liSection.textContent = `${sections.poste_occupe} - ${sections.code_section} - ${sections.nb_heures} x ${sections.taux_horaire}€/h = ${sections.total}€ `;
+          });
+
+          // ACHAT
+          const achatTitle = document.createElement('div');
+          achatTitle.textContent = 'ACHAT';
+          achatTitle.classList.add('modalSectionAchatFraisTitle');
+          modalBody.appendChild(achatTitle);
+
+          const achat = document.createElement('div');
+          achat.classList.add('blockListModal');
+          modalBody.appendChild(achat);
+          const achatList = document.createElement('ul');
+          achat.appendChild(achatList);
+
+          poste.achats.forEach(a => {
+            const liAchat = document.createElement('li');
+            liAchat.classList.add('liModal');
+            achatList.appendChild(liAchat);
+            liAchat.textContent = `${a.code_achat} - ${a.nom_produit} - ${a.quantite}${a.unite} x ${a.prix_unitaire}€ = ${a.total}€ `;
+          });
+
+          // FRAIS DE CHANTIER
+          const fraisTitle = document.createElement('div');
+          fraisTitle.textContent = 'FRAIS DE CHANTIER';
+          fraisTitle.classList.add('modalSectionAchatFraisTitle');
+          modalBody.appendChild(fraisTitle);
+          const frais = document.createElement('div');
+          frais.classList.add('blockListModal');
+          modalBody.appendChild(frais);
+          const fraisList = document.createElement('ul');
+          frais.appendChild(fraisList);
+
+          poste.frais_chantier.forEach(f => {
+            const liFrais = document.createElement('li');
+            liFrais.classList.add('liModal');
+            fraisList.appendChild(liFrais);
+            liFrais.textContent = `${f.code_frais} - ${f.nom_produit} - ${f.quantite}${f.unite} x ${f.prix_unitaire}€ = ${f.total}€ `;
+          });
+
+          modal.classList.remove('hidden');
+
+          closeBtn.onclick = () => modal.classList.add('hidden');
         });
 
         // bouton suppression
