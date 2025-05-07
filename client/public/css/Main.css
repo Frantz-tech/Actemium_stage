@@ -11,18 +11,18 @@ body {
   );
 }
 header {
-  position: relative;
   height: 8vh;
   background-color: var(--color-white);
 }
-header::before {
-  content: '';
+.logo {
   position: absolute;
   left: 2vh;
   width: 8vh;
-  height: 100%;
+  height: 8vh;
   background: url(../assets/logo.png) no-repeat left center;
   background-size: contain;
+  cursor: pointer;
+  pointer-events: auto;
 }
 nav {
   display: flex;
@@ -97,10 +97,14 @@ input {
 }
 .btnModal {
   margin-top: 1vw;
-  font-size: clamp(0.8rem, 2vw, 1.5rem);
+  font-size: clamp(0.8rem, 2vw, 1.3rem);
 }
 .btnCreer {
   margin-top: 3vw;
+}
+.groupeSegmCodexRa {
+  display: flex;
+  flex-direction: column-reverse;
 }
 .form-separator {
   border: none;
@@ -150,10 +154,6 @@ footer {
     opacity 0.3s ease;
 }
 
-.burger span:nth-child(1) {
-  top: 12%;
-}
-
 .burger span:nth-child(2) {
   top: 50%;
   transform: translateY(-50%);
@@ -178,15 +178,19 @@ footer {
 }
 
 .slideMenu {
-  display: none;
   position: absolute;
+  z-index: 0;
   top: 8vh;
   right: 0;
   width: 100%;
   background-color: rgba(255, 255, 255, 0.582);
+  transition: transform 0.3s ease;
+  transform: translateY(-100%);
+  display: none;
 }
 
 .slideMenu.active {
+  transform: translateY(0);
   display: flex;
 }
 .slideMenu ul {

@@ -6,7 +6,6 @@ btnDevis1.addEventListener('click', () => {
 });
 const btnDevis2 = document.querySelector('.btnVoirDevis');
 btnDevis2.addEventListener('click', () => {
-  alert('Redirection vers la page "liste des devis " ');
   window.location.href = '../pages/devisList.html';
 });
 btnDevis1.innerText = 'Créer un devis';

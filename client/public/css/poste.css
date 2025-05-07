@@ -57,7 +57,14 @@
 .nbHeures {
   width: 80%;
 }
-
+.btnGoToPost {
+  order: -1;
+  font-size: 1.8rem;
+  display: flex;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
 .deletebtn {
   width: 20px;
   height: 20px;
@@ -172,6 +179,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow-y: auto;
+}
+.noscroll {
+  overflow: hidden;
 }
 .modal.hidden {
   display: none;
@@ -193,11 +204,16 @@
   text-align: center;
   height: fit-content;
 }
-.close-btn {
-  font-size: clamp(1.2rem, 2.5vw, 3rem);
+.close-btn,
+.goToPostBtn {
+  font-size: clamp(1.5em, 3.5vw, 3rem);
   cursor: pointer;
   align-self: flex-start;
   color: var(--color-white);
+}
+.goToPostBtn {
+  border: none;
+  background-color: transparent;
 }
 
 #modal_body {
@@ -205,9 +221,11 @@
   flex-direction: column;
   overflow: scroll;
   max-height: 75vh;
+  align-items: center;
 }
 
-.modalPostTitle {
+.modalPostTitle,
+.modalDevisLibelle {
   text-transform: uppercase;
   color: var(--color-white);
   font-size: clamp(1.5rem, 3vw, 5rem);
@@ -216,14 +234,15 @@
   padding: 0 clamp(1rem, 3vw, 2rem) clamp(1rem, 3vw, 2rem);
 }
 
-.modalSectionAchatFraisTitle {
+.modalSectionAchatFraisTitle,
+.modalDevisCodexRa {
   color: var(--color-white);
-
-  font-size: clamp(1.2rem, 2vw, 3rem);
+  font-size: clamp(1.3rem, 2.3vw, 3rem);
   font-weight: 600;
 }
 
-.liModal {
+.liModal,
+.devisSegm {
   background-color: var(--color-white);
   border-radius: 5px;
   font-size: clamp(0.7rem, 1.5vw, 1.4rem);
@@ -236,4 +255,32 @@ ul {
   display: flex;
   flex-direction: column;
   gap: 1vw;
+}
+
+.groupSegm {
+  padding: 2vw;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  row-gap: clamp(5px, 1vw, 10px);
+  column-gap: 4%;
+}
+
+.modalCommanditaire,
+.modalSegm {
+  background-color: var(--color-white);
+  border-radius: 5px;
+  padding: 5px;
+  width: 100%;
+}
+
+.modalSegm {
+  width: 48%;
+}
+
+.divCloseGoTo {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 }
