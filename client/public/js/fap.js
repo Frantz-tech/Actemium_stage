@@ -1,3 +1,5 @@
+import { afficherModalPoste } from './modalPoste.js';
+
 document.querySelector('h1').innerText = 'FAP ACTEMIUM';
 const btnExporterPDF = document.querySelector('.btnExporter');
 btnExporterPDF.textContent = `Exporter PDF`;
@@ -37,6 +39,10 @@ fetch('../js/postList.json')
         const libelle = document.createElement('div');
         libelle.classList.add('libellePostFap');
         libelle.textContent = `${poste.nom}`;
+
+        postes.addEventListener('click', () => {
+          afficherModalPoste(poste, { lectureSeule: true });
+        });
 
         const montant = document.createElement('div');
         montant.classList.add('montantPostFap');
