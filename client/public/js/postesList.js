@@ -6,7 +6,12 @@ btnCreerPoste.addEventListener('click', () => {
   alert('Création d un nouveau poste');
   window.location.href = '../pages/poste.html';
 });
-
+// Action du bouton qui génère la FAP
+let btnCreerFap = document.querySelector('.btnCreerFap');
+btnCreerFap.textContent = 'Générer FAP';
+btnCreerFap.addEventListener('click', () => {
+  window.location.href = '../pages/fap.html';
+});
 // Chargement des postes depuis le fichier JSON local pour test
 fetch('../js/postList.json')
   .then(response => response.json())
@@ -40,6 +45,13 @@ fetch('../js/postList.json')
           if (confirmation) {
             const removed = postesList.removeChild(groupeA);
             console.log('Élément supprimé :', removed);
+          }
+          const checkGroupeLength = document.querySelectorAll('.groupeLibelle');
+
+          if (checkGroupeLength.length > 0) {
+            btnCreerFap.style.display = 'flex';
+          } else {
+            btnCreerFap.style.display = 'none';
           }
         });
 

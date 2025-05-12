@@ -7,7 +7,8 @@
     "client": "PUBL",
     "expertise": "EN - Energie",
     "domaine": "A - Infrastructure",
-    "contrat": "A - Conseil et ingénierie"
+    "contrat": "A - Conseil et ingénierie",
+    "etat": "CHIFFRAGE"
   },
   {
     "libelle": "Maintenance ligne de production",
@@ -17,7 +18,8 @@
     "client": "PRIV",
     "expertise": "IN - Information",
     "domaine": "B - Bâtiments",
-    "contrat": "B - Ensemblier"
+    "contrat": "B - Ensemblier",
+    "etat": "CHIFFRAGE"
   },
   {
     "libelle": "Remplacement armoire électrique",
@@ -27,7 +29,8 @@
     "client": "PPP",
     "expertise": "ME - Mécanique et fluide",
     "domaine": "C - Industrie",
-    "contrat": "C - Installation"
+    "contrat": "C - Installation",
+    "etat": "CHIFFRAGE"
   },
   {
     "libelle": "Mise en conformité sécurité",
@@ -37,7 +40,8 @@
     "client": "PUBL",
     "expertise": "OE - Autres expertises",
     "domaine": "A - Infrastructure",
-    "contrat": "D - Maintenance"
+    "contrat": "D - Maintenance",
+    "etat": "CHIFFRAGE"
   },
   {
     "libelle": "Automatisation convoyeur",
@@ -47,7 +51,8 @@
     "client": "PRIV",
     "expertise": "EN - Energie",
     "domaine": "B - Bâtiments",
-    "contrat": "E - Exploitation"
+    "contrat": "E - Exploitation",
+    "etat": "CHIFFRAGE"
   },
   {
     "libelle": "Câblage machine spéciale",
@@ -57,7 +62,8 @@
     "client": "PPP",
     "expertise": "IN - Information",
     "domaine": "C - Industrie",
-    "contrat": "A - Conseil et ingénierie"
+    "contrat": "A - Conseil et ingénierie",
+    "etat": "CHIFFRAGE"
   },
   {
     "libelle": "Reprise schéma électrique",
@@ -67,7 +73,8 @@
     "client": "PUBL",
     "expertise": "ME - Mécanique et fluide",
     "domaine": "A - Infrastructure",
-    "contrat": "B - Ensemblier"
+    "contrat": "B - Ensemblier",
+    "etat": "CHIFFRAGE"
   },
   {
     "libelle": "Ajout variateur de fréquence",
@@ -77,7 +84,8 @@
     "client": "PRIV",
     "expertise": "OE - Autres expertises",
     "domaine": "B - Bâtiments",
-    "contrat": "C - Installation"
+    "contrat": "C - Installation",
+    "etat": "CHIFFRAGE"
   },
   {
     "libelle": "Audit électrique complet",
@@ -87,7 +95,8 @@
     "client": "PPP",
     "expertise": "EN - Energie",
     "domaine": "C - Industrie",
-    "contrat": "D - Maintenance"
+    "contrat": "D - Maintenance",
+    "etat": "CHIFFRAGE"
   },
   {
     "libelle": "Création coffret de commande",
@@ -97,6 +106,7 @@
     "client": "PUBL",
     "expertise": "IN - Information",
     "domaine": "A - Infrastructure",
-    "contrat": "E - Exploitation"
+    "contrat": "E - Exploitation",
+    "etat": "CHIFFRAGE"
   }
 ]

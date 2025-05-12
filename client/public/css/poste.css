@@ -105,7 +105,8 @@
   flex-direction: column;
   gap: 2vw;
 }
-.groupeA {
+.groupeA,
+.posteFap {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -149,7 +150,8 @@
 
 .devisItem,
 .sectionItem,
-.achatItem {
+.achatItem,
+.posteFap {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;

@@ -132,7 +132,7 @@
       ]
     },
     {
-      "nom": "chantier bledina - Installation",
+      "nom": "CHANTIER BLEDINA - Installation",
       "section": [
         {
           "poste_occupe": "Installateur",
@@ -187,7 +187,7 @@
       ]
     },
     {
-      "nom": "chantier bledina - Tests",
+      "nom": "CHANTIER BLEDINA - Tests",
       "section": [
         {
           "poste_occupe": "Technicien Test",
@@ -242,7 +242,7 @@
       ]
     },
     {
-      "nom": "chantier bledina - Maintenance",
+      "nom": "CHANTIER BLEDINA - Maintenance",
       "section": [
         {
           "poste_occupe": "Technicien Maintenance",
@@ -297,7 +297,7 @@
       ]
     },
     {
-      "nom": "chantier bledina - Clôture",
+      "nom": "CHANTIER BLEDINA - Clôture",
       "section": [
         {
           "poste_occupe": "Chargé de Clôture",

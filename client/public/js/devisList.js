@@ -3,12 +3,10 @@ document.querySelector('h1').innerText = 'DEVIS';
 const btnCreerDevis = document.querySelector('.btnCreer');
 btnCreerDevis.innerText = 'Créer un devis';
 
-const goToPostAction = () => {
-  window.location.href = '../pages/postesList.html';
-};
-
 const btnGoToPostModal = document.querySelector('.goToPostBtn');
-btnGoToPostModal.addEventListener('click', goToPostAction);
+btnGoToPostModal.addEventListener('click', () => {
+  window.location.href = '../pages/postesList.html';
+});
 
 btnCreerDevis.addEventListener('click', () => {
   alert('Création d un nouveau devis');
@@ -35,10 +33,12 @@ fetch('../js/devisList.json')
       devisItem.classList.add('devisItem');
 
       // Bouton aller page liste des postes
-      const btnGoToPostList = document.createElement('div');
-      btnGoToPostList.textContent = '⎘';
-      btnGoToPostList.classList.add('btnGoToPost');
-      btnGoToPostList.addEventListener('click', goToPostAction);
+      const btnGoToFap = document.createElement('div');
+      btnGoToFap.textContent = '⎘';
+      btnGoToFap.classList.add('btnGoToPost');
+      btnGoToFap.addEventListener('click', () => {
+        window.location.href = '../pages/fap.html';
+      });
 
       // Supprimer un devis
       const deleteDevis = document.createElement('div');
@@ -57,7 +57,7 @@ fetch('../js/devisList.json')
       devisList.appendChild(groupeA);
       groupeA.appendChild(devisItem);
       groupeA.appendChild(deleteDevis);
-      groupeA.appendChild(btnGoToPostList);
+      groupeA.appendChild(btnGoToFap);
 
       /* -- Action lors du clique sur le devis -- */
 
@@ -83,9 +83,9 @@ fetch('../js/devisList.json')
         groupSegmCodexRa.appendChild(groupSegm);
         modalBody.appendChild(groupSegmCodexRa);
 
-        // N°Codex RA_ID
+        // N°Codex RA_ID Etat
         const devisCodexRa = document.createElement('div');
-        devisCodexRa.textContent = `${devi.code_codex} - ${devi.RA_id}`;
+        devisCodexRa.textContent = `${devi.code_codex} - ${devi.RA_id} - ETAT : ${devi.etat}`;
         devisCodexRa.classList.add('modalDevisCodexRa');
         groupSegmCodexRa.appendChild(devisCodexRa);
 
