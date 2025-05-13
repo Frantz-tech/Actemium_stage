@@ -1,16 +1,13 @@
-import mongoose from 'mongoose';
+import mysql from 'mysql2/promise';
 
-const connectDB = async () => {
-  try {
-    await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    console.log('✅ Connexion à MongoDB réussie !');
-  } catch (error) {
-    console.error('❌ Erreur de connexion à MongoDB:', error.message);
-    process.exit(1);
-  }
-};
+const pool = mysql.createPool({
+  host: 'localhost',
+  user: 'root',
+  password: '', // ou ton mot de passe si tu en as mis un
+  database: 'devis_app', // ou le nom choisi
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0,
+});
 
-export default connectDB;
+export default pool;
