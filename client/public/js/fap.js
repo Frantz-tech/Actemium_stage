@@ -54,6 +54,11 @@ fetch('../js/postList.json')
       });
     }
 
+    // Section pour le total Main d'oeuvre
+    // Section pour le total Achats
+    // Section pour le total Frais de Chantier
+    // Section pour les Frais Achats & Sous traitance + Etudes
+
     const prixInter = document.createElement('div');
     prixInter.classList.add('styleCalculs');
 

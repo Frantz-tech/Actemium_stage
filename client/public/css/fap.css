@@ -70,7 +70,7 @@ h1 {
 }
 .libellePostFap {
   text-align: center;
-  font-size: clamp(1em, 3vw, 1.6em);
+  font-size: clamp(1.2em, 3vw, 1.6em);
 }
 
 .montantPostFap {

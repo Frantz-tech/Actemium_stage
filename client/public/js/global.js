@@ -8,5 +8,11 @@ logoEvent.addEventListener('click', e => {
 });
 burger.addEventListener('click', () => {
   burger.classList.toggle('open');
-  slideMenu.classList.toggle('active'); // Ajoute une classe CSS si besoin
+  if (slideMenu.classList.contains('hide')) {
+    slideMenu.classList.remove('hide');
+    slideMenu.classList.add('show');
+  } else {
+    slideMenu.classList.remove('show');
+    slideMenu.classList.add('hide');
+  }
 });
