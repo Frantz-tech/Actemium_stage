@@ -41,6 +41,11 @@
   </header>
   <main>
     <h1></h1>
+    <!-- Modale cachée -->
+    <div id="modalCmdt" class="modal hide">
+      <div class="modal_content">
+      </div>
+    </div>
     <form action="" class="loginForm devisForm">
       <div class="step">
         <input type="text" id="libelleDevis" placeholder="LIBELLE DU DEVIS" required />
@@ -53,6 +58,7 @@
       <div class="step">
         <select name="commanditaire" id="cmdt" required>
           <option value="commanditaire">COMMANDITAIRE</option>
+          <option value="add_new" name="modal hide"> ➕ Ajouter un commanditaire </option>
         </select>
       </div>
       <div class="step">
