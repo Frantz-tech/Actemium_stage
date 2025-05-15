@@ -1,10 +1,54 @@
 document.querySelector('h1').innerText = 'DEVIS';
+
+async function postData(url = '', data = {}) {
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  console.log('Réponse status :', response.status);
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Erreur serveur : ${response.status} - ${errorText}`);
+  }
+  const json = await response.json();
+  console.log('Reponse JSON', json);
+  return json;
+}
+async function refreshCmdtSelect() {
+  try {
+    const response = await fetch('http://localhost:3000/api/commanditaires');
+    if (!response.ok) throw new Error('Erreur lors du chargement des commanditaires');
+    const data = await response.json();
+    const commanditaires = data.data;
+
+    const selectCmdt = document.getElementById('cmdt');
+    selectCmdt.innerHTML = ''; // vide le select
+
+    // Ajoute l'option "➕ Ajouter un commanditaire"
+    const optionAddNew = new Option('➕ Ajouter un commanditaire', 'add_new');
+    optionAddNew.setAttribute('name', 'modal hide');
+    selectCmdt.appendChild(optionAddNew);
+
+    if (Array.isArray(commanditaires) && commanditaires.length > 0) {
+      commanditaires.forEach(cmdt => {
+        const option = new Option(cmdt.NOM, cmdt.CMDT_ID);
+        selectCmdt.appendChild(option);
+      });
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 const btnCreerDevis = document.querySelector('.btnCreer');
 btnCreerDevis.innerText = 'Créer';
 
 btnCreerDevis.addEventListener('click', () => {
   window.location.href = '../pages/poste.html';
 });
+
 // Fonction pour récupérer la liste des clients
 
 function fetchClients() {
@@ -91,23 +135,46 @@ function fetchDomaines() {
     .then(data => {
       console.log('Domaine récupérées :', data);
 
-      const expertiseSelect = document.getElementById('domaineSegm');
+      const domaineSelect = document.getElementById('domaineSegm');
       const domaines = data.data;
       if (Array.isArray(domaines) && domaines.length > 0) {
         domaines.forEach(domaine => {
           const option = document.createElement('option');
           option.value = domaine.DOMAINE_ID;
           option.textContent = `${domaine.CODE} - ${domaine.TYPE}`;
-          expertiseSelect.appendChild(option);
+          domaineSelect.appendChild(option);
         });
       } else {
-        expertiseSelect.innerHTML = '<option>Erreur de récupération des domaines</option>';
+        domaineSelect.innerHTML = '<option>Erreur de récupération des domaines</option>';
       }
     })
     .catch(error => {
       console.error(' Erreur lors de la récupération des domaines', error);
-      const expertiseSelect = document.getElementById('expertiseSegm');
-      expertiseSelect.innerHTML = '<option>Erreur de récupération des domaines</option>';
+      const domaineSelect = document.getElementById('domaineSegm');
+      domaineSelect.innerHTML = '<option>Erreur de récupération des domaines</option>';
+    });
+}
+function fetchCommanditaires() {
+  fetch('http://localhost:3000/api/commanditaires')
+    .then(response => response.json())
+    .then(data => {
+      console.log('Commanditaires récupérées :', data);
+
+      const commanditaireSelect = document.getElementById('cmdt');
+      const commanditaires = data.data;
+      if (Array.isArray(commanditaires) && commanditaires.length > 0) {
+        commanditaires.forEach(commanditaire => {
+          const option = document.createElement('option');
+          option.value = commanditaire.CMDT_ID;
+          option.textContent = `${commanditaire.NOM}`;
+          commanditaireSelect.appendChild(option);
+        });
+      }
+    })
+    .catch(error => {
+      console.error(' Erreur lors de la récupération des commanditaires', error);
+      const commanditaireSelect = document.getElementById('cmdt');
+      commanditaireSelect.innerHTML = '<option>Erreur de récupération des commanditaires</option>';
     });
 }
 
@@ -129,6 +196,7 @@ selectCmdt.addEventListener('change', () => {
   nomCmdt.classList.add('cmdtInputModal');
 
   const emailCmdt = document.createElement('input');
+  emailCmdt.type = 'email';
   emailCmdt.placeholder = 'Email du commanditaire';
   emailCmdt.classList.add('cmdtInputModal');
 
@@ -138,23 +206,25 @@ selectCmdt.addEventListener('change', () => {
   const cancelCmdtBtn = document.createElement('button');
   cancelCmdtBtn.textContent = 'Annuler';
 
-  saveCmdtBtn.addEventListener('click', async () => {
-    if (!nomCmdt.value.trim()) {
-      alert('Le nom est obligatoire.');
+  saveCmdtBtn.addEventListener('click', async e => {
+    e.preventDefault();
+    if (!nomCmdt.value.trim() || !emailCmdt.value.trim()) {
+      alert("Merci de remplir le nom et l'email");
       return;
     }
+    try {
+      const createdCmdt = await postData('http://localhost:3000/api/commanditaires', {
+        NOM: nomCmdt.value,
+        EMAIL: emailCmdt.value,
+      });
 
-    const result = await fetch('http://localhost/api/commanditaires', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ NOM: nomCmdt.value, EMAIL: emailCmdt.value }),
-    });
-
-    const createdCmdt = await result.json();
-    const newOption = new Option(createdCmdt.NOM, createdCmdt.CMDT_ID);
-    selectCmdt.add(newOption, selectCmdt.options.length - 1);
-    selectCmdt.value = createdCmdt.CMDT_ID;
-    modal.classList.add('hide');
+      await refreshCmdtSelect();
+      selectCmdt.value = createdCmdt.CMDT_ID;
+      modal.classList.add('hide');
+    } catch (error) {
+      console.error(error);
+      console.error("Erreur lors de l'enregistrement du commanditaire : " + error);
+    }
   });
 
   cancelCmdtBtn.addEventListener('click', () => {
@@ -181,3 +251,4 @@ fetchClients();
 fetchContrats();
 fetchExpertises();
 fetchDomaines();
+fetchCommanditaires();
