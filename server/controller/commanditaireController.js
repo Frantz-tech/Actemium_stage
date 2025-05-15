@@ -3,9 +3,15 @@ import { Service } from '../services/commanditaireService.js';
 
 const createCommanditaire = async (req, res) => {
   try {
+    const { NOM, EMAIL } = req.body;
+    if (!NOM || !EMAIL) {
+      return res.status(400).json({ message: 'Nom ou email manquant' });
+    }
+    console.log('donnée recu pour la création : ', req.body);
     const result = await Service.createCommanditaire(req.body);
     sendSuccessResponse(res, 201, 'Commanditaire créer avec succès', result);
   } catch (error) {
+    console.error('Erreur lors de la création du commanditaire', error);
     return res.status(500).json({ error: error.message });
   }
 };
