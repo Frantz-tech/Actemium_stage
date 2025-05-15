@@ -5,10 +5,11 @@ import pool from '../config/db.js';
 // Créer une nouvelle commanditaire :
 
 const createCommanditaire = async commanditaireData => {
-  const { nom, email } = commanditaireData;
+  const { NOM, EMAIL } = commanditaireData;
+  console.log('🔎 Insertion commanditaire avec :', { NOM, EMAIL });
   const [result] = await pool.query('INSERT INTO COMMANDITAIRE (NOM, EMAIL) VALUES (?,?)', [
-    nom,
-    email,
+    NOM,
+    EMAIL,
   ]);
   return result.insertId;
 };
@@ -27,10 +28,10 @@ const getCommanditaireById = async id => {
 
 // Mettre à jour une commanditaire
 const updateCommanditaire = async (id, commanditaireData) => {
-  const { nom, email } = commanditaireData;
+  const { NOM, EMAIL } = commanditaireData;
   return await pool.query('UPDATE COMMANDITAIRE SET NOM = ?, EMAIL = ? WHERE CMDT_ID = ? ', [
-    nom,
-    email,
+    NOM,
+    EMAIL,
     id,
   ]);
 };
