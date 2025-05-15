@@ -5,10 +5,35 @@ btnCreerDevis.innerText = 'Créer';
 btnCreerDevis.addEventListener('click', () => {
   window.location.href = '../pages/poste.html';
 });
-// Fonction pour récupérer la liste des contrats
+// Fonction pour récupérer la liste des clients
 
+function fetchClients() {
+  fetch('http://localhost:3000/api/clients')
+    .then(response => response.json())
+    .then(data => {
+      console.log('Clients récupérés : ', data);
+
+      const contratSelect = document.getElementById('clientSegm');
+      const clients = data.data;
+      if (Array.isArray(clients) && clients.length > 0) {
+        clients.forEach(client => {
+          const option = document.createElement('option');
+          option.value = client.CLIENT_ID;
+          option.textContent = `${client.CODE} - ${client.TYPE} `;
+          contratSelect.appendChild(option);
+        });
+      } else {
+        contratSelect.innerHTML = '<option> Aucun client trouvé </option>';
+      }
+    })
+    .catch(error => {
+      console.error('Erreur lors de la récupération des clients:', error);
+      const contratSelect = document.getElementById('contratSegm');
+      contratSelect.innerHTML = '<option>Erreur de récupération des clients</option>';
+    });
+}
 function fetchContrats() {
-  fetch('http://localhost:3001/contrat')
+  fetch('http://localhost:3000/api/contrats')
     .then(response => response.json())
     .then(data => {
       console.log('Contrats récupérés : ', data);
@@ -18,8 +43,8 @@ function fetchContrats() {
       if (Array.isArray(contrats) && contrats.length > 0) {
         contrats.forEach(contrat => {
           const option = document.createElement('option');
-          option.value = contrat._id;
-          option.textContent = `${contrat.code} - ${contrat.type} - ${contrat.brand}`;
+          option.value = contrat.CONTRAT_ID;
+          option.textContent = `${contrat.CODE} - ${contrat.TYPE}`;
           contratSelect.appendChild(option);
         });
       } else {
@@ -35,7 +60,7 @@ function fetchContrats() {
 
 // Fonction pour récupérer la liste des expertises
 function fetchExpertises() {
-  fetch('http://localhost:3001/expertise')
+  fetch('http://localhost:3000/api/expertises')
     .then(response => response.json())
     .then(data => {
       console.log('Expertises récupérées :', data);
@@ -45,8 +70,8 @@ function fetchExpertises() {
       if (Array.isArray(expertises) && expertises.length > 0) {
         expertises.forEach(expertise => {
           const option = document.createElement('option');
-          option.value = expertise._id;
-          option.textContent = `${expertise.code} - ${expertise.type}`;
+          option.value = expertise.EXP_ID;
+          option.textContent = `${expertise.CODE} - ${expertise.TYPE}`;
           expertiseSelect.appendChild(option);
         });
       } else {
@@ -59,43 +84,88 @@ function fetchExpertises() {
       expertiseSelect.innerHTML = '<option>Erreur de récupération des expertises</option>';
     });
 }
+// Fonction pour récupérer la liste des domaines
+function fetchDomaines() {
+  fetch('http://localhost:3000/api/domaines')
+    .then(response => response.json())
+    .then(data => {
+      console.log('Domaine récupérées :', data);
 
-const step1 = document.querySelector('.step-1 input');
-const step2 = document.querySelector('.step-2 select');
-const step3 = document.querySelector('.step-3 select');
-const step4 = document.querySelector('.step-4 select');
-const step5 = document.querySelector('.step-5 select');
-const step6 = document.querySelector('.step-6 select');
-const step7 = document.querySelector('.step-7 select');
-const step8 = document.querySelector('.step-8 select');
+      const expertiseSelect = document.getElementById('domaineSegm');
+      const domaines = data.data;
+      if (Array.isArray(domaines) && domaines.length > 0) {
+        domaines.forEach(domaine => {
+          const option = document.createElement('option');
+          option.value = domaine.DOMAINE_ID;
+          option.textContent = `${domaine.CODE} - ${domaine.TYPE}`;
+          expertiseSelect.appendChild(option);
+        });
+      } else {
+        expertiseSelect.innerHTML = '<option>Erreur de récupération des domaines</option>';
+      }
+    })
+    .catch(error => {
+      console.error(' Erreur lors de la récupération des domaines', error);
+      const expertiseSelect = document.getElementById('expertiseSegm');
+      expertiseSelect.innerHTML = '<option>Erreur de récupération des domaines</option>';
+    });
+}
 
-step1.addEventListener('change', () => {
-  const isValid = step1.value !== '';
-  step2.disabled = !isValid;
-});
-step2.addEventListener('change', () => {
-  const isValid = step2.value !== '';
-  step3.disabled = !isValid;
-});
-step3.addEventListener('change', () => {
-  const isValid = step3.value !== '';
-  step4.disabled = !isValid;
-});
-step4.addEventListener('change', () => {
-  const isValid = step4.value !== '';
-  step5.disabled = !isValid;
-});
-step5.addEventListener('change', () => {
-  const isValid = step5.value !== '';
-  step6.disabled = !isValid;
-});
-step6.addEventListener('change', () => {
-  const isValid = step6.value !== '';
-  step7.disabled = !isValid;
-});
-step7.addEventListener('change', () => {
-  const isValid = step7.value !== '';
-  step8.disabled = !isValid;
+const selectCmdt = document.getElementById('cmdt');
+
+selectCmdt.addEventListener('change', () => {
+  const modal = document.getElementById('modalCmdt');
+  const modalContent = document.querySelector('.modal_content');
+
+  // Évite d'empiler le contenu à chaque changement
+  modalContent.innerHTML = '';
+
+  const title = document.createElement('h2');
+  title.textContent = 'Nouveau Commanditaire';
+
+  const nomCmdt = document.createElement('input');
+  nomCmdt.required = true;
+  nomCmdt.placeholder = 'Nom du commanditaire';
+  nomCmdt.classList.add('cmdtInputModal');
+
+  const emailCmdt = document.createElement('input');
+  emailCmdt.placeholder = 'Email du commanditaire';
+  emailCmdt.classList.add('cmdtInputModal');
+
+  const saveCmdtBtn = document.createElement('button');
+  saveCmdtBtn.textContent = 'Enregistrer';
+
+  const cancelCmdtBtn = document.createElement('button');
+  cancelCmdtBtn.textContent = 'Annuler';
+
+  saveCmdtBtn.addEventListener('click', async () => {
+    if (!nomCmdt.value.trim()) {
+      alert('Le nom est obligatoire.');
+      return;
+    }
+
+    const result = await fetch('http://localhost/api/commanditaires', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ NOM: nomCmdt.value, EMAIL: emailCmdt.value }),
+    });
+
+    const createdCmdt = await result.json();
+    const newOption = new Option(createdCmdt.NOM, createdCmdt.CMDT_ID);
+    selectCmdt.add(newOption, selectCmdt.options.length - 1);
+    selectCmdt.value = createdCmdt.CMDT_ID;
+    modal.classList.add('hide');
+  });
+
+  cancelCmdtBtn.addEventListener('click', () => {
+    modal.classList.add('hide');
+  });
+
+  modalContent.append(title, nomCmdt, emailCmdt, saveCmdtBtn, cancelCmdtBtn);
+
+  if (selectCmdt.value === 'add_new') {
+    modal.classList.remove('hide');
+  }
 });
 
 const allSteps = document.querySelectorAll('select');
@@ -103,15 +173,11 @@ const allSteps = document.querySelectorAll('select');
 // Fonction pour changer l'apparance du select lors du changement dans l'option
 allSteps.forEach(select => {
   select.addEventListener('change', () => {
-    if (select.value === '') {
-      select.classList.add('invalid');
-      select.classList.remove('valid');
-    } else {
-      select.classList.add('valid');
-      select.classList.remove('invalid');
-    }
+    select.classList.add('valid');
   });
 });
 
+fetchClients();
 fetchContrats();
 fetchExpertises();
+fetchDomaines();
