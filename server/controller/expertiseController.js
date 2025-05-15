@@ -1,55 +1,45 @@
-import { Services } from '../services/expertiseService.js';
+import { sendSuccessResponse } from '../helper/responseHelper.js';
+import { Service } from '../services/expertiseService.js';
 
 const createExpertise = async (req, res) => {
   try {
-    const expertise = await Services.createExpertise(req, res);
-    if (expertise.errors) {
-      return res.status(400).json({
-        status: 'error',
-        message: 'Erreur lors de la création de l expertise',
-        error: expertise.errors,
-      });
-    }
-    return res
-      .status(201)
-      .json({ status: 'success', message: 'Expertise crée avec succès !', data: expertise });
+    const result = await Service.createExpertise(req.body);
+    sendSuccessResponse(res, 201, 'Expertise créer avec succès', result);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
 };
-
-const getExpertise = async (_, res) => {
+const getAllExpertises = async (req, res) => {
   try {
-    const expertise = await Services.getExpertise();
-    if (expertise.errors) {
-      return res.status(400).json({
-        status: 'error',
-        message: 'Erreur lors de la récupération des expertises',
-        error: expertise.errors,
-      });
-    }
-    return res
-      .status(200)
-      .json({ status: 'succes', message: 'Expertises récupérées avec succès !', data: expertise });
+    const result = await Service.getAllExpertises(req.body);
+    sendSuccessResponse(res, 200, 'Expertises récupérés avec succès', result);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
 };
-
-const getExpertiseId = async (req, res) => {
+const getExpertiseById = async (req, res) => {
   try {
     const { id } = req.params;
-    const expertise = await Services.getExpertiseId(id);
-    if (expertise.errors) {
-      return res.status(400).json({
-        status: 'error',
-        message: 'Erreur lors de la récupération de l expertise',
-        error: expertise.errors,
-      });
-    }
-    return res
-      .status(200)
-      .json({ status: 'success', message: 'Expertise récupérée avec succès !', data: expertise });
+    const result = await Service.getExpertiseById(id);
+    sendSuccessResponse(res, 200, `Expertise avec ID ${id} récupéré avec succès`, result);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+const updateExpertise = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await Service.updateExpertise(id, req.body);
+    sendSuccessResponse(res, 200, 'Expertise mis à jour avec succès', result);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+const deleteExpertise = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await Service.deleteExpertise(id);
+    sendSuccessResponse(res, 200, 'Expertise supprimé avec succès', result);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
@@ -57,6 +47,8 @@ const getExpertiseId = async (req, res) => {
 
 export const Controller = {
   createExpertise,
-  getExpertise,
-  getExpertiseId,
+  getAllExpertises,
+  getExpertiseById,
+  updateExpertise,
+  deleteExpertise,
 };

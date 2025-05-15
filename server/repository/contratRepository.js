@@ -1,74 +1,41 @@
-import Contrat from '../models/contratSchema.js';
+// Repository pour les contrats
+
+import pool from '../config/db.js';
+
+// Créer un nouveau contrat :
 
 const createContrat = async contratData => {
-  try {
-    const newContrat = new Contrat(contratData);
-    await newContrat.save();
-
-    return newContrat;
-  } catch (error) {
-    throw new Error(`Erreur lors de la création du contrat : ${error.message}`);
-  }
+  const { code, type } = contratData;
+  const [result] = await pool.query('INSERT INTO CONTRAT (CODE, TYPE) VALUES (?,?)', [code, type]);
+  return result.insertId;
 };
 
-const getContrat = async () => {
-  try {
-    const contrats = await Contrat.find();
-
-    return contrats;
-  } catch (error) {
-    throw new Error(`Erreur lors de la récupération des contrats :${error.message}`);
-  }
+// Récuperer tout les contrats
+const getAllContrats = async () => {
+  const [rows] = await pool.query('SELECT * FROM CONTRAT');
+  return rows;
 };
 
-const getContratId = async id => {
-  try {
-    const contrat = await Contrat.findById(id);
-
-    if (!contrat) {
-      throw new Error(`Erreur, contrat avec l'id ${id} non trouvé`);
-    }
-
-    return contrat;
-  } catch (error) {
-    throw new Error(`Erreur lors de la récupération du contrat: ${error.message}`);
-  }
+// Récuperer un contrat par ID
+const getContratById = async id => {
+  const [rows] = await pool.query('SELECT * FROM CONTRAT WHERE CONTRAT_ID = ?', [id]);
+  return rows[0];
 };
 
+// Mettre à jour un contrat
 const updateContrat = async (id, contratData) => {
-  try {
-    const updateContrat = await Contrat.findByIdAndUpdate(id, contratData, {
-      new: true,
-      runValidators: true,
-    });
-
-    if (!updateContrat) {
-      throw new Error(`Erreur, contrat avec l'id ${id} non trouvé pour la modification`);
-    }
-
-    return updateContrat;
-  } catch (error) {
-    throw new Error(`Erreur lors de la mise à jour du contrat : ${error.message}`);
-  }
+  const { code, type } = contratData;
+  return await pool.query('UPDATE CONTRAT SET CODE = ?, TYPE = ? WHERE ID = ? ', [code, type, id]);
 };
 
+// Supprimer un contrat
 const deleteContrat = async id => {
-  try {
-    const deleteContrat = await Contrat.findByIdAndDelete(id);
-
-    if (!deleteContrat) {
-      throw new Error(`Erreur, contrat avec l'id ${id} non trouvé pour la suppression`);
-    }
-    return deleteContrat;
-  } catch (error) {
-    throw new Error(`Erreur lors de la suppression du contrat : ${error.message}`);
-  }
+  return await pool.query('DELETE FROM CONTRAT WHERE id = ?', [id]);
 };
-
 export const Repository = {
   createContrat,
-  getContrat,
-  getContratId,
+  getAllContrats,
+  getContratById,
   updateContrat,
   deleteContrat,
 };

@@ -1,50 +1,54 @@
+import { sendSuccessResponse } from '../helper/responseHelper.js';
 import { Service } from '../services/contratService.js';
 
 const createContrat = async (req, res) => {
   try {
-    const data = req.body;
-    const contrat = await Service.createContrat(data);
-
-    if (contrat.errors) {
-      return res.status(400).json({
-        status: 'error',
-        message: ' Des erreurs ont été rencontrées lors de la création du contrat ',
-        error: contrat.errors,
-      });
-    }
-    res
-      .status(201)
-      .json({ status: 'succes', message: ' Contrat crée avec succès : ', data: contrat });
+    const result = await Service.createContrat(req.body);
+    sendSuccessResponse(res, 201, 'Contrat créer avec succès', result);
   } catch (error) {
-    return res
-      .status(500)
-      .json({ status: 'error', message: 'Une erreur interne est survenue', error: error.message });
+    return res.status(500).json({ error: error.message });
   }
 };
-
-const getContrat = async (req, res) => {
+const getAllContrats = async (req, res) => {
   try {
-    const contrats = await Service.getContrat();
-    if (contrats.errors) {
-      return res.status(400).json({
-        status: 'error',
-        message: 'Des erreurs ont été rencontrées lors de la récupérations des contrats',
-        error: contrats.errors,
-      });
-    }
-    res.status(200).json({
-      status: 'success',
-      message: 'Contrat récupéré avec succès',
-      data: contrats.data,
-    });
+    const result = await Service.getAllContrats(req.body);
+    sendSuccessResponse(res, 200, 'Contrats récupérés avec succès', result);
   } catch (error) {
-    return res
-      .status(500)
-      .json({ status: 'error', message: 'Une erreur interne est survenue', error: error.message });
+    return res.status(500).json({ error: error.message });
+  }
+};
+const getContratById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await Service.getContratById(id);
+    sendSuccessResponse(res, 200, `Contrat avec ID ${id} récupéré avec succès`, result);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+const updateContrat = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await Service.updateContrat(id, req.body);
+    sendSuccessResponse(res, 200, 'Contrat mis à jour avec succès', result);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+const deleteContrat = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await Service.deleteContrat(id);
+    sendSuccessResponse(res, 200, 'Contrat supprimé avec succès', result);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
   }
 };
 
 export const Controller = {
   createContrat,
-  getContrat,
+  getAllContrats,
+  getContratById,
+  updateContrat,
+  deleteContrat,
 };
