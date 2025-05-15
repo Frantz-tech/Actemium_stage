@@ -1,0 +1,17 @@
+INSERT INTO `devis_app`.`CLIENT` (`CODE`, `TYPE`) VALUES
+('PUBL', 'Public'),
+('PUBL01', 'Etats'),
+('PUBL02', 'Communes et regroupement de communes'),
+('PUBL03', 'Départements et régions'),
+('PUBL04', 'Autres collectivités territoriales'),
+('PUBL05', 'Entreprises industrielles'),
+('PUBL06', 'Entreprises de services'),
+('PRIV', 'Privé'),
+('PRIV01', 'Entreprises industrielles'),
+('PRIV02', 'Entreprises d\'ingénierie'),
+('PRIV03', 'Entreprises de construction'),
+('PRIV04', 'Promoteurs'),
+('PRIV05', 'Autres entreprises de services'),
+('PRIV06', 'Particuliers, associations, fondations'),
+('PPP', 'Partenariat public-privé'),
+('PPP01', 'Partenariat public-privé');

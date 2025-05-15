@@ -1,0 +1,80 @@
+h1 {
+  text-align: center;
+}
+
+.styleCalculs {
+  background-color: var(--color-primary);
+  display: flex;
+  justify-content: space-between;
+  padding: 2vw;
+  border-radius: 4px;
+  width: 80%;
+  max-width: 900px;
+}
+.posteFap {
+  width: 70%;
+  max-width: 900px;
+  gap: 0;
+}
+.textCalculs {
+  color: var(--color-white);
+  font-weight: bold;
+  font-size: clamp(0.8rem, 1.6vw, 1.2rem);
+  width: 65%;
+}
+.styleCalculs:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  gap: 1vw;
+}
+
+.styleCalculs input {
+  padding: 0;
+  text-align: center;
+}
+
+.groupeFrais1,
+.groupeFrais2,
+.groupeFrais3 {
+  display: flex;
+  justify-content: space-between;
+}
+.montantCalculs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  border: 1px solid var(--color-black);
+  background-color: var(--color-white);
+  padding: 0 2vw;
+  font-weight: bolder;
+  font-size: clamp(0.6em, 1.7vw, 1.5em);
+  width: 35%;
+}
+#postesList,
+#calculs {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 2vw;
+}
+#postesList {
+  margin-bottom: 4vw;
+}
+
+.buttons {
+  display: flex;
+  gap: 2vw;
+  margin-top: 3vw;
+}
+.libellePostFap {
+  text-align: center;
+  font-size: clamp(1.2em, 3vw, 1.6em);
+}
+
+.montantPostFap {
+  font-weight: bold;
+  text-align: center;
+  font-size: clamp(0.6em, 1.7vw, 1.5em);
+}

@@ -8,57 +8,81 @@
   <link rel="stylesheet" href="../css/reset.css" />
   <link rel="stylesheet" href="../css/variables.css" />
   <link rel="stylesheet" href="../css/devis.css" />
-  <link rel="shortcut icon" href="logo.png" type="image/x-icon">
-  <title>Devis - Actemium </title>
+  <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon" />
+  <title>Devis - Actemium</title>
 </head>
 
 <body>
-  <header></header>
+  <header>
+    <div class="logo" id="logo"></div>
+    <div class="nordMetal"></div>
+
+    <nav>
+      <div class="burger" id="burger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="navMenu">
+        <ul>
+          <li class="liNav"><a href="../pages/accueil.html"> ACCUEIL </a></li>
+          <li class="liNav"><a href="../pages/devis.html"> DEVIS </a></li>
+          <li class="liNav"><a href="../pages/devisList.html">LISTE DES DEVIS </a></li>
+        </ul>
+      </div>
+      <div class="slideMenu show hide">
+        <ul>
+          <li class="slideNav"><a href="../pages/accueil.html"> ACCUEIL</a></li>
+          <li class="slideNav"><a href="../pages/devis.html"> DEVIS</a></li>
+          <li class="slideNav"><a href="../pages/devisList.html">LISTE DES DEVIS</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
   <main>
     <h1></h1>
     <form action="" class="loginForm devisForm">
       <div class="step-1">
-        <input type="text" id="libelleDevis" placeholder="LIBELLE DU DEVIS" required>
+        <input type="text" id="libelleDevis" placeholder="LIBELLE DU DEVIS" required />
       </div>
       <div class="step-2">
         <select name="responsableAffaire" id="ra_id" disabled required>
-          <option value="responsableAffaire"> RA_ID </option>
+          <option value="responsableAffaire">RA_ID</option>
         </select>
       </div>
       <div class="step-3">
         <select name="commanditaire" id="cmdt" disabled required>
-          <option value="commanditaire"> COMMANDITAIRE </option>
+          <option value="commanditaire">COMMANDITAIRE</option>
         </select>
       </div>
       <div class="step-4">
         <select name="client" id="clientSegm" disabled required>
-          <option value="client"> CLIENT </option>
+          <option value="client">CLIENT</option>
         </select>
       </div>
       <div class="step-5">
         <select name="expertise" id="expertiseSegm" disabled required>
-          <option value="expertise"> EXPERTISE </option>
+          <option value="expertise">EXPERTISE</option>
         </select>
       </div>
       <div class="step-6">
         <select name="domaine" id="domaineSegm" disabled required>
-          <option value="domaine"> DOMAINE </option>
+          <option value="domaine">DOMAINE</option>
         </select>
       </div>
       <div class="step-7">
         <select name="contrat" id="contratSegm" disabled required>
-          <option value="contrat"> CONTRAT </option>
+          <option value="contrat">CONTRAT</option>
         </select>
       </div>
       <div class="step-8">
-        <button class="btnCreer" disabled> </button>
+        <button class="btnCreer"></button>
       </div>
     </form>
   </main>
-  <footer>
-
-  </footer>
+  <footer></footer>
   <script src="../js/devis.js"></script>
+  <script src="../js/global.js"></script>
 </body>
 
 </html>

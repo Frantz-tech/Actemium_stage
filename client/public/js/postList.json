@@ -1,0 +1,355 @@
+{
+  "postes": [
+    {
+      "nom": "CHANTIER BLEDINA - Main d'oeuvre",
+      "section": [
+        {
+          "poste_occupe": "Ouvrier Cadre",
+          "code_section": "sect01",
+          "nb_heures": 35,
+          "taux_horaire": 50,
+          "total": 1750
+        },
+        {
+          "poste_occupe": "Ouvrier Cadre",
+          "code_section": "sect01",
+          "nb_heures": 35,
+          "taux_horaire": 50,
+          "total": 1750
+        },
+        {
+          "poste_occupe": "Ouvrier Cadre",
+          "code_section": "sect01",
+          "nb_heures": 35,
+          "taux_horaire": 50,
+          "total": 1750
+        },
+        {
+          "poste_occupe": "Ouvrier Cadre",
+          "code_section": "sect01",
+          "nb_heures": 35,
+          "taux_horaire": 50,
+          "total": 1750
+        },
+        {
+          "poste_occupe": "Livreur",
+          "code_section": "sect02",
+          "nb_heures": 20,
+          "taux_horaire": 45,
+          "total": 900
+        }
+      ],
+      "achats": [
+        {
+          "code_achat": "achat01",
+          "nom_produit": "Tuyaux",
+          "quantite": 100,
+          "prix_unitaire": 5,
+          "unite": "mètre",
+          "total": 500
+        },
+        {
+          "code_achat": "achat02",
+          "nom_produit": "Ciment",
+          "quantite": 50,
+          "prix_unitaire": 8,
+          "unite": "sac",
+          "total": 400
+        }
+      ],
+      "frais_chantier": [
+        {
+          "code_frais": "frais01",
+          "nom_produit": "Location Grue",
+          "quantite": 1,
+          "prix_unitaire": 1000,
+          "unite": "jour",
+          "total": 1000
+        },
+        {
+          "code_frais": "frais02",
+          "nom_produit": "Électricité",
+          "quantite": 1,
+          "prix_unitaire": 500,
+          "unite": "mois",
+          "total": 500
+        }
+      ]
+    },
+    {
+      "nom": "CHANTIER BLEDINA - Équipements",
+      "section": [
+        {
+          "poste_occupe": "Technicien",
+          "code_section": "sect03",
+          "nb_heures": 30,
+          "taux_horaire": 40,
+          "total": 1200
+        },
+        {
+          "poste_occupe": "Magasinier",
+          "code_section": "sect04",
+          "nb_heures": 25,
+          "taux_horaire": 35,
+          "total": 875
+        }
+      ],
+      "achats": [
+        {
+          "code_achat": "achat03",
+          "nom_produit": "Pompes",
+          "quantite": 10,
+          "prix_unitaire": 200,
+          "unite": "unité",
+          "total": 2000
+        },
+        {
+          "code_achat": "achat04",
+          "nom_produit": "Vannes",
+          "quantite": 20,
+          "prix_unitaire": 50,
+          "unite": "unité",
+          "total": 1000
+        }
+      ],
+      "frais_chantier": [
+        {
+          "code_frais": "frais03",
+          "nom_produit": "Transport",
+          "quantite": 1,
+          "prix_unitaire": 700,
+          "unite": "forfait",
+          "total": 700
+        },
+        {
+          "code_frais": "frais04",
+          "nom_produit": "Stockage",
+          "quantite": 1,
+          "prix_unitaire": 300,
+          "unite": "mois",
+          "total": 300
+        }
+      ]
+    },
+    {
+      "nom": "CHANTIER BLEDINA - Installation",
+      "section": [
+        {
+          "poste_occupe": "Installateur",
+          "code_section": "sect05",
+          "nb_heures": 40,
+          "taux_horaire": 42,
+          "total": 1680
+        },
+        {
+          "poste_occupe": "Chef d'équipe",
+          "code_section": "sect06",
+          "nb_heures": 35,
+          "taux_horaire": 55,
+          "total": 1925
+        }
+      ],
+      "achats": [
+        {
+          "code_achat": "achat05",
+          "nom_produit": "Visserie",
+          "quantite": 500,
+          "prix_unitaire": 0.5,
+          "unite": "pièce",
+          "total": 250
+        },
+        {
+          "code_achat": "achat06",
+          "nom_produit": "Colles",
+          "quantite": 30,
+          "prix_unitaire": 10,
+          "unite": "tube",
+          "total": 300
+        }
+      ],
+      "frais_chantier": [
+        {
+          "code_frais": "frais05",
+          "nom_produit": "Carburant",
+          "quantite": 100,
+          "prix_unitaire": 1.5,
+          "unite": "litre",
+          "total": 150
+        },
+        {
+          "code_frais": "frais06",
+          "nom_produit": "Déplacements",
+          "quantite": 10,
+          "prix_unitaire": 20,
+          "unite": "trajet",
+          "total": 200
+        }
+      ]
+    },
+    {
+      "nom": "CHANTIER BLEDINA - Tests",
+      "section": [
+        {
+          "poste_occupe": "Technicien Test",
+          "code_section": "sect07",
+          "nb_heures": 20,
+          "taux_horaire": 50,
+          "total": 1000
+        },
+        {
+          "poste_occupe": "Assistant",
+          "code_section": "sect08",
+          "nb_heures": 20,
+          "taux_horaire": 35,
+          "total": 700
+        }
+      ],
+      "achats": [
+        {
+          "code_achat": "achat07",
+          "nom_produit": "Capteurs",
+          "quantite": 15,
+          "prix_unitaire": 60,
+          "unite": "unité",
+          "total": 900
+        },
+        {
+          "code_achat": "achat08",
+          "nom_produit": "Batteries",
+          "quantite": 10,
+          "prix_unitaire": 40,
+          "unite": "unité",
+          "total": 400
+        }
+      ],
+      "frais_chantier": [
+        {
+          "code_frais": "frais07",
+          "nom_produit": "Vérifications",
+          "quantite": 1,
+          "prix_unitaire": 500,
+          "unite": "forfait",
+          "total": 500
+        },
+        {
+          "code_frais": "frais08",
+          "nom_produit": "Calibration",
+          "quantite": 1,
+          "prix_unitaire": 300,
+          "unite": "forfait",
+          "total": 300
+        }
+      ]
+    },
+    {
+      "nom": "CHANTIER BLEDINA - Maintenance",
+      "section": [
+        {
+          "poste_occupe": "Technicien Maintenance",
+          "code_section": "sect09",
+          "nb_heures": 15,
+          "taux_horaire": 45,
+          "total": 675
+        },
+        {
+          "poste_occupe": "Superviseur",
+          "code_section": "sect10",
+          "nb_heures": 10,
+          "taux_horaire": 60,
+          "total": 600
+        }
+      ],
+      "achats": [
+        {
+          "code_achat": "achat09",
+          "nom_produit": "Lubrifiants",
+          "quantite": 20,
+          "prix_unitaire": 15,
+          "unite": "bidon",
+          "total": 300
+        },
+        {
+          "code_achat": "achat10",
+          "nom_produit": "Filtres",
+          "quantite": 10,
+          "prix_unitaire": 20,
+          "unite": "unité",
+          "total": 200
+        }
+      ],
+      "frais_chantier": [
+        {
+          "code_frais": "frais09",
+          "nom_produit": "Nettoyage",
+          "quantite": 1,
+          "prix_unitaire": 250,
+          "unite": "forfait",
+          "total": 250
+        },
+        {
+          "code_frais": "frais10",
+          "nom_produit": "Déchets",
+          "quantite": 1,
+          "prix_unitaire": 150,
+          "unite": "forfait",
+          "total": 150
+        }
+      ]
+    },
+    {
+      "nom": "CHANTIER BLEDINA - Clôture",
+      "section": [
+        {
+          "poste_occupe": "Chargé de Clôture",
+          "code_section": "sect11",
+          "nb_heures": 12,
+          "taux_horaire": 55,
+          "total": 660
+        },
+        {
+          "poste_occupe": "Archiviste",
+          "code_section": "sect12",
+          "nb_heures": 10,
+          "taux_horaire": 38,
+          "total": 380
+        }
+      ],
+      "achats": [
+        {
+          "code_achat": "achat11",
+          "nom_produit": "Dossiers",
+          "quantite": 30,
+          "prix_unitaire": 3,
+          "unite": "pièce",
+          "total": 90
+        },
+        {
+          "code_achat": "achat12",
+          "nom_produit": "Boîtes Archives",
+          "quantite": 15,
+          "prix_unitaire": 4,
+          "unite": "pièce",
+          "total": 60
+        }
+      ],
+      "frais_chantier": [
+        {
+          "code_frais": "frais11",
+          "nom_produit": "Archivage",
+          "quantite": 1,
+          "prix_unitaire": 200,
+          "unite": "forfait",
+          "total": 200
+        },
+        {
+          "code_frais": "frais12",
+          "nom_produit": "Transfert",
+          "quantite": 1,
+          "prix_unitaire": 150,
+          "unite": "forfait",
+          "total": 150
+        }
+      ]
+    }
+  ]
+}

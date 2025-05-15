@@ -11,20 +11,55 @@ body {
   );
 }
 header {
-  position: relative;
   height: 8vh;
   background-color: var(--color-white);
 }
-header::before {
-  content: '';
+.logo {
   position: absolute;
   left: 2vh;
   width: 8vh;
-  height: 100%;
+  height: 8vh;
   background: url(../assets/logo.png) no-repeat left center;
   background-size: contain;
+  cursor: pointer;
+  pointer-events: auto;
+}
+nav {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0 3vw;
+}
+.nordMetal {
+  position: absolute;
+  display: none;
+  background: url(../assets/nmLogo.png) no-repeat bottom right;
+  right: 2vh;
+  width: 10vh;
+  height: 8vh;
+  background-size: contain;
+}
+.navMenu {
+  width: 80%;
+  display: none;
+  justify-content: center;
+}
+.navMenu ul {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  margin-bottom: 0.7em;
+  gap: 5vw;
+  padding: 0;
 }
 
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  font-size: clamp(0.9em, 2vw, 1.5em);
+}
 main {
   flex: 1;
   display: flex;
@@ -55,17 +90,35 @@ input {
   padding: 0.5em 1em;
   border-radius: 4px;
   width: 80%;
-  max-width: 350px;
+  max-width: 450px;
   box-shadow: 0 2px 3px var(--color-box-shadow);
 }
 .btnSignUp,
 .btnSignIn,
-.btnCreer {
+.btnCreer,
+.btnModal,
+.btnExporter,
+.btnMail {
+  cursor: pointer;
   border-radius: 25px;
   border: none;
   background-color: var(--color-primary);
   color: var(--color-white);
   padding: 0.2rem 1rem;
+}
+.btnModal {
+  margin-top: 1vw;
+  font-size: clamp(0.8rem, 2vw, 1.3rem);
+}
+.btnCreer {
+  margin-top: 3vw;
+}
+.btnCreerFap {
+  display: flex; /* -- A voir si il ne faut pas mettre un display none plus tard -- */
+}
+.groupeSegmCodexRa {
+  display: flex;
+  flex-direction: column-reverse;
 }
 .form-separator {
   border: none;
@@ -95,8 +148,113 @@ footer {
   font-weight: bold;
 }
 
+.burger {
+  width: clamp(30px, 3.5vw, 50px);
+  aspect-ratio: 1; /* carré */
+  position: relative;
+  cursor: pointer;
+  padding: 5px 0;
+}
+
+.burger span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background-color: var(--color-accent);
+  border-radius: 2px;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.burger span:nth-child(2) {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.burger span:nth-child(3) {
+  bottom: 15%;
+}
+
+/* État actif */
+.burger.open span:nth-child(1) {
+  transform: rotate(45deg);
+  top: 50%;
+}
+.burger.open span:nth-child(2) {
+  opacity: 0;
+}
+.burger.open span:nth-child(3) {
+  transform: rotate(-45deg);
+  bottom: auto;
+  top: 50%;
+}
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  to {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
+.slideMenu {
+  position: absolute;
+  top: 8vh;
+  right: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.242);
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.slideMenu.show {
+  animation: slideDown 0.3s ease forwards;
+  pointer-events: auto;
+}
+
+.slideMenu.hide {
+  animation: slideUp 0.3s ease backwards;
+  pointer-events: none;
+}
+
+.slideMenu ul {
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
 @media screen and (min-width: 1024px) {
-  main {
-    padding: 0 35vh;
+  .burger,
+  .slideMenu {
+    display: none;
+  }
+  .nordMetal {
+    display: flex;
+  }
+
+  .navMenu {
+    display: flex;
+  }
+  nav {
+    justify-content: center;
+    align-items: flex-end;
   }
 }

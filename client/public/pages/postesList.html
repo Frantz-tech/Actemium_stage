@@ -7,16 +7,17 @@
   <link rel="stylesheet" href="../css/main.css" />
   <link rel="stylesheet" href="../css/reset.css" />
   <link rel="stylesheet" href="../css/variables.css" />
-  <link rel="stylesheet" href="../css/accueil.css" />
+  <link rel="stylesheet" href="../css/poste.css" />
 
   <link rel="shortcut icon" href="../assets/logo.png" type="image/x-icon" />
-  <title>Accueil - Actemium</title>
+  <title>Liste des postes - Actemium</title>
 </head>
 
 <body>
   <header>
     <div class="logo" id="logo"></div>
     <div class="nordMetal"></div>
+
     <nav>
       <div class="burger" id="burger">
         <span></span>
@@ -42,14 +43,33 @@
   </header>
   <main>
     <h1></h1>
-    <div class="devisContainer">
-      <button class="btnCreerDevis"></button>
-      <button class="btnVoirDevis"></button>
+    <div id="groupePostesList">
+      <div class="groupePostes">
+        <div class="contenuPostesList">
+          <div class="groupeA">
+            <div class="container" id="containerPostesList">
+              <div id="postesList"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="btnPostes">
+      <button class="btnCreer btnCreerPoste"></button>
+      <button class="btnCreer btnCreerFap"></button>
+    </div>
+    <div id="modal" class="modal hidden">
+      <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <div id="modal_body"></div>
+        <button class="btnModal"></button>
+      </div>
     </div>
   </main>
   <footer></footer>
-  <script src="../js/accueil.js"></script>
+  <script type="module" src="../js/postesList.js"></script>
   <script src="../js/global.js"></script>
+  <script src="../js/modalPoste.js"></script>
 </body>
 
 </html>
