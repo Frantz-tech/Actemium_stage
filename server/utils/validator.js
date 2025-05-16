@@ -8,7 +8,7 @@ export function validatePassword(password) {
   return regexPasword.test(password);
 }
 
-export const rolesValides = ['admin', 'ca', 'ra'];
+export const rolesValides = ['Administrateur', 'Responsable d affaire', 'Chargé d affaire'];
 
 export const validateRole = role => {
   return rolesValides.includes(role);
