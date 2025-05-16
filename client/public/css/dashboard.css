@@ -1,3 +1,20 @@
+.slideMenuDashboard {
+  position: fixed;
+  top: 8vh;
+  left: -300px; /* Hors écran */
+  width: 300px;
+  height: calc(100vh - 8vh);
+  background-color: var(--color-white);
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  transition: left 0.3s ease;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.slideMenuDashboard.open {
+  left: 0;
+}
+
 table,
 th,
 td {
@@ -5,11 +22,24 @@ td {
   border-collapse: collapse;
 }
 table {
-  width: fit-content;
+  background-color: var(--color-white);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.table_container {
+  display: flex;
+  max-width: 900px;
+  flex-direction: column;
+  align-items: center;
 }
 
 th,
 td {
   padding: 8px;
   text-align: left;
+}
+
+h2 {
+  text-align: center;
 }
