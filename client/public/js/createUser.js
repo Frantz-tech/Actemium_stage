@@ -5,8 +5,8 @@ createUser.textContent = 'Créer ';
 
 // Fonction pour récuperer les rôles
 function fetchRoles() {
-  fetch('http://localhost:3000/api/roles')
-    .then(response => response.json)
+  fetch('http://localhost:3000/api/users/roles')
+    .then(response => response.json())
     .then(data => {
       console.log('Roles récupérés', data);
 
@@ -15,8 +15,8 @@ function fetchRoles() {
       if (Array.isArray(roles) && roles.length > 0) {
         roles.forEach(role => {
           const option = document.createElement('option');
-          option.value = role.USER_ID;
-          option.textContent = `${role.ROLE}`;
+          option.value = role;
+          option.textContent = role;
           roleSelect.appendChild(option);
         });
       } else {
