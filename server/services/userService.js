@@ -15,7 +15,9 @@ const createUser = async userData => {
     }
 
     if (!userData.ROLE || !validateRole(userData.ROLE)) {
-      errors.push("Le rôle de l'utilisateur doit être 'admin', 'ca' ou 'ra'");
+      errors.push(
+        "Le rôle de l'utilisateur doit être 'Administrateur', 'Chargé d affaire' ou 'Responsable d affaire'"
+      );
     }
     if (!validateEmail(userData.EMAIL)) {
       errors.push("L'email est invalide");
