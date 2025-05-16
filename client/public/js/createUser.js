@@ -33,7 +33,7 @@ function fetchRoles() {
 createUser.addEventListener('click', e => {
   e.preventDefault();
   const inputs = document.querySelectorAll('input');
-  const role = document.querySelectorAll('roleLogin');
+  const role = document.getElementById('roleLogin');
 
   let allFilled = true;
 
@@ -41,15 +41,51 @@ createUser.addEventListener('click', e => {
     if (!input.value.trim()) allFilled = false;
   });
 
-  role.forEach(role => {
-    if (!role.value.trim()) allFilled = false;
-  });
+  if (!role.value.trim()) allFilled = false;
 
   if (!allFilled) {
     alert('Veuillez remplir tous les champs');
   } else {
-    // ici vous pouvez envoyer les données
-    console.log('Formulaire valide');
+    // Crée un objet avec les données du formulaire
+    const userData = {
+      NOM: document.getElementById('nameLogin').value,
+      PRENOM: document.getElementById('firstNameLogin').value,
+      EMAIL: document.getElementById('emailLogin').value,
+      PASSWORD: document.getElementById('passwordLogin').value,
+      ROLE: role.value,
+    };
+
+    // Envoie les données au backend
+    fetch('http://localhost:3000/api/users/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData),
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data && Array.isArray(data.errors) && data.errors.length > 0) {
+          alert('Utilisateur non créé.\nErreur(s) :\n' + data.errors.join('\n'));
+          return; // stop here if errors
+        }
+
+        if (data && data.errors === undefined) {
+          alert('✅ Utilisateur créé avec succès !');
+          document.getElementById('nameLogin').value = '';
+          document.getElementById('firstNameLogin').value = '';
+          document.getElementById('emailLogin').value = '';
+          document.getElementById('passwordLogin').value = '';
+          document.getElementById('roleLogin').value = '';
+          window.location.href = '../pages/accueil.html';
+        } else {
+          alert("Erreur inattendue lors de la création de l'utilisateur.");
+        }
+      })
+      .catch(error => {
+        console.error("Erreur lors de la création de l'utilisateur :", error);
+        alert('Erreur serveur');
+      });
   }
 });
 
