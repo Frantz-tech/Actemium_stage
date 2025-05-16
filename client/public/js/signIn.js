@@ -18,7 +18,7 @@ loginForm.addEventListener('submit', async e => {
   }
 
   try {
-    const response = await fetch('/admin/login', {
+    const response = await fetch('http://localhost:3000/admin/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
@@ -30,8 +30,13 @@ loginForm.addEventListener('submit', async e => {
       localStorage.setItem('token', data.token);
       alert('Connexion réussie !');
 
+      console.log(data);
       // Redirection vers la page d'accueil admin (à adapter)
-      window.location.href = '../pages/accueil.html';
+      if (data.ROLE === 'admin') {
+        window.location.href = '../pages/createUser.html';
+      } else {
+        window.location.href = '../pages/accueil.html';
+      }
     } else {
       alert('Erreur : ' + data.message);
     }
@@ -40,16 +45,3 @@ loginForm.addEventListener('submit', async e => {
     console.error(error);
   }
 });
-
-// Footer link pour s'inscrire
-const footerSignIn = document.querySelector('.footerSignIn');
-const footerParag = document.createElement('p');
-footerParag.textContent = 'Pas encore de compte ? ';
-
-const signInLink = document.createElement('a');
-signInLink.classList.add('signUpLink');
-signInLink.textContent = 'Inscrivez-vous !';
-signInLink.href = '../pages/signUp.html';
-
-footerParag.appendChild(signInLink);
-footerSignIn.appendChild(footerParag);

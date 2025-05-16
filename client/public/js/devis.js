@@ -1,21 +1,7 @@
+import { postData } from './postData.js';
+
 document.querySelector('h1').innerText = 'DEVIS';
 
-async function postData(url = '', data = {}) {
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
-  });
-  console.log('Réponse status :', response.status);
-
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`Erreur serveur : ${response.status} - ${errorText}`);
-  }
-  const json = await response.json();
-  console.log('Reponse JSON', json);
-  return json;
-}
 async function refreshCmdtSelect() {
   try {
     const response = await fetch('http://localhost:3000/api/commanditaires');
@@ -145,7 +131,7 @@ function fetchDomaines() {
           domaineSelect.appendChild(option);
         });
       } else {
-        domaineSelect.innerHTML = '<option>Erreur de récupération des domaines</option>';
+        domaineSelect.textContent = '<option>Erreur de récupération des domaines</option>';
       }
     })
     .catch(error => {
