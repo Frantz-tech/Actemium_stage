@@ -1,5 +1,17 @@
+import { hashPassword } from '../middleware/passwordMiddleware.js';
 import { Repository } from '../repository/userRepository.js';
 import { validateEmail, validatePassword, validateRole } from '../utils/validator.js';
+
+const generateUniqueRaId = async (prenom, nom) => {
+  const baseRaId = (prenom[0] + nom[0]).toUpperCase();
+  let raId = baseRaId;
+  let suffix = 0;
+  while (await Repository.checkRaIdExists(raId)) {
+    suffix++;
+    raId = baseRaId + suffix;
+  }
+  return raId;
+};
 
 const createUser = async userData => {
   try {
@@ -28,12 +40,20 @@ const createUser = async userData => {
       );
     }
     if (errors.length > 0) {
+      console.log('Erreurs dans userService :', errors);
       return { errors };
     }
+    userData.RA_ID = await generateUniqueRaId(userData.PRENOM, userData.NOM);
+
+    userData.PASSWORD = await hashPassword(userData.PASSWORD);
+    console.log(userData);
+
     const newUser = await Repository.createUser(userData);
     return newUser;
   } catch (error) {
-    throw new Error(`Erreur lors de la création du nouvel utilisateur${error.message}`);
+    console.error('Erreur lors de la création de l utilisateur ... ', error);
+
+    throw error;
   }
 };
 const getAllUsers = async () => {

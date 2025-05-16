@@ -5,8 +5,11 @@ import pool from '../config/db.js';
 // Créer un nouveau user :
 
 const createUser = async userData => {
-  const { code, type } = userData;
-  const [result] = await pool.query('INSERT INTO USER (CODE, TYPE) VALUES (?,?)', [code, type]);
+  const { NOM, PRENOM, EMAIL, PASSWORD, RA_ID, ROLE } = userData;
+  const [result] = await pool.query(
+    'INSERT INTO `USER` (NOM, PRENOM, EMAIL, PASSWORD, RA_ID, ROLE) VALUES (?,?,?,?,?,?)',
+    [NOM, PRENOM, EMAIL, PASSWORD, RA_ID, ROLE]
+  );
   return result.insertId;
 };
 
@@ -45,6 +48,12 @@ const getAllRole = async () => {
   return roles;
 };
 
+// Verifier si le RA_ID existe
+const checkRaIdExists = async raId => {
+  const [rows] = await pool.query('SELECT 1 FROM `USER` WHERE RA_ID = ? LIMIT 1', [raId]);
+  return rows.length > 0;
+};
+
 export const Repository = {
   createUser,
   getAllUsers,
@@ -52,4 +61,5 @@ export const Repository = {
   updateUser,
   deleteUser,
   getAllRole,
+  checkRaIdExists,
 };
