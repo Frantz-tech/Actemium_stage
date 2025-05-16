@@ -5,7 +5,7 @@ import commanditaireRoutes from './commanditaireRoutes.js';
 import contratRoutes from './contratRoutes.js';
 import domaineRoutes from './domaineRoutes.js';
 import expertiseRoutes from './expertiseRoutes.js';
-
+import userRoutes from './userRoutes.js';
 const router = Router();
 
 router.use('/contrats', contratRoutes);
@@ -14,5 +14,6 @@ router.use('/domaines', domaineRoutes);
 router.use('/clients', clientRoutes);
 router.use('/commanditaires', commanditaireRoutes);
 router.use('/admin', adminRoutes);
+router.use('/users', userRoutes);
 
 export default router;
