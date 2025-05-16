@@ -1,0 +1,15 @@
+table,
+th,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+table {
+  width: fit-content;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: left;
+}
