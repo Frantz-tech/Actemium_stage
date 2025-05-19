@@ -5,9 +5,22 @@ import pool from '../config/db.js';
 // Créer un nouveau user :
 
 const createUser = async userData => {
-  const { code, type } = userData;
-  const [result] = await pool.query('INSERT INTO USER (CODE, TYPE) VALUES (?,?)', [code, type]);
+  const { NOM, PRENOM, EMAIL, PASSWORD, MUST_CHANGE_PASSWORD, ROLE } = userData;
+  const [result] = await pool.query(
+    'INSERT INTO USER (NOM,PRENOM,EMAIL,PASSWORD,MUST_CHANGE_PASSWORD,ROLE) VALUES (?,?,?,?,?,?)',
+    [NOM, PRENOM, EMAIL, PASSWORD, MUST_CHANGE_PASSWORD, ROLE]
+  );
   return result.insertId;
+};
+
+// Modifier le mot de passe
+
+const resetUserPassword = async (email, newPassword) => {
+  const [result] = await pool.query(
+    'UPDATE USER SET PASSWORD = ?, MUST_CHANGE_PASSWORD = 1 WHERE EMAIL = ?',
+    [newPassword, email]
+  );
+  return result;
 };
 
 // Récuperer tous les users
@@ -47,6 +60,7 @@ const getAllRole = async () => {
 
 export const Repository = {
   createUser,
+  resetUserPassword,
   getAllUsers,
   getUserById,
   updateUser,

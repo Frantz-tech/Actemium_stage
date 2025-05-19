@@ -4,6 +4,11 @@ import { Service } from '../services/userService.js';
 const createUser = async (req, res) => {
   try {
     const result = await Service.createUser(req.body);
+    console.log('Résultat service.createUser :', result);
+
+    if (result.errors && result.errors.length > 0) {
+      return res.status(400).json({ errors: result.errors });
+    }
     sendSuccessResponse(res, 201, 'User créer avec succès', result);
   } catch (error) {
     return res.status(500).json({ error: error.message });
