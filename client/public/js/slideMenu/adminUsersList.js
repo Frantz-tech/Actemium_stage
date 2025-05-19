@@ -1,5 +1,4 @@
 import { fetchRoles } from '../userForm.js';
-// fetchRoles();
 
 export const tableContent = document.createElement('div');
 tableContent.classList.add('table_container');
@@ -23,6 +22,7 @@ newUser.addEventListener('click', e => {
   }
   const modal = document.createElement('div');
   modal.classList.add('modal');
+  document.body.classList.add('noscroll');
   modal.style.display = 'flex';
   modal.classList.add('show');
 
@@ -33,7 +33,7 @@ newUser.addEventListener('click', e => {
   modalContent.classList.add('modal_content');
 
   const form = document.createElement('form');
-  form.classList.add('loginForm');
+  form.classList.add('newUserForm');
   const inputName = document.createElement('input');
   inputName.type = 'text';
   inputName.placeholder = 'Nom';
@@ -77,6 +77,7 @@ newUser.addEventListener('click', e => {
     setTimeout(() => {
       document.body.removeChild(modal); // Ferme le modal
     }, 400);
+    document.body.classList.remove('noscroll');
   });
   overlay.addEventListener('click', e => {
     if (e.target === overlay) {
@@ -85,6 +86,7 @@ newUser.addEventListener('click', e => {
       setTimeout(() => {
         document.body.removeChild(modal); // Ferme le modal
       }, 400);
+      document.body.classList.remove('noscroll');
     }
   });
 

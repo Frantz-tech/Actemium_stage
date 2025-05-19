@@ -223,3 +223,16 @@ select {
   align-items: center;
   z-index: 1000;
 }
+
+.newUserForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+  gap: 1em;
+}
+
+.modal_content {
+  width: 100%;
+}
