@@ -5,12 +5,22 @@ import pool from '../config/db.js';
 // Créer un nouveau user :
 
 const createUser = async userData => {
-  const { NOM, PRENOM, EMAIL, PASSWORD, RA_ID, ROLE } = userData;
+  const { NOM, PRENOM, EMAIL, PASSWORD, MUST_CHANGE_PASSWORD, ROLE } = userData;
   const [result] = await pool.query(
-    'INSERT INTO `USER` (NOM, PRENOM, EMAIL, PASSWORD, RA_ID, ROLE) VALUES (?,?,?,?,?,?)',
-    [NOM, PRENOM, EMAIL, PASSWORD, RA_ID, ROLE]
+    'INSERT INTO USER (NOM,PRENOM,EMAIL,PASSWORD,MUST_CHANGE_PASSWORD,ROLE) VALUES (?,?,?,?,?,?)',
+    [NOM, PRENOM, EMAIL, PASSWORD, MUST_CHANGE_PASSWORD, ROLE]
   );
   return result.insertId;
+};
+
+// Modifier le mot de passe
+
+const resetUserPassword = async (email, newPassword) => {
+  const [result] = await pool.query(
+    'UPDATE USER SET PASSWORD = ?, MUST_CHANGE_PASSWORD = 1 WHERE EMAIL = ?',
+    [newPassword, email]
+  );
+  return result;
 };
 
 // Récuperer tous les users
@@ -48,18 +58,12 @@ const getAllRole = async () => {
   return roles;
 };
 
-// Verifier si le RA_ID existe
-const checkRaIdExists = async raId => {
-  const [rows] = await pool.query('SELECT 1 FROM `USER` WHERE RA_ID = ? LIMIT 1', [raId]);
-  return rows.length > 0;
-};
-
 export const Repository = {
   createUser,
+  resetUserPassword,
   getAllUsers,
   getUserById,
   updateUser,
   deleteUser,
   getAllRole,
-  checkRaIdExists,
 };

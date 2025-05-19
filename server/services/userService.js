@@ -44,7 +44,7 @@ const createUser = async userData => {
       return { errors };
     }
     userData.RA_ID = await generateUniqueRaId(userData.PRENOM, userData.NOM);
-
+    userData.MUST_CHANGE_PASSWORD = 1;
     userData.PASSWORD = await hashPassword(userData.PASSWORD);
     console.log(userData);
 
@@ -53,6 +53,18 @@ const createUser = async userData => {
   } catch (error) {
     console.error('Erreur lors de la création de l utilisateur ... ', error);
 
+    throw error;
+  }
+};
+
+const resetUserPassword = async (email, newPassword) => {
+  try {
+    const hashedPassword = await hashPassword(newPassword);
+    const result = await Repository.changeUserPassword(email, hashedPassword);
+
+    return result;
+  } catch (error) {
+    console.error('Erreur dans changeUserPassword service: ', error);
     throw error;
   }
 };
@@ -75,6 +87,7 @@ const getAllRole = async () => {
 
 export const Service = {
   getAllRole,
+  resetUserPassword,
   createUser,
   getAllUsers,
   getUserById,
