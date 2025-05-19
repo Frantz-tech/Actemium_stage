@@ -30,7 +30,7 @@ menuItem.forEach(itemText => {
   li.appendChild(button);
   menuUl.appendChild(li);
 
-  button.addEventListener('click', e => {
+  li.addEventListener('click', e => {
     e.preventDefault();
     // Fermer automatiquement le panneau latéral
     slideMenu.classList.remove('open');
