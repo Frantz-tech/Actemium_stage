@@ -33,7 +33,7 @@ loginForm.addEventListener('submit', async e => {
       console.log(data);
       // Redirection vers la page d'accueil admin (à adapter)
       if (data.ROLE === 'admin') {
-        window.location.href = '../pages/createUser.html';
+        window.location.href = '../pages/adminDashboard.html';
       } else {
         window.location.href = '../pages/accueil.html';
       }
