@@ -4,7 +4,7 @@ import { Repository } from '../repository/adminRepository.js';
 const authenticateAdmin = async (email, plainPassword) => {
   const user = await Repository.findUserByEmail(email);
   if (!user) {
-    throw new Error('User non trouvé avec cet email');
+    throw new Error('Admin non trouvé avec cet email');
   }
   if (user.ROLE !== 'Administrateur') {
     throw new Error('Accès refusé : rôle non autorisé');
