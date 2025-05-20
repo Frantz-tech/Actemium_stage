@@ -21,16 +21,16 @@ newUser.addEventListener('click', e => {
     existingModal.remove();
   }
   const modal = document.createElement('div');
-  modal.classList.add('modal');
+  modal.classList.add('modalUser');
   document.body.classList.add('noscroll');
   modal.style.display = 'flex';
   modal.classList.add('show');
 
   const overlay = document.createElement('div');
-  overlay.classList.add('modal-overlay');
+  overlay.classList.add('modalUser-overlay');
 
   const modalContent = document.createElement('div');
-  modalContent.classList.add('modal_content');
+  modalContent.classList.add('modalUser_content');
 
   const form = document.createElement('form');
   form.classList.add('newUserForm');
