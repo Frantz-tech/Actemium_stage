@@ -104,7 +104,7 @@ loginForm.addEventListener('submit', async e => {
               }
             });
 
-            form.addEventListener('submit', e => {
+            form.addEventListener('submit', async e => {
               e.preventDefault();
 
               const newPassword = inputNewPassword.value.trim();
@@ -119,15 +119,34 @@ loginForm.addEventListener('submit', async e => {
               }
               try {
                 // Envoie des mots de passe en backend
-                // Si la reponse est ok => remove le modal et l'overlay et redirection vers la page d'accueil
-                if (response.ok) {
-                  modal.classList.add('hide');
-                  overlay.remove();
-                  document.body.classList.remove('noscroll');
-                  setTimeout(() => {
-                    window.location.href = '';
-                  }, 1000);
+                const response = await fetch('http://localhost:3000/api/users/updatePassword', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    email: data.data.user.EMAIL,
+                    newPassword,
+                  }),
+                });
+                const updateResponse = await response.json();
+
+                if (!response.ok) {
+                  alert(
+                    updateResponse.errors
+                      ? updateResponse.errors[0]
+                      : updateResponse.message || 'Erreur lors de la mise à jour'
+                  );
+                  return;
                 }
+                // Si la reponse est ok => remove le modal et l'overlay et redirection vers la page d'accueil
+
+                modal.classList.add('hide');
+                overlay.remove();
+                document.body.classList.remove('noscroll');
+                setTimeout(() => {
+                  window.location.href = '';
+                }, 1000);
               } catch (error) {
                 alert('Erreur réseau');
                 console.error(error);
