@@ -97,7 +97,14 @@ loginForm.addEventListener('submit', async e => {
             submitButton.textContent = 'Modifier le mot de passe';
             submitButton.id = 'sumbitUpdatePassword';
 
-            form.addEventListener('submit', e => {
+            overlay.addEventListener('click', e => {
+              if (e.target === overlay) {
+                alert('Vous devez modifier votre mot de passe');
+                inputNewPassword.focus();
+              }
+            });
+
+            form.addEventListener('submit', async e => {
               e.preventDefault();
 
               const newPassword = inputNewPassword.value.trim();
@@ -112,29 +119,37 @@ loginForm.addEventListener('submit', async e => {
               }
               try {
                 // Envoie des mots de passe en backend
-                // Si la reponse est ok => remove le modal et l'overlay et redirection vers la page d'accueil
-                if (response.ok) {
-                  modal.classList.add('hide');
-                  overlay.remove();
-                  document.body.classList.remove('noscroll');
-                  setTimeout(() => {
-                    window.location.href = '';
-                  }, 1000);
+                const response = await fetch('http://localhost:3000/api/users/updatePassword', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    email: data.data.user.EMAIL,
+                    newPassword,
+                  }),
+                });
+                const updateResponse = await response.json();
+
+                if (!response.ok) {
+                  alert(
+                    updateResponse.errors
+                      ? updateResponse.errors[0]
+                      : updateResponse.message || 'Erreur lors de la mise à jour'
+                  );
+                  return;
                 }
+                // Si la reponse est ok => remove le modal et l'overlay et redirection vers la page d'accueil
+
+                modal.classList.add('hide');
+                overlay.remove();
+                document.body.classList.remove('noscroll');
+                setTimeout(() => {
+                  window.location.href = '';
+                }, 1000);
               } catch (error) {
                 alert('Erreur réseau');
                 console.error(error);
-              }
-            });
-
-            overlay.addEventListener('click', e => {
-              if (e.target === overlay) {
-                modal.classList.add('hide');
-                overlay.remove();
-                setTimeout(() => {
-                  modal.remove(); // Ferme le modal
-                }, 400);
-                document.body.classList.remove('noscroll');
               }
             });
 
@@ -143,7 +158,7 @@ loginForm.addEventListener('submit', async e => {
             modal.appendChild(modalContent);
             modalContent.appendChild(form);
             form.append(inputNewPassword, inputConfirmPassword, submitButton);
-
+            inputNewPassword.focus();
             ///
           }
         }
