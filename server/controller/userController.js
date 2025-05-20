@@ -1,3 +1,4 @@
+import jwt from 'jsonwebtoken';
 import { sendSuccessResponse } from '../helper/responseHelper.js';
 import { Service } from '../services/userService.js';
 
@@ -29,6 +30,35 @@ const getUserById = async (req, res) => {
     sendSuccessResponse(res, 200, `User avec ID ${id} récupéré avec succès`, result);
   } catch (error) {
     return res.status(500).json({ error: error.message });
+  }
+};
+const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const user = await Service.authenticateUser(email, password);
+    if (!user || user === null || user === undefined) {
+      throw new Error('Utilisateur non trouvé');
+    }
+
+    // eslint-disable-next-line no-unused-vars
+    const { PASSWORD: _PASSWORD, ...userSansPassword } = user;
+    const token = jwt.sign(
+      {
+        id: user.USER_ID,
+        email: user.EMAIL,
+        role: user.ROLE,
+      },
+
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' }
+    );
+
+    sendSuccessResponse(res, 200, 'Connexion Réussie', {
+      user: userSansPassword,
+      token: token,
+    });
+  } catch (error) {
+    res.status(401).json({ message: error.message });
   }
 };
 const updateUser = async (req, res) => {
@@ -66,4 +96,5 @@ export const Controller = {
   getUserById,
   updateUser,
   deleteUser,
+  loginUser,
 };
