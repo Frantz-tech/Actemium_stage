@@ -76,10 +76,34 @@ const authenticateUser = async (email, plainPassword) => {
   return user;
 };
 
+const updateUserPassword = async (email, newPassword) => {
+  try {
+    const errors = [];
+    if (!validatePassword(newPassword)) {
+      errors.push(
+        'Le mot de passe doit faire au moins 8 caractères, contenir au moins une lettre minuscule, une majuscule, un caractère spécial(!@#$%^&* etc) et un chiffre'
+      );
+    }
+
+    if (errors.length > 0) {
+      console.log('Erreurs dans userService :', errors);
+      return { errors };
+    }
+
+    const hashedUserPassword = await hashPassword(newPassword);
+    const result = await Repository.updateUserPassword(email, hashedUserPassword);
+
+    return result;
+  } catch (error) {
+    console.error('Erreur dans updateUserPoassword service', error);
+    throw error;
+  }
+};
+
 const resetUserPassword = async (email, newPassword) => {
   try {
     const hashedPassword = await hashPassword(newPassword);
-    const result = await Repository.changeUserPassword(email, hashedPassword);
+    const result = await Repository.resetUserPassword(email, hashedPassword);
 
     return result;
   } catch (error) {
@@ -87,6 +111,7 @@ const resetUserPassword = async (email, newPassword) => {
     throw error;
   }
 };
+
 const getAllUsers = async () => {
   return await Repository.getAllUsers();
 };
@@ -113,4 +138,5 @@ export const Service = {
   updateUser,
   deleteUser,
   authenticateUser,
+  updateUserPassword,
 };

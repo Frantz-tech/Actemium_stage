@@ -61,6 +61,20 @@ const loginUser = async (req, res) => {
     res.status(401).json({ message: error.message });
   }
 };
+
+const updateUserPassword = async (req, res) => {
+  try {
+    const { email, newPassword } = req.body;
+    const result = await Service.updateUserPassword(email, newPassword);
+
+    if (result.errors && result.errors.length > 0) {
+      return res.status(400).json({ errors: result.errors });
+    }
+    sendSuccessResponse(res, 200, 'Mot de passe mit à jour avec succès', result);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
 const updateUser = async (req, res) => {
   try {
     const { id } = req.params;
@@ -97,4 +111,5 @@ export const Controller = {
   updateUser,
   deleteUser,
   loginUser,
+  updateUserPassword,
 };

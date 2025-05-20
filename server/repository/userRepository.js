@@ -17,7 +17,18 @@ const createUser = async userData => {
   return result.insertId;
 };
 
+// Mettre a jour le mdp lors de la premiere connexion de l'utilisateur
+
+const updateUserPassword = async (email, newPassword) => {
+  const [result] = await pool.query(
+    'UPDATE `USER` SET PASSWORD = ?, MUST_CHANGE_PASSWORD = 0 WHERE EMAIL = ? ',
+    [newPassword, email]
+  );
+  return result;
+};
+
 // Cherche l'utilisateur par son email pour la connexion
+
 const findUserByEmail = async email => {
   console.log("Recherche de l'utilisateur par son email", email);
   const [rows] = await pool.query('SELECT * FROM `USER` WHERE EMAIL = ?', [email]);
@@ -80,4 +91,5 @@ export const Repository = {
   getAllRole,
   findUserByEmail,
   checkRaIdExists,
+  updateUserPassword,
 };
