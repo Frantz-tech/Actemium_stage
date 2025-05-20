@@ -11,5 +11,5 @@ router.get('/roles', Controller.getAllRole);
 router.get('/:id', Controller.getUserById);
 router.put('/:id', Controller.updateUser);
 router.delete('/:id', Controller.deleteUser);
-
+router.post('/login', Controller.loginUser);
 export default router;

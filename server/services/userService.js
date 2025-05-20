@@ -1,7 +1,7 @@
+import bcrypt from 'bcrypt';
 import { hashPassword } from '../middleware/passwordMiddleware.js';
 import { Repository } from '../repository/userRepository.js';
 import { validateEmail, validatePassword, validateRole } from '../utils/validator.js';
-
 const generateUniqueRaId = async (prenom, nom) => {
   const baseRaId = (prenom[0] + nom[0]).toUpperCase();
   let raId = baseRaId;
@@ -57,6 +57,21 @@ const createUser = async userData => {
   }
 };
 
+const authenticateUser = async (email, plainPassword) => {
+  const user = await Repository.findUserByEmail(email);
+  if (!user) {
+    throw new Error('User non trouvé avec cet email');
+  }
+  if (user.ROLE !== 'Administrateur') {
+    throw new Error('Accès refusé : rôle non autorisé');
+  }
+  const isPasswordValid = await bcrypt.compare(plainPassword, user.PASSWORD);
+  if (!isPasswordValid) {
+    throw new Error('Mot de passe incorrect');
+  }
+  return user;
+};
+
 const resetUserPassword = async (email, newPassword) => {
   try {
     const hashedPassword = await hashPassword(newPassword);
@@ -93,4 +108,5 @@ export const Service = {
   getUserById,
   updateUser,
   deleteUser,
+  authenticateUser,
 };
