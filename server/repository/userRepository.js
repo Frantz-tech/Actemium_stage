@@ -1,21 +1,27 @@
 // Repository pour les users
-
 import pool from '../config/db.js';
+
+const checkRaIdExists = async raId => {
+  const [rows] = await pool.query('SELECT 1 FROM `USER` WHERE RA_ID = ?', [raId]);
+  return rows.length > 0;
+};
 
 // Créer un nouveau user :
 
 const createUser = async userData => {
-  const { NOM, PRENOM, EMAIL, PASSWORD, MUST_CHANGE_PASSWORD, ROLE } = userData;
+  const { NOM, PRENOM, EMAIL, PASSWORD, MUST_CHANGE_PASSWORD, RA_ID, ROLE } = userData;
   const [result] = await pool.query(
-    'INSERT INTO USER (NOM,PRENOM,EMAIL,PASSWORD,MUST_CHANGE_PASSWORD,ROLE) VALUES (?,?,?,?,?,?)',
-    [NOM, PRENOM, EMAIL, PASSWORD, MUST_CHANGE_PASSWORD, ROLE]
+    'INSERT INTO USER (NOM,PRENOM,EMAIL,PASSWORD,MUST_CHANGE_PASSWORD,RA_ID,ROLE) VALUES (?,?,?,?,?,?,?)',
+    [NOM, PRENOM, EMAIL, PASSWORD, MUST_CHANGE_PASSWORD, RA_ID, ROLE]
   );
   return result.insertId;
 };
 
 // Cherche l'utilisateur par son email pour la connexion
 const findUserByEmail = async email => {
+  console.log("Recherche de l'utilisateur par son email", email);
   const [rows] = await pool.query('SELECT * FROM `USER` WHERE EMAIL = ?', [email]);
+  console.log('Résultat de la recherche:', rows);
   return rows[0];
 };
 
@@ -73,4 +79,5 @@ export const Repository = {
   deleteUser,
   getAllRole,
   findUserByEmail,
+  checkRaIdExists,
 };

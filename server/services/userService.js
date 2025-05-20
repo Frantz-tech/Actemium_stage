@@ -2,6 +2,7 @@ import bcrypt from 'bcrypt';
 import { hashPassword } from '../middleware/passwordMiddleware.js';
 import { Repository } from '../repository/userRepository.js';
 import { validateEmail, validatePassword, validateRole } from '../utils/validator.js';
+
 const generateUniqueRaId = async (prenom, nom) => {
   const baseRaId = (prenom[0] + nom[0]).toUpperCase();
   let raId = baseRaId;
@@ -43,10 +44,12 @@ const createUser = async userData => {
       console.log('Erreurs dans userService :', errors);
       return { errors };
     }
-    userData.RA_ID = await generateUniqueRaId(userData.PRENOM, userData.NOM);
-    userData.MUST_CHANGE_PASSWORD = 1;
-    userData.PASSWORD = await hashPassword(userData.PASSWORD);
-    console.log(userData);
+    if (userData.ROLE === 'Responsable d affaire') {
+      userData.RA_ID = await generateUniqueRaId(userData.PRENOM, userData.NOM);
+      userData.MUST_CHANGE_PASSWORD = 1;
+      userData.PASSWORD = await hashPassword(userData.PASSWORD);
+      console.log(userData);
+    }
 
     const newUser = await Repository.createUser(userData);
     return newUser;
@@ -59,10 +62,11 @@ const createUser = async userData => {
 
 const authenticateUser = async (email, plainPassword) => {
   const user = await Repository.findUserByEmail(email);
+
   if (!user) {
     throw new Error('User non trouvé avec cet email');
   }
-  if (user.ROLE !== 'Administrateur') {
+  if (user.ROLE !== 'Responsable d affaire' && user.ROLE !== 'Chargé d affaire') {
     throw new Error('Accès refusé : rôle non autorisé');
   }
   const isPasswordValid = await bcrypt.compare(plainPassword, user.PASSWORD);
