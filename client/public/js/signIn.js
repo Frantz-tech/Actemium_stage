@@ -48,7 +48,7 @@ loginForm.addEventListener('submit', async e => {
       localStorage.setItem('token', data.data.token);
 
       console.log(data);
-      // Redirection vers la page d'accueil admin (à adapter)
+      // Redirection vers la page d'accueil admin ou user (à adapter)
       if (data.data.user && data.data.user.ROLE) {
         const role = data.data.user.ROLE.trim().toLowerCase();
         console.log('Role détecté:', role);
@@ -138,15 +138,20 @@ loginForm.addEventListener('submit', async e => {
                       : updateResponse.message || 'Erreur lors de la mise à jour'
                   );
                   return;
-                }
-                // Si la reponse est ok => remove le modal et l'overlay et redirection vers la page d'accueil
+                } else {
+                  alert(
+                    'Mot de passe modifié avec succès, ce sera désormais votre nouveau mot de passe pour les futures connexions'
+                  );
 
-                modal.classList.add('hide');
-                overlay.remove();
-                document.body.classList.remove('noscroll');
-                setTimeout(() => {
-                  window.location.href = '';
-                }, 1000);
+                  // Si la reponse est ok => remove le modal et l'overlay et redirection vers la page d'accueil
+
+                  modal.classList.add('hide');
+                  overlay.remove();
+                  document.body.classList.remove('noscroll');
+                  setTimeout(() => {
+                    window.location.href = '../pages/accueil.html';
+                  }, 2000);
+                }
               } catch (error) {
                 alert('Erreur réseau');
                 console.error(error);
