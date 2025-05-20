@@ -97,6 +97,13 @@ loginForm.addEventListener('submit', async e => {
             submitButton.textContent = 'Modifier le mot de passe';
             submitButton.id = 'sumbitUpdatePassword';
 
+            overlay.addEventListener('click', e => {
+              if (e.target === overlay) {
+                alert('Vous devez modifier votre mot de passe');
+                inputNewPassword.focus();
+              }
+            });
+
             form.addEventListener('submit', e => {
               e.preventDefault();
 
@@ -127,23 +134,12 @@ loginForm.addEventListener('submit', async e => {
               }
             });
 
-            overlay.addEventListener('click', e => {
-              if (e.target === overlay) {
-                modal.classList.add('hide');
-                overlay.remove();
-                setTimeout(() => {
-                  modal.remove(); // Ferme le modal
-                }, 400);
-                document.body.classList.remove('noscroll');
-              }
-            });
-
             document.body.appendChild(overlay);
             overlay.appendChild(modal);
             modal.appendChild(modalContent);
             modalContent.appendChild(form);
             form.append(inputNewPassword, inputConfirmPassword, submitButton);
-
+            inputNewPassword.focus();
             ///
           }
         }
