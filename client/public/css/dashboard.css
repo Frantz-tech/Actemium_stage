@@ -64,7 +64,8 @@ h2 {
   text-transform: uppercase;
 }
 
-.menuBtn {
+.menuBtn,
+#sumbitUpdatePassword {
   color: var(--primary-blue);
   font-weight: bold;
   cursor: pointer;
@@ -165,6 +166,19 @@ h2 {
   background-color: var(--color-white);
   border-radius: 4px;
 }
+.modalPasswordLogin {
+  display: flex;
+  position: fixed;
+  left: 50%;
+  top: 55%;
+  height: 38vh;
+  width: 30vw;
+  transform: translate(-50%, -50%);
+  z-index: 2000;
+  overflow: auto;
+  background-color: var(--color-white);
+  border-radius: 4px;
+}
 
 input,
 select {
@@ -194,22 +208,26 @@ select {
   }
 }
 
-.modalUser {
+.modalUser,
+.modalPasswordLogin {
   /* tes styles existants */
   animation-fill-mode: forwards;
   animation-duration: 0.3s;
   animation-timing-function: ease-out;
 }
 
-.modalUser.show {
+.modalUser.show,
+.modalPasswordLogin.show {
   animation-name: popIn;
 }
 
-.modalUser.hide {
+.modalUser.hide,
+.modalPasswordLogin.hide {
   animation-name: popOut;
 }
 
-.modalUser-overlay {
+.modalUser-overlay,
+.modalPassword-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -224,7 +242,8 @@ select {
   z-index: 1000;
 }
 
-.newUserForm {
+.newUserForm,
+.changePasswordForm {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -233,8 +252,13 @@ select {
   gap: 1em;
 }
 
-.modalUser_content {
+.modalUser_content,
+.modalPassword_content {
   display: flex;
   justify-content: center;
   width: 100%;
+}
+
+.noscroll {
+  overflow: hidden;
 }
