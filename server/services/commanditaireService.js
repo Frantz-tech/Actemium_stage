@@ -1,7 +1,27 @@
 import { Repository } from '../repository/commanditaireRepository.js';
+import { validateEmail } from '../utils/validator.js';
 
 const createCommanditaire = async commanditaireData => {
-  return await Repository.createCommanditaire(commanditaireData);
+  try {
+    const errors = [];
+    if (!commanditaireData) {
+      errors.push('Données requises pour la création du commanditaire');
+    }
+    if (!commanditaireData.NOM || commanditaireData.NOM.trim().length < 3) {
+      errors.push('Le nom du commanditaire doit faire au minimum 3 charactères');
+    }
+    if (!validateEmail(commanditaireData.EMAIL)) {
+      errors.push("L'email est invalide");
+    }
+    if (errors.length > 0) {
+      return { errors };
+    }
+    const newCmdt = await Repository.createCommanditaire(commanditaireData);
+    return newCmdt;
+  } catch (error) {
+    console.error('Erreur lors de la création du commanditaire', error);
+    return { errors: ['Erreurs lors de la création du commanditaire'] };
+  }
 };
 const getAllCommanditaires = async () => {
   return await Repository.getAllCommanditaires();
