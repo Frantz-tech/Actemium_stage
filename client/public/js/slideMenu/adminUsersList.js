@@ -13,6 +13,7 @@ const tableUserBody = document.createElement('tbody');
 const newUser = document.createElement('button');
 newUser.textContent = 'Ajouter un nouvel utilisateur';
 newUser.classList.add('btnNewUserDashboard');
+
 newUser.addEventListener('click', e => {
   // Je dois mettre une verification pour savoir si c'est un admin ? Sachant que on peut pas arriver a cet page sans avoir eu la validation avant du role
   e.preventDefault();
@@ -140,13 +141,7 @@ newUser.addEventListener('click', e => {
             document.getElementById('emailLogin').value = '';
             document.getElementById('passwordLogin').value = '';
             document.getElementById('roleLogin').value = '';
-            modal.classList.add('hide');
-            setTimeout(() => {
-              overlay.remove();
-              document.body.classList.remove('noscroll');
-              document.body.removeChild(modal);
-              fetchUsers();
-            }, 400);
+            window.location.href = '../pages/accueil.html';
           } else {
             alert("Erreur inattendue lors de la création de l'utilisateur.");
           }

@@ -46,6 +46,7 @@ loginForm.addEventListener('submit', async e => {
 
     if (response.ok) {
       localStorage.setItem('token', data.data.token);
+      localStorage.setItem('utilisateur', JSON.stringify(data.data.user));
 
       console.log(data);
       // Redirection vers la page d'accueil admin ou user (à adapter)
@@ -58,6 +59,7 @@ loginForm.addEventListener('submit', async e => {
         } else if (role === 'responsable d affaire' || role === 'chargé d affaire') {
           const mustChangePassword = data.data.user.MUST_CHANGE_PASSWORD;
           const mustChangePasswordBool = Boolean(Number(mustChangePassword));
+
           if (mustChangePasswordBool) {
             ////
             const existingModal = document.querySelector('.modalPasswordLogin');
@@ -165,6 +167,8 @@ loginForm.addEventListener('submit', async e => {
             form.append(inputNewPassword, inputConfirmPassword, submitButton);
             inputNewPassword.focus();
             ///
+          } else {
+            window.location.href = '../pages/accueil.html';
           }
         }
       } else {

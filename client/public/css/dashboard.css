@@ -140,7 +140,8 @@ h2 {
 
 .btnNewUserDashboard,
 .createNewUserSubmit,
-.cancelUserBtn {
+.cancelUserBtn,
+.createNewCmdtSubmit {
   cursor: pointer;
   border-radius: 25px;
   border: none;
@@ -154,7 +155,8 @@ h2 {
   gap: 15px;
 }
 
-.modalUser {
+.modalUser,
+.modalCmdt {
   position: fixed;
   left: 50%;
   top: 55%;
@@ -166,7 +168,11 @@ h2 {
   background-color: var(--color-white);
   border-radius: 4px;
 }
-.modalPasswordLogin {
+.modalCmdt {
+  height: 25vh;
+}
+.modalPasswordLogin,
+.modal {
   display: flex;
   position: fixed;
   left: 50%;
@@ -209,7 +215,9 @@ select {
 }
 
 .modalUser,
-.modalPasswordLogin {
+.modalPasswordLogin,
+.modal,
+.modalCmdt {
   /* tes styles existants */
   animation-fill-mode: forwards;
   animation-duration: 0.3s;
@@ -217,17 +225,22 @@ select {
 }
 
 .modalUser.show,
-.modalPasswordLogin.show {
+.modalPasswordLogin.show,
+.modal.show,
+.modalCmdt.show {
   animation-name: popIn;
 }
 
 .modalUser.hide,
-.modalPasswordLogin.hide {
+.modalPasswordLogin.hide,
+.modalCmdt.hide {
   animation-name: popOut;
 }
 
 .modalUser-overlay,
-.modalPassword-overlay {
+.modalPassword-overlay,
+.modal-overlay,
+.modalCmdt-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -253,7 +266,8 @@ select {
 }
 
 .modalUser_content,
-.modalPassword_content {
+.modalPassword_content,
+.modalCmdt_content {
   display: flex;
   justify-content: center;
   width: 100%;
