@@ -151,7 +151,7 @@ function fetchDomaines() {
           domaineSelect.appendChild(option);
         });
       } else {
-        domaineSelect.textContent = '<option>Erreur de récupération des domaines</option>';
+        domaineSelect.innerHTML = '<option>Erreur de récupération des domaines</option>';
       }
     })
     .catch(error => {
@@ -364,7 +364,7 @@ btnCreer.classList.add('btnCreer');
 btnCreer.textContent = 'Créer';
 
 // Event sur le button btnCreer
-form.addEventListener('submit', e => {
+form.addEventListener('submit', async e => {
   e.preventDefault();
 
   const inputLibelle = document.getElementById('libelleDevis');
@@ -386,10 +386,40 @@ form.addEventListener('submit', e => {
     expertiseSegm.value === 'EXPERTISE'
   ) {
     alert('Merci de bien remplir tous les champs');
+    return;
   }
 
-  // Une fois que tout les champs sont rempli =>
-  // Fetch POST vers le avec postData pour créer le devis en bdd
+  // Crée un objet avec les types des options sélectionnées
+  const devisData = {
+    LIBELLE: libelle,
+    RA_ID: ra_id,
+    CMDT_TYPE:
+      selectCmdt.options[selectCmdt.selectedIndex].text.split(' - ')[1]?.trim() ||
+      selectCmdt.options[selectCmdt.selectedIndex].text,
+    CLIENT_TYPE:
+      clientSegm.options[clientSegm.selectedIndex].text.split(' - ')[1]?.trim() ||
+      clientSegm.options[clientSegm.selectedIndex].text,
+    DOMAINE_TYPE:
+      domaineSegm.options[domaineSegm.selectedIndex].text.split(' - ')[1]?.trim() ||
+      domaineSegm.options[domaineSegm.selectedIndex].text,
+    EXPERTISE_TYPE:
+      expertiseSegm.options[expertiseSegm.selectedIndex].text.split(' - ')[1]?.trim() ||
+      expertiseSegm.options[expertiseSegm.selectedIndex].text,
+    CONTRAT_TYPE:
+      contratSegm.options[contratSegm.selectedIndex].text.split(' - ')[1]?.trim() ||
+      contratSegm.options[contratSegm.selectedIndex].text,
+  };
+  console.log('Types envoyés :', devisData);
+  try {
+    const createDevis = await postData('http://localhost:3000/api/devis', devisData);
+    if (createDevis.errors) {
+      alert('Erreurs : ' + createDevis.errors.join(','));
+    } else {
+      alert('Devis crée avec succès');
+    }
+  } catch (error) {
+    console.error('Erreur lors de la création du devis', error);
+  }
 
   console.log('OK, tous les champs sont bien remplis, on peut envoyer en bdd');
 });
