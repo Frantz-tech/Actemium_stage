@@ -359,12 +359,40 @@ optionContratSegm.selected = true;
 optionContratSegm.disabled = true;
 
 const btnCreer = document.createElement('button');
+btnCreer.type = 'submit';
 btnCreer.classList.add('btnCreer');
 btnCreer.textContent = 'Créer';
 
 // Event sur le button btnCreer
+form.addEventListener('submit', e => {
+  e.preventDefault();
 
-// Fetch POST vers le avec postData ?
+  const inputLibelle = document.getElementById('libelleDevis');
+  const libelle = inputLibelle.value.trim();
+
+  const selectCmdt = document.getElementById('cmdt');
+  const clientSegm = document.getElementById('clientSegm');
+  const expertiseSegm = document.getElementById('expertiseSegm');
+  const domaineSegm = document.getElementById('domaineSegm');
+  const contratSegm = document.getElementById('contratSegm');
+
+  if (
+    !libelle ||
+    selectCmdt.value === 'commanditaire' ||
+    selectCmdt.value === 'add_new' ||
+    clientSegm.value === 'CLIENT' ||
+    contratSegm.value === 'CONTRAT' ||
+    domaineSegm.value === 'DOMAINE' ||
+    expertiseSegm.value === 'EXPERTISE'
+  ) {
+    alert('Merci de bien remplir tous les champs');
+  }
+
+  // Une fois que tout les champs sont rempli =>
+  // Fetch POST vers le avec postData pour créer le devis en bdd
+
+  console.log('OK, tous les champs sont bien remplis, on peut envoyer en bdd');
+});
 
 // Append && AppendChild
 const main = document.querySelector('main');
