@@ -6,9 +6,7 @@ document.querySelector('h1').innerText = 'DEVIS';
 const utilisateur = JSON.parse(localStorage.getItem('utilisateur'));
 const ra_id = utilisateur?.RA_ID;
 
-// Injecter dans l'input
-
-async function refreshCmdtSelect() {
+async function refreshCmdtSelect(selectedId = null) {
   try {
     const response = await fetch('http://localhost:3000/api/commanditaires');
     if (!response.ok) throw new Error('Erreur lors du chargement des commanditaires');
@@ -16,13 +14,41 @@ async function refreshCmdtSelect() {
     const commanditaires = data.data;
 
     const selectCmdt = document.getElementById('cmdt');
-    selectCmdt.innerHTML = ''; // vide le select
+    selectCmdt.innerHTML = '';
+
+    const defaultOption = new Option('COMMANDITAIRE', 'commanditaire', true, true);
+    defaultOption.disabled = true;
+    selectCmdt.appendChild(defaultOption);
+
+    const optionAddNew = new Option('➕ Ajouter un commanditaire', 'add_new');
+    selectCmdt.appendChild(optionAddNew);
 
     if (Array.isArray(commanditaires) && commanditaires.length > 0) {
       commanditaires.forEach(cmdt => {
         const option = new Option(cmdt.NOM, cmdt.CMDT_ID);
         selectCmdt.appendChild(option);
       });
+    }
+
+    // Map => Parcour la liste de tout les ID du select
+    console.log(
+      'Options dans le select :',
+      [...selectCmdt.options].map(o => o.value)
+    );
+    console.log('selectedId attendu:', selectedId);
+    alert('Commanditaire ajouté avec succès');
+
+    if (selectedId) {
+      selectCmdt.value = selectedId;
+      if (selectCmdt.value !== selectedId) {
+        const optionToSelect = [...selectCmdt.options].find(o => o.value === selectedId);
+        if (optionToSelect) {
+          optionToSelect.selected = true;
+        } else {
+          console.warn('L’option avec cet ID n’a pas été trouvée dans le select.');
+        }
+      }
+      console.log('Valeur finale du select:', selectCmdt.value);
     }
   } catch (error) {
     console.error(error);
@@ -234,8 +260,8 @@ selectCmdt.addEventListener('change', () => {
     sumbitNewCmdt.addEventListener('click', async e => {
       e.preventDefault();
 
-      const nom = document.getElementById('inputNameCmdt');
-      const email = document.getElementById('inputEmailCmdt');
+      const nom = document.getElementById('inputNameCmdt').value.trim();
+      const email = document.getElementById('inputEmailCmdt').value.trim();
 
       if (!email || !nom) {
         alert('Veuillez remplir tous les champs');
@@ -248,8 +274,8 @@ selectCmdt.addEventListener('change', () => {
       };
       try {
         const createCmdt = await postData('http://localhost:3000/api/commanditaires', userData);
-        await refreshCmdtSelect();
-        selectCmdt.value = createCmdt.CMDT_ID;
+
+        await refreshCmdtSelect(createCmdt.data);
 
         // Fermeture du modal
         modal.classList.add('hide');
@@ -258,7 +284,7 @@ selectCmdt.addEventListener('change', () => {
         setTimeout(() => {
           overlay.remove();
           document.body.removeChild(modal); // Ferme le modal
-        }, 400);
+        }, 200);
       } catch (error) {
         console.error('Erreur lors de la création du commanditaire', error);
       }
@@ -280,7 +306,7 @@ selectCmdt.addEventListener('change', () => {
         setTimeout(() => {
           overlay.remove();
           document.body.removeChild(modal); // Ferme le modal
-        }, 400);
+        }, 200);
         const firstCmdtOption = [...selectCmdt.options].find(opt => opt.value !== 'add_new');
         if (firstCmdtOption) {
           selectCmdt.value = firstCmdtOption.value;
