@@ -75,7 +75,8 @@ h1 {
   padding: 8vh 0;
   font-size: clamp(3.5rem, 8vw, 5rem);
 }
-.loginForm {
+.loginForm,
+.createDevisForm {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -86,6 +87,7 @@ h1 {
 
 select,
 input {
+  cursor: pointer;
   border: 1px solid var(--color-black);
   padding: 0.5em 1em;
   border-radius: 4px;
@@ -93,6 +95,7 @@ input {
   max-width: 450px;
   box-shadow: 0 2px 3px var(--color-box-shadow);
 }
+
 .btnCreateUser,
 .btnSignIn,
 .btnCreer,

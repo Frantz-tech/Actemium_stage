@@ -2,6 +2,12 @@ import { postData } from './postData.js';
 
 document.querySelector('h1').innerText = 'DEVIS';
 
+// Récupérer le RA_ID depuis localStorage
+const utilisateur = JSON.parse(localStorage.getItem('utilisateur'));
+const ra_id = utilisateur?.RA_ID;
+
+// Injecter dans l'input
+
 async function refreshCmdtSelect() {
   try {
     const response = await fetch('http://localhost:3000/api/commanditaires');
@@ -11,11 +17,6 @@ async function refreshCmdtSelect() {
 
     const selectCmdt = document.getElementById('cmdt');
     selectCmdt.innerHTML = ''; // vide le select
-
-    // Ajoute l'option "➕ Ajouter un commanditaire"
-    const optionAddNew = new Option('➕ Ajouter un commanditaire', 'add_new');
-    optionAddNew.setAttribute('name', 'modal hide');
-    selectCmdt.appendChild(optionAddNew);
 
     if (Array.isArray(commanditaires) && commanditaires.length > 0) {
       commanditaires.forEach(cmdt => {
@@ -27,13 +28,6 @@ async function refreshCmdtSelect() {
     console.error(error);
   }
 }
-
-const btnCreerDevis = document.querySelector('.btnCreer');
-btnCreerDevis.innerText = 'Créer';
-
-btnCreerDevis.addEventListener('click', () => {
-  window.location.href = '../pages/poste.html';
-});
 
 // Fonction pour récupérer la liste des clients
 
@@ -164,74 +158,207 @@ function fetchCommanditaires() {
     });
 }
 
-const selectCmdt = document.getElementById('cmdt');
+// Création du formulaire de devis
+
+const containerForm = document.createElement('div');
+containerForm.classList.add('containerFormDevis');
+const form = document.createElement('form');
+form.classList.add('createDevisForm');
+
+const libelleDevis = document.createElement('input');
+libelleDevis.id = 'libelleDevis';
+libelleDevis.placeholder = 'LIBELLE DU DEVIS';
+libelleDevis.type = 'text';
+libelleDevis.required = true;
+libelleDevis.style.cursor = 'auto';
+
+const raId = document.createElement('input');
+raId.id = 'raId';
+raId.type = 'text';
+raId.readOnly = true;
+
+raId.value = ra_id;
+
+const selectCmdt = document.createElement('select');
+selectCmdt.id = 'cmdt';
+
+const defaultOption = document.createElement('option');
+defaultOption.value = 'commanditaire';
+defaultOption.disabled = true;
+defaultOption.selected = true;
+defaultOption.textContent = 'COMMANDITAIRE';
+
+const optionAddNew = document.createElement('option');
+optionAddNew.value = 'add_new';
+optionAddNew.textContent = '➕ Ajouter un commanditaire';
+
+// Création du modal lors du clique sur la 'add_new'
 
 selectCmdt.addEventListener('change', () => {
-  const modal = document.getElementById('modalCmdt');
-  const modalContent = document.querySelector('.modal_content');
-
-  // Évite d'empiler le contenu à chaque changement
-  modalContent.innerHTML = '';
-
-  const title = document.createElement('h2');
-  title.textContent = 'Nouveau Commanditaire';
-
-  const nomCmdt = document.createElement('input');
-  nomCmdt.required = true;
-  nomCmdt.placeholder = 'Nom du commanditaire';
-  nomCmdt.classList.add('cmdtInputModal');
-
-  const emailCmdt = document.createElement('input');
-  emailCmdt.type = 'email';
-  emailCmdt.placeholder = 'Email du commanditaire';
-  emailCmdt.classList.add('cmdtInputModal');
-
-  const saveCmdtBtn = document.createElement('button');
-  saveCmdtBtn.textContent = 'Enregistrer';
-
-  const cancelCmdtBtn = document.createElement('button');
-  cancelCmdtBtn.textContent = 'Annuler';
-
-  saveCmdtBtn.addEventListener('click', async e => {
-    e.preventDefault();
-    if (!nomCmdt.value.trim() || !emailCmdt.value.trim()) {
-      alert("Merci de remplir le nom et l'email");
-      return;
-    }
-    try {
-      const createdCmdt = await postData('http://localhost:3000/api/commanditaires', {
-        NOM: nomCmdt.value,
-        EMAIL: emailCmdt.value,
-      });
-
-      await refreshCmdtSelect();
-      selectCmdt.value = createdCmdt.CMDT_ID;
-      modal.classList.add('hide');
-    } catch (error) {
-      console.error(error);
-      console.error("Erreur lors de l'enregistrement du commanditaire : " + error);
-    }
-  });
-
-  cancelCmdtBtn.addEventListener('click', () => {
-    modal.classList.add('hide');
-  });
-
-  modalContent.append(title, nomCmdt, emailCmdt, saveCmdtBtn, cancelCmdtBtn);
-
   if (selectCmdt.value === 'add_new') {
-    modal.classList.remove('hide');
+    const modal = document.createElement('div');
+    modal.classList.add('modalCmdt');
+    modal.classList.add('show');
+    document.body.classList.add('noscroll');
+    modal.style.display = 'flex';
+    modal.classList.add('show');
+
+    const overlay = document.createElement('div');
+    overlay.classList.add('modalCmdt-overlay');
+
+    const modalContent = document.createElement('div');
+    modalContent.classList.add('modalCmdt_content');
+
+    const form = document.createElement('form');
+    form.classList.add('newCmdtForm');
+
+    const inputNameCmdt = document.createElement('input');
+    inputNameCmdt.type = 'text';
+    inputNameCmdt.placeholder = 'Nom du commanditaire';
+    inputNameCmdt.style.cursor = 'auto';
+    inputNameCmdt.id = 'inputNameCmdt';
+
+    const inputEmailCmdt = document.createElement('input');
+    inputEmailCmdt.type = 'email';
+    inputEmailCmdt.placeholder = 'Email du commanditaire';
+    inputEmailCmdt.style.cursor = 'auto';
+    inputEmailCmdt.focus();
+    inputEmailCmdt.id = 'inputEmailCmdt';
+
+    // Ajout du bouton creer un commanditaire
+    const sumbitNewCmdt = document.createElement('button');
+    sumbitNewCmdt.classList.add('createNewCmdtSubmit');
+    sumbitNewCmdt.textContent = 'Ajouter';
+
+    // Event sur le bouton créer un commanditaire
+    sumbitNewCmdt.addEventListener('click', async e => {
+      e.preventDefault();
+
+      const nom = document.getElementById('inputNameCmdt');
+      const email = document.getElementById('inputEmailCmdt');
+
+      if (!email || !nom) {
+        alert('Veuillez remplir tous les champs');
+        return;
+      }
+      // Crée un objet avec les données du formulaire
+      const userData = {
+        NOM: nom,
+        EMAIL: email,
+      };
+      try {
+        const createCmdt = await postData('http://localhost:3000/api/commanditaires', userData);
+        await refreshCmdtSelect();
+        selectCmdt.value = createCmdt.CMDT_ID;
+
+        // Fermeture du modal
+        modal.classList.add('hide');
+        document.body.classList.remove('noscroll');
+
+        setTimeout(() => {
+          overlay.remove();
+          document.body.removeChild(modal); // Ferme le modal
+        }, 400);
+      } catch (error) {
+        console.error('Erreur lors de la création du commanditaire', error);
+      }
+    });
+
+    // Ajout bouton annuler
+    const cancelBtn = document.createElement('button');
+    cancelBtn.classList.add('cancelUserBtn');
+    cancelBtn.textContent = 'Annuler';
+
+    // Event sur le button cancel
+    cancelBtn.addEventListener(
+      'click',
+      e => {
+        e.preventDefault();
+        modal.classList.add('hide');
+        document.body.classList.remove('noscroll');
+
+        setTimeout(() => {
+          overlay.remove();
+          document.body.removeChild(modal); // Ferme le modal
+        }, 400);
+        const firstCmdtOption = [...selectCmdt.options].find(opt => opt.value !== 'add_new');
+        if (firstCmdtOption) {
+          selectCmdt.value = firstCmdtOption.value;
+        }
+      },
+      { once: true }
+    );
+
+    const divBtn = document.createElement('div');
+    divBtn.classList.add('divBtnModal');
+    divBtn.append(sumbitNewCmdt, cancelBtn);
+    form.append(inputNameCmdt, inputEmailCmdt, divBtn);
+    modalContent.appendChild(form);
+    modal.appendChild(modalContent);
+    overlay.appendChild(modal);
+    document.body.appendChild(overlay);
   }
 });
 
-const allSteps = document.querySelectorAll('select');
+const clientSegm = document.createElement('select');
+clientSegm.required = true;
+clientSegm.id = 'clientSegm';
+const optionClientSegm = document.createElement('option');
+optionClientSegm.textContent = 'CLIENT';
+optionClientSegm.selected = true;
+optionClientSegm.disabled = true;
 
-// Fonction pour changer l'apparance du select lors du changement dans l'option
-allSteps.forEach(select => {
-  select.addEventListener('change', () => {
-    select.classList.add('valid');
-  });
-});
+const expertiseSegm = document.createElement('select');
+expertiseSegm.required = true;
+expertiseSegm.id = 'expertiseSegm';
+const optionExpertiseSegm = document.createElement('option');
+optionExpertiseSegm.textContent = 'EXPERTISE';
+optionExpertiseSegm.selected = true;
+optionExpertiseSegm.disabled = true;
+
+const domaineSegm = document.createElement('select');
+domaineSegm.required = true;
+domaineSegm.id = 'domaineSegm';
+const optionDomaineSegm = document.createElement('option');
+optionDomaineSegm.textContent = 'DOMAINE';
+optionDomaineSegm.selected = true;
+optionDomaineSegm.disabled = true;
+
+const contratSegm = document.createElement('select');
+contratSegm.required = true;
+contratSegm.id = 'contratSegm';
+const optionContratSegm = document.createElement('option');
+optionContratSegm.textContent = 'CONTRAT';
+optionContratSegm.selected = true;
+optionContratSegm.disabled = true;
+
+const btnCreer = document.createElement('button');
+btnCreer.classList.add('btnCreer');
+btnCreer.textContent = 'Créer';
+
+// Event sur le button btnCreer
+
+// Fetch POST vers le avec postData ?
+
+// Append && AppendChild
+const main = document.querySelector('main');
+main.appendChild(containerForm);
+containerForm.appendChild(form);
+selectCmdt.append(defaultOption, optionAddNew);
+clientSegm.appendChild(optionClientSegm);
+expertiseSegm.appendChild(optionExpertiseSegm);
+domaineSegm.appendChild(optionDomaineSegm);
+contratSegm.appendChild(optionContratSegm);
+form.append(
+  libelleDevis,
+  raId,
+  selectCmdt,
+  clientSegm,
+  expertiseSegm,
+  domaineSegm,
+  contratSegm,
+  btnCreer
+);
 
 fetchClients();
 fetchContrats();
