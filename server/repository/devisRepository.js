@@ -7,7 +7,7 @@ import pool from '../config/db.js';
 const createDevis = async devisData => {
   const { LIBELLE, RA_ID, CMDT_ID, CLIENT_ID, EXP_ID, DOM_ID, CONTRAT_ID } = devisData;
   const [result] = await pool.query(
-    'INSERT INTO DEVIS (LIBELLE, RA_ID, CMDT_ID, CLIENT_ID, EXP_ID, DOM_ID, CONTRAT_ID) VALUES (?,?,?,?,?,?,?,?)',
+    'INSERT INTO DEVIS (LIBELLE, RA_ID, CMDT_ID, CLIENT_ID, EXP_ID, DOM_ID, CONTRAT_ID) VALUES (?,?,?,?,?,?,?)',
     [LIBELLE, RA_ID, CMDT_ID, CLIENT_ID, EXP_ID, DOM_ID, CONTRAT_ID]
   );
   return result.insertId;
