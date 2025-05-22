@@ -167,8 +167,8 @@ newUser.addEventListener('click', e => {
   role.appendChild(optionRole);
   modal.appendChild(modalContent);
   modalContent.appendChild(form);
-  fetchRoles();
   document.body.appendChild(modal);
+  fetchRoles(role);
 });
 
 const headers = ['RA_ID', 'Nom', 'Prénom', 'Email', 'Rôle'];

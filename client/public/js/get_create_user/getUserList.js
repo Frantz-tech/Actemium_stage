@@ -4,7 +4,7 @@ export function fetchUsers(tableUserBody) {
     .then(users => {
       tableUserBody.innerHTML = '';
       console.log('liste des users :', users);
-      const userList = users;
+      const userList = users.data;
 
       userList.forEach(user => {
         const row = document.createElement('tr');
