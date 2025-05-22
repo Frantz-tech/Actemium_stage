@@ -15,7 +15,7 @@ const tableDevisRow = document.createElement('tr');
 const tableDevisBody = document.createElement('tbody');
 
 const headersDevis = [
-  'RA_ID',
+  'DEVIS_REF',
   'Nom',
   'Commanditaire',
   'Client',
