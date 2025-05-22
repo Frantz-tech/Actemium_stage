@@ -171,7 +171,8 @@
   align-items: center;
 }
 
-.modal {
+.modal,
+.modalDevis {
   position: fixed;
   top: 0;
   left: 0;
@@ -186,7 +187,8 @@
 .noscroll {
   overflow: hidden;
 }
-.modal.hidden {
+.modal.hidden,
+.modalDevis.hidden {
   display: none;
 }
 .modal-content {
