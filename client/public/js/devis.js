@@ -389,27 +389,17 @@ form.addEventListener('submit', async e => {
     return;
   }
 
-  // Crée un objet avec les types des options sélectionnées
+  // Crée un objet avec les valeurs des options sélectionnées
   const devisData = {
     LIBELLE: libelle,
     RA_ID: ra_id,
-    CMDT_TYPE:
-      selectCmdt.options[selectCmdt.selectedIndex].text.split(' - ')[1]?.trim() ||
-      selectCmdt.options[selectCmdt.selectedIndex].text,
-    CLIENT_TYPE:
-      clientSegm.options[clientSegm.selectedIndex].text.split(' - ')[1]?.trim() ||
-      clientSegm.options[clientSegm.selectedIndex].text,
-    DOMAINE_TYPE:
-      domaineSegm.options[domaineSegm.selectedIndex].text.split(' - ')[1]?.trim() ||
-      domaineSegm.options[domaineSegm.selectedIndex].text,
-    EXPERTISE_TYPE:
-      expertiseSegm.options[expertiseSegm.selectedIndex].text.split(' - ')[1]?.trim() ||
-      expertiseSegm.options[expertiseSegm.selectedIndex].text,
-    CONTRAT_TYPE:
-      contratSegm.options[contratSegm.selectedIndex].text.split(' - ')[1]?.trim() ||
-      contratSegm.options[contratSegm.selectedIndex].text,
+    CMDT_ID: selectCmdt.value,
+    CLIENT_ID: clientSegm.value,
+    DOM_ID: domaineSegm.value,
+    EXP_ID: expertiseSegm.value,
+    CONTRAT_ID: contratSegm.value,
   };
-  console.log('Types envoyés :', devisData);
+  console.log('ID envoyés :', devisData);
   try {
     const createDevis = await postData('http://localhost:3000/api/devis', devisData);
     if (createDevis.errors) {

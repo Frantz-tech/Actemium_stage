@@ -141,7 +141,13 @@ newUser.addEventListener('click', e => {
             document.getElementById('emailLogin').value = '';
             document.getElementById('passwordLogin').value = '';
             document.getElementById('roleLogin').value = '';
-            window.location.href = '../pages/accueil.html';
+            fetchUsers();
+            modal.classList.add('hide');
+            overlay.remove();
+            setTimeout(() => {
+              document.body.removeChild(modal); // Ferme le modal
+            }, 400);
+            document.body.classList.remove('noscroll');
           } else {
             alert("Erreur inattendue lors de la création de l'utilisateur.");
           }

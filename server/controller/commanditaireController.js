@@ -7,12 +7,13 @@ const createCommanditaire = async (req, res) => {
     if (!NOM || !EMAIL) {
       return res.status(400).json({ message: 'Nom ou email manquant' });
     }
+    console.log('donnée recu pour la création : ', req.body);
+
+    const result = await Service.createCommanditaire(req.body);
+
     if (result.errors || result.errors.length > 0) {
       return res.status(400).json({ message: result.errors });
     }
-
-    console.log('donnée recu pour la création : ', req.body);
-    const result = await Service.createCommanditaire(req.body);
     sendSuccessResponse(res, 201, 'Commanditaire créer avec succès', result);
   } catch (error) {
     console.error('Erreur lors de la création du commanditaire', error);
