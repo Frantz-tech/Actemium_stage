@@ -41,7 +41,7 @@ menuItem.forEach(itemText => {
 
     // Afficher la section liée au menu cliqué si elle existe
     if (sections[itemText]) {
-      sections[itemText].style.display = 'flex'; // ou 'flex' selon ton CSS
+      sections[itemText].style.display = 'flex';
       h1.textContent = [itemText];
       h1.classList.add('uppercase');
     }
