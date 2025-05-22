@@ -1,4 +1,9 @@
-import { postData } from './postData.js';
+import { fetchClients } from './get_devis/getClients.js';
+import { fetchCommanditaires } from './get_devis/getCommanditaire.js';
+import { fetchContrats } from './get_devis/getContrats.js';
+import { fetchDomaines } from './get_devis/getDomines.js';
+import { fetchExpertises } from './get_devis/getExpertises.js';
+import { postData } from './post/postData.js';
 
 document.querySelector('h1').innerText = 'DEVIS';
 
@@ -53,135 +58,6 @@ async function refreshCmdtSelect(selectedId = null) {
   } catch (error) {
     console.error(error);
   }
-}
-
-// Fonction pour récupérer la liste des clients
-
-function fetchClients() {
-  fetch('http://localhost:3000/api/clients')
-    .then(response => response.json())
-    .then(data => {
-      console.log('Clients récupérés : ', data);
-
-      const contratSelect = document.getElementById('clientSegm');
-      const clients = data.data;
-      if (Array.isArray(clients) && clients.length > 0) {
-        clients.forEach(client => {
-          const option = document.createElement('option');
-          option.value = client.CLIENT_ID;
-          option.textContent = `${client.CODE} - ${client.TYPE} `;
-          contratSelect.appendChild(option);
-        });
-      } else {
-        contratSelect.innerHTML = '<option> Aucun client trouvé </option>';
-      }
-    })
-    .catch(error => {
-      console.error('Erreur lors de la récupération des clients:', error);
-      const contratSelect = document.getElementById('contratSegm');
-      contratSelect.innerHTML = '<option>Erreur de récupération des clients</option>';
-    });
-}
-function fetchContrats() {
-  fetch('http://localhost:3000/api/contrats')
-    .then(response => response.json())
-    .then(data => {
-      console.log('Contrats récupérés : ', data);
-
-      const contratSelect = document.getElementById('contratSegm');
-      const contrats = data.data;
-      if (Array.isArray(contrats) && contrats.length > 0) {
-        contrats.forEach(contrat => {
-          const option = document.createElement('option');
-          option.value = contrat.CONTRAT_ID;
-          option.textContent = `${contrat.CODE} - ${contrat.TYPE}`;
-          contratSelect.appendChild(option);
-        });
-      } else {
-        contratSelect.innerHTML = '<option> Aucun contrat trouvé </option>';
-      }
-    })
-    .catch(error => {
-      console.error('Erreur lors de la récupération des contrats:', error);
-      const contratSelect = document.getElementById('contratSegm');
-      contratSelect.innerHTML = '<option>Erreur de récupération des contrats</option>';
-    });
-}
-
-// Fonction pour récupérer la liste des expertises
-function fetchExpertises() {
-  fetch('http://localhost:3000/api/expertises')
-    .then(response => response.json())
-    .then(data => {
-      console.log('Expertises récupérées :', data);
-
-      const expertiseSelect = document.getElementById('expertiseSegm');
-      const expertises = data.data;
-      if (Array.isArray(expertises) && expertises.length > 0) {
-        expertises.forEach(expertise => {
-          const option = document.createElement('option');
-          option.value = expertise.EXP_ID;
-          option.textContent = `${expertise.CODE} - ${expertise.TYPE}`;
-          expertiseSelect.appendChild(option);
-        });
-      } else {
-        expertiseSelect.innerHTML = '<option>Erreur de récupération des expertises</option>';
-      }
-    })
-    .catch(error => {
-      console.error(' Erreur lors de la récupération des expertises', error);
-      const expertiseSelect = document.getElementById('expertiseSegm');
-      expertiseSelect.innerHTML = '<option>Erreur de récupération des expertises</option>';
-    });
-}
-// Fonction pour récupérer la liste des domaines
-function fetchDomaines() {
-  fetch('http://localhost:3000/api/domaines')
-    .then(response => response.json())
-    .then(data => {
-      console.log('Domaine récupérées :', data);
-
-      const domaineSelect = document.getElementById('domaineSegm');
-      const domaines = data.data;
-      if (Array.isArray(domaines) && domaines.length > 0) {
-        domaines.forEach(domaine => {
-          const option = document.createElement('option');
-          option.value = domaine.DOMAINE_ID;
-          option.textContent = `${domaine.CODE} - ${domaine.TYPE}`;
-          domaineSelect.appendChild(option);
-        });
-      } else {
-        domaineSelect.innerHTML = '<option>Erreur de récupération des domaines</option>';
-      }
-    })
-    .catch(error => {
-      console.error(' Erreur lors de la récupération des domaines', error);
-      const domaineSelect = document.getElementById('domaineSegm');
-      domaineSelect.innerHTML = '<option>Erreur de récupération des domaines</option>';
-    });
-}
-function fetchCommanditaires() {
-  fetch('http://localhost:3000/api/commanditaires')
-    .then(response => response.json())
-    .then(data => {
-      console.log('Commanditaires récupérées :', data);
-
-      const commanditaireSelect = document.getElementById('cmdt');
-      const commanditaires = data.data;
-      if (Array.isArray(commanditaires) && commanditaires.length > 0) {
-        commanditaires.forEach(commanditaire => {
-          const option = document.createElement('option');
-          option.value = commanditaire.CMDT_ID;
-          option.textContent = `${commanditaire.NOM}`;
-          commanditaireSelect.appendChild(option);
-        });
-      }
-    })
-    .catch(error => {
-      console.error(' Erreur lors de la récupération des commanditaires', error);
-      const commanditaireSelect = document.getElementById('cmdt');
-      commanditaireSelect.innerHTML = '<option>Erreur de récupération des commanditaires</option>';
-    });
 }
 
 // Création du formulaire de devis
@@ -404,14 +280,14 @@ form.addEventListener('submit', async e => {
     const createDevis = await postData('http://localhost:3000/api/devis', devisData);
     if (createDevis.errors) {
       alert('Erreurs : ' + createDevis.errors.join(','));
-    } else {
-      alert('Devis crée avec succès');
+      return;
     }
+    alert(`✅ Devis ${devisData.LIBELLE} crée avec succès`);
+
+    window.location.href = '../pages/devisList.html';
   } catch (error) {
     console.error('Erreur lors de la création du devis', error);
   }
-
-  console.log('OK, tous les champs sont bien remplis, on peut envoyer en bdd');
 });
 
 // Append && AppendChild
