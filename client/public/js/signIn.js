@@ -35,7 +35,7 @@ loginForm.addEventListener('submit', async e => {
       password
     );
 
-    // Sinon route utilisateurs RA ou CA ?
+    // Sinon route utilisateurs RA ou CA ou d'autre a l'avenir ..
     if (!response.ok) {
       ({ response, data } = await tryLogin(
         'http://localhost:3000/api/users/login',

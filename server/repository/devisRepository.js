@@ -48,10 +48,19 @@ const updateDevis = async (id, devisData) => {
 const deleteDevis = async id => {
   return await pool.query('DELETE FROM DEVIS WHERE DEVIS_ID = ?', [id]);
 };
+
+const getDevisByRaId = async id => {
+  const [rows] = await pool.query(
+    'SELECT d.DEVIS_ID, d.DEVIS_REF,d.LIBELLE,d.RA_ID, c.NOM AS NOM, cl.TYPE AS NOM_CLIENT, dom.TYPE AS NOM_DOMAINE, e.TYPE AS NOM_EXPERTISE, ctr.TYPE AS NOM_CONTRAT FROM DEVIS d LEFT JOIN COMMANDITAIRE c on d.CMDT_ID = c.CMDT_ID LEFT JOIN CLIENT cl ON d.CLIENT_ID = cl.CLIENT_ID LEFT JOIN DOMAINE dom ON d.DOM_ID = dom.DOMAINE_ID LEFT JOIN EXPERTISE e ON d.EXP_ID = e.EXP_ID LEFT JOIN CONTRAT ctr ON d.CONTRAT_ID = ctr.CONTRAT_ID WHERE  d.RA_ID = ? ORDER BY d.DEVIS_REF DESC',
+    [id]
+  );
+  return rows;
+};
 export const Repository = {
   createDevis,
   getAllDevis,
   getDevisById,
   updateDevis,
   deleteDevis,
+  getDevisByRaId,
 };

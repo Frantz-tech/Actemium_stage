@@ -46,10 +46,22 @@ const deleteDevis = async id => {
   return await Repository.deleteDevis(id);
 };
 
+const getDevisByRaId = async id => {
+  try {
+    console.log('📥 Liste des devis récupérés = ', id);
+    const devis = await Repository.getDevisByRaId(id);
+    return devis;
+  } catch (error) {
+    console.error('❌ Erreur lors de la récupération des devis par RA_ID :', error);
+    return { errors: ['Erreur lors de la récupération des devis par RA_ID'] };
+  }
+};
+
 export const Service = {
   createDevis,
   getAllDevis,
   getDevisById,
   updateDevis,
   deleteDevis,
+  getDevisByRaId,
 };
