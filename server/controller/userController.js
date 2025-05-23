@@ -47,6 +47,7 @@ const loginUser = async (req, res) => {
         id: user.USER_ID,
         email: user.EMAIL,
         role: user.ROLE,
+        RA_ID: user.RA_ID,
       },
 
       process.env.JWT_SECRET,
