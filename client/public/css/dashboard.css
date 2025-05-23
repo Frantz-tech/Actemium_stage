@@ -25,24 +25,22 @@ main {
 table,
 th,
 td {
-  border: 2.5px solid black;
-  border-collapse: collapse;
-  padding: 20px;
+  border: 0.5px solid black;
+  padding: 0 5px;
   text-align: left;
-  overflow: hidden;
 }
 thead {
-  font-size: 1.5vw;
-}
-tbody td {
   font-size: 1.2vw;
 }
+tbody td {
+  font-size: 1.1vw;
+}
 table {
-  border: 5px solid transparent;
+  padding: 0;
+  border-radius: 5px;
+  border: 2px solid black;
   border-spacing: 0;
-  border-radius: 10px;
-  overflow: hidden; /* utile pour couper le contenu */
-  background-color: var(--color-white); /* ou ce que tu veux */
+  background-color: var(--color-white);
 }
 
 .table_container,
@@ -51,6 +49,11 @@ table {
   flex-direction: column;
   align-items: center;
   gap: 2rem;
+  width: 100%;
+}
+
+.tableUser {
+  width: 80%;
 }
 
 h2 {

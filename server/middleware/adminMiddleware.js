@@ -11,7 +11,7 @@ export const verifyAdmin = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    if (decoded.role !== 'admin') {
+    if (decoded.role !== 'Administrateur') {
       return res.status(403).json({ message: 'Accès interdit : admin requis' });
     }
 
