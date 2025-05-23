@@ -1,7 +1,12 @@
 export async function postData(url = '', data = {}) {
+  const token = localStorage.getItem('token');
+
   const response = await fetch(url, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token && { Authorization: `Bearer ${token}` }),
+    },
     body: JSON.stringify(data),
   });
   console.log('Réponse status :', response.status);
