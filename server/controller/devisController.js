@@ -50,10 +50,31 @@ const deleteDevis = async (req, res) => {
   }
 };
 
+const getDevisByRaId = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const userId = req.user?.RA_ID;
+
+    if (id !== userId) {
+      return res.status(403).json({ error: '❌ Accès interdit : RA_ID non autorisé.' });
+    }
+
+    const result = await Service.getDevisByRaId(id);
+    if (result.length > 0) {
+      sendSuccessResponse(res, 200, 'Liste des devis récupérés avec succès', result);
+    } else {
+      sendSuccessResponse(res, 200, 'Aucun devis trouvé', []);
+    }
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
 export const Controller = {
   createDevis,
   getAllDevis,
   getDevisById,
   updateDevis,
   deleteDevis,
+  getDevisByRaId,
 };

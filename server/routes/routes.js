@@ -17,5 +17,4 @@ router.use('/commanditaires', commanditaireRoutes);
 router.use('/admin', adminRoutes);
 router.use('/users', userRoutes);
 router.use('/devis', devisRoutes);
-
 export default router;
