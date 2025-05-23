@@ -27,6 +27,9 @@ function fetchDevisByRaId() {
         const devisList = document.createElement('div');
         devisList.id = 'devisList';
         devis.forEach(d => {
+          // Parent de devisItem et les boutons
+          const devisContent = document.createElement('div');
+          devisContent.classList.add('devisContent');
           // Contenu du devis
           const devisItem = document.createElement('div');
           devisItem.classList.add('devisItem');
@@ -69,8 +72,9 @@ function fetchDevisByRaId() {
             }
           });
 
-          devisList.appendChild(devisItem);
-          devisItem.append(libelleRef, btnGoToPost, btnDeleteDevis);
+          devisList.appendChild(devisContent);
+          devisContent.append(devisItem, btnGoToPost, btnDeleteDevis);
+          devisItem.append(libelleRef);
           libelleRef.append(libelle, devis_ref);
         });
 

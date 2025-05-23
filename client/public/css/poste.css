@@ -147,7 +147,9 @@
   justify-content: center;
   gap: 2vh;
 }
-
+#devisList {
+  width: 50%;
+}
 .devisItem,
 .sectionItem,
 .achatItem,
