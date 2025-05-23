@@ -17,26 +17,30 @@ fetch('../pages/header.html')
       const currentPage = window.location.pathname.split('/').pop();
       const currentHost = window.location.host;
 
-      if (currentPage === 'adminDashboard.html') {
-        logoEvent.style.cursor = 'pointer';
-        logoEvent.addEventListener('click', () => {
-          const dashboardSlide = document.getElementById('slideMenuDashboard');
-          if (dashboardSlide) {
-            dashboardSlide.classList.toggle('open');
-          }
-        });
-      } else if (
-        currentPage !== 'signIn.html' &&
-        currentPage !== 'createUser.html' &&
-        currentHost !== 'localhost:4000'
-      ) {
-        logoEvent.style.cursor = 'pointer';
-        logoEvent.addEventListener('click', e => {
-          e.preventDefault();
-          window.location.href = '../pages/accueil.html';
-        });
-      } else if (logoEvent) {
-        logoEvent.style.cursor = 'default';
+      if (logoEvent) {
+        const isDashboard = currentPage === 'adminDashboard.html';
+        const isAuthPage =
+          currentPage === 'signIn.html' ||
+          currentPage === 'createUser.html' ||
+          (window.location.pathname === '/' && currentHost === 'localhost:4000');
+
+        if (isDashboard) {
+          logoEvent.style.cursor = 'pointer';
+          logoEvent.addEventListener('click', () => {
+            const dashboardSlide = document.getElementById('slideMenuDashboard');
+            if (dashboardSlide) {
+              dashboardSlide.classList.toggle('open');
+            }
+          });
+        } else if (!isAuthPage) {
+          logoEvent.style.cursor = 'pointer';
+          logoEvent.addEventListener('click', e => {
+            e.preventDefault();
+            window.location.href = '../pages/accueil.html';
+          });
+        } else {
+          logoEvent.style.cursor = 'default';
+        }
       }
 
       if (burger && slideMenu) {

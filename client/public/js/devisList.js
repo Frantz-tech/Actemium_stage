@@ -38,18 +38,24 @@ function fetchDevisByRaId() {
           const libelleRef = document.createElement('div');
           libelleRef.classList.add('libelleRef');
 
-          //Libelle du devis
+          // Libelle du devis
           const libelle = document.createElement('p');
           libelle.classList.add('devisLibelle');
-          libelle.textContent = d.LIBELLE;
+          libelle.appendChild(
+            Object.assign(document.createElement('strong'), { textContent: 'Libellé : ' })
+          );
+          libelle.appendChild(document.createTextNode(d.LIBELLE));
 
-          //Devis_ref
+          // Numéro du devis
           const devis_ref = document.createElement('p');
           devis_ref.classList.add('devis_ref');
-          devis_ref.textContent = d.DEVIS_REF;
+          devis_ref.appendChild(
+            Object.assign(document.createElement('strong'), { textContent: 'Numéro du devis : ' })
+          );
+          devis_ref.appendChild(document.createTextNode(d.DEVIS_REF));
 
           // Bouton aller page liste des postes
-          const btnGoToPost = document.createElement('button');
+          const btnGoToPost = document.createElement('div');
           btnGoToPost.textContent = '⎘';
           btnGoToPost.classList.add('btnGoToPost');
 

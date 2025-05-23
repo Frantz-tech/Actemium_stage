@@ -1,10 +1,12 @@
 // Partie Liste des devis
 
+import { fetchAllDevis } from '../get_all_devis_admin/getAllDevis.js';
+
 export const tableDevisContent = document.createElement('div');
 tableDevisContent.classList.add('table_devis_container');
 
 const sectionsDevis = {
-  'Liste des devis': tableDevisContent, // Affiche la liste des utilisateurs
+  'Liste des devis': tableDevisContent, // Affiche la liste des devis
 };
 
 sectionsDevis['Liste des devis'].style.display = 'none'; // par défaut
@@ -15,15 +17,15 @@ const tableDevisRow = document.createElement('tr');
 const tableDevisBody = document.createElement('tbody');
 
 const headersDevis = [
-  'DEVIS_REF',
-  'Nom',
-  'Commanditaire',
+  'Devis_ref',
+  'Libelle',
+  'Nom C',
   'Client',
   'Expertise',
   'Domaine',
   'Contrat',
   'État',
-  'Date de création',
+  'Date',
 ];
 headersDevis.forEach(headerDevisText => {
   const thDevis = document.createElement('th');
@@ -31,34 +33,8 @@ headersDevis.forEach(headerDevisText => {
   tableDevisRow.appendChild(thDevis);
 });
 
-// function fetchAllDevis() {
-//   fetch('http://localhost:3000/api/devis')
-//     .then(response => response.json())
-//     .then(devis => {
-//       tableDevisBody.innerHTML = '';
-//       console.log('liste des devis :', devis.data);
-//       const devisList = users.data;
-
-//       devisList.forEach(user => {
-//         const row = document.createElement('tr');
-//         // Pour chaque colonne je créer une cellule
-//         const raid = document.createElement('td');
-//         raid.textContent = user.RA_ID;
-//         const nomCell = document.createElement('td');
-//         nomCell.textContent = user.NOM;
-//         const prenomCell = document.createElement('td');
-//         prenomCell.textContent = user.PRENOM;
-//         const emailCell = document.createElement('td');
-//         emailCell.textContent = user.EMAIL;
-//         const roleCell = document.createElement('td');
-//         roleCell.textContent = user.ROLE;
-//         row.append(raid, nomCell, prenomCell, emailCell, roleCell);
-//         tableDevisBody.appendChild(row);
-//       });
-//     });
-// }
 tableDevisHead.appendChild(tableDevisRow);
 tableDevis.append(tableDevisHead, tableDevisBody);
 tableDevisContent.appendChild(tableDevis);
 
-// fetchAllDevis();
+fetchAllDevis(tableDevisBody);

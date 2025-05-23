@@ -5,6 +5,7 @@ export const tableContent = document.createElement('div');
 tableContent.classList.add('table_container');
 
 const tableUser = document.createElement('table');
+tableUser.classList.add('tableUser');
 
 const tableUserHead = document.createElement('thead');
 const tableRow = document.createElement('tr');
@@ -142,7 +143,7 @@ newUser.addEventListener('click', e => {
             document.getElementById('emailLogin').value = '';
             document.getElementById('passwordLogin').value = '';
             document.getElementById('roleLogin').value = '';
-            fetchUsers();
+            fetchUsers(tableUserBody);
             modal.classList.add('hide');
             overlay.remove();
             setTimeout(() => {
