@@ -36,7 +36,9 @@ fetch('../pages/header.html')
           logoEvent.style.cursor = 'pointer';
           logoEvent.addEventListener('click', e => {
             e.preventDefault();
-            window.location.href = '../pages/accueil.html';
+            alert(
+              'Mettre en place un burger qui permet de se connecter / se déconnecter et aussi un changement de mot de passe par ex'
+            );
           });
         } else {
           logoEvent.style.cursor = 'default';
