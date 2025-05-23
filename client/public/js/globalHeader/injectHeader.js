@@ -15,6 +15,8 @@ fetch('../pages/header.html')
       const slideMenu = document.querySelector('.slideMenu');
       const logoEvent = document.getElementById('logo');
       const currentPage = window.location.pathname.split('/').pop();
+      const currentHost = window.location.host;
+
       if (currentPage === 'adminDashboard.html') {
         logoEvent.style.cursor = 'pointer';
         logoEvent.addEventListener('click', () => {
@@ -23,7 +25,11 @@ fetch('../pages/header.html')
             dashboardSlide.classList.toggle('open');
           }
         });
-      } else if (currentPage !== 'signIn.html' && currentPage !== 'createUser.html') {
+      } else if (
+        currentPage !== 'signIn.html' &&
+        currentPage !== 'createUser.html' &&
+        currentHost !== 'localhost:4000'
+      ) {
         logoEvent.style.cursor = 'pointer';
         logoEvent.addEventListener('click', e => {
           e.preventDefault();

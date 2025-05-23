@@ -72,7 +72,6 @@ libelleDevis.id = 'libelleDevis';
 libelleDevis.placeholder = 'LIBELLE DU DEVIS';
 libelleDevis.type = 'text';
 libelleDevis.required = true;
-libelleDevis.style.cursor = 'auto';
 
 const raId = document.createElement('input');
 raId.id = 'raId';
@@ -117,13 +116,11 @@ selectCmdt.addEventListener('change', () => {
     const inputNameCmdt = document.createElement('input');
     inputNameCmdt.type = 'text';
     inputNameCmdt.placeholder = 'Nom du commanditaire';
-    inputNameCmdt.style.cursor = 'auto';
     inputNameCmdt.id = 'inputNameCmdt';
 
     const inputEmailCmdt = document.createElement('input');
     inputEmailCmdt.type = 'email';
     inputEmailCmdt.placeholder = 'Email du commanditaire';
-    inputEmailCmdt.style.cursor = 'auto';
     inputEmailCmdt.focus();
     inputEmailCmdt.id = 'inputEmailCmdt';
 

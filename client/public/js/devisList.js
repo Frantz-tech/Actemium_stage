@@ -3,7 +3,15 @@ document.querySelector('h1').innerText = 'DEVIS';
 // Charger les devis lorsque l'on arrive sur la page liste des devis :
 // Fetch la route get devis par RA_ID
 function fetchDevisByRaId() {
-  fetch('http://localhost:3000/api/devis')
+  const utilisateur = JSON.parse(localStorage.getItem('utilisateur'));
+  const ra_id = utilisateur?.RA_ID;
+
+  fetch(`http://localhost:3000/api/devis/ra/${ra_id}`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+      'Content-Type': 'application/json',
+    },
+  })
     .then(response => response.json())
     .then(data => {
       console.log('Devis récupérés :', data);
