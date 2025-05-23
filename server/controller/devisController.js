@@ -16,7 +16,7 @@ const createDevis = async (req, res) => {
 };
 const getAllDevis = async (req, res) => {
   try {
-    const result = await Service.getAllDevis(req.body);
+    const result = await Service.getAllDevis();
     sendSuccessResponse(res, 200, 'Devis récupérés avec succès', result);
   } catch (error) {
     return res.status(500).json({ error: error.message });

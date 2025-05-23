@@ -24,7 +24,9 @@ const createDevis = async devisData => {
 
 // Récuperer tous les devis
 const getAllDevis = async () => {
-  const [rows] = await pool.query('SELECT * FROM DEVIS');
+  const [rows] = await pool.query(
+    'SELECT d.DEVIS_REF,d.LIBELLE,d.RA_ID, d.ETAT, d.DATE_CREATION, c.NOM AS NOM, cl.TYPE AS NOM_CLIENT, dom.TYPE AS NOM_DOMAINE, e.TYPE AS NOM_EXPERTISE, ctr.TYPE AS NOM_CONTRAT FROM DEVIS d LEFT JOIN COMMANDITAIRE c on d.CMDT_ID = c.CMDT_ID LEFT JOIN CLIENT cl ON d.CLIENT_ID = cl.CLIENT_ID LEFT JOIN DOMAINE dom ON d.DOM_ID = dom.DOMAINE_ID LEFT JOIN EXPERTISE e ON d.EXP_ID = e.EXP_ID LEFT JOIN CONTRAT ctr ON d.CONTRAT_ID = ctr.CONTRAT_ID ORDER BY d.DEVIS_REF ASC'
+  );
   return rows;
 };
 
