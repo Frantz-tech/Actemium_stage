@@ -1,7 +1,10 @@
+import { handleApiError } from '../tokenHandler/handleApi.js';
+
 export function fillAchatSelect(selectElement, context) {
   fetch(`http://localhost:3000/api/achats?context=${context}`)
     .then(res => res.json())
     .then(data => {
+      handleApiError(data);
       console.log('Achats recus : ', data);
 
       const achats = data.data;

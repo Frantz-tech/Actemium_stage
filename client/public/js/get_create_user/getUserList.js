@@ -1,7 +1,10 @@
+import { handleApiError } from '../tokenHandler/handleApi.js';
+
 export function fetchUsers(tableUserBody) {
   fetch('http://localhost:3000/api/users')
     .then(response => response.json())
     .then(users => {
+      handleApiError(users);
       tableUserBody.innerHTML = '';
       console.log('liste des users :', users);
       const userList = users.data;

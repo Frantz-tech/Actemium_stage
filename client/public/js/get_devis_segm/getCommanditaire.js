@@ -1,7 +1,10 @@
+import { handleApiError } from '../tokenHandler/handleApi.js';
+
 export function fetchCommanditaires() {
   fetch('http://localhost:3000/api/commanditaires')
     .then(response => response.json())
     .then(data => {
+      handleApiError(data);
       console.log('Commanditaires récupérées :', data);
 
       const commanditaireSelect = document.getElementById('cmdt');

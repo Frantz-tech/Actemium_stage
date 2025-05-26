@@ -1,7 +1,10 @@
+import { handleApiError } from '../tokenHandler/handleApi.js';
+
 export function fillFraisChantierSelect(selectElement, context) {
   fetch(`http://localhost:3000/api/sections?context=${context}`)
     .then(res => res.json())
     .then(data => {
+      handleApiError(data);
       console.log('Frais Chantier recus : ', data);
 
       const fraisChantier = data.data;

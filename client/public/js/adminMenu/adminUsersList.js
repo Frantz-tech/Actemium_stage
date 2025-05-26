@@ -1,5 +1,6 @@
 import { fetchRoles } from '../get_create_user/getRoles.js';
 import { fetchUsers } from '../get_create_user/getUserList.js';
+import { handleApiError } from '../tokenHandler/handleApi.js';
 
 export const tableContent = document.createElement('div');
 tableContent.classList.add('table_container');
@@ -131,6 +132,7 @@ newUser.addEventListener('click', e => {
       })
         .then(res => res.json())
         .then(data => {
+          handleApiError(data);
           if (data && Array.isArray(data.errors) && data.errors.length > 0) {
             alert('Utilisateur non créé.\nErreur(s) :\n' + data.errors.join('\n'));
             return; // stop here if errors

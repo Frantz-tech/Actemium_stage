@@ -1,4 +1,5 @@
 import { afficherModalPoste } from './modalPoste.js';
+import { handleApiError } from './tokenHandler/handleApi.js';
 
 document.querySelector('h1').innerText = 'FAP ACTEMIUM';
 const btnExporterPDF = document.querySelector('.btnExporter');
@@ -8,6 +9,7 @@ btnMail.textContent = `Envoyer par mail`;
 fetch('../js/postList.json')
   .then(response => response.json())
   .then(data => {
+    handleApiError(data);
     console.log('JSON local chargé = ', data.postes);
 
     const postesList = document.getElementById('postesList');

@@ -1,7 +1,10 @@
+import { handleApiError } from '../tokenHandler/handleApi.js';
+
 export function fetchContrats() {
   fetch('http://localhost:3000/api/contrats')
     .then(response => response.json())
     .then(data => {
+      handleApiError(data);
       console.log('Contrats récupérés : ', data);
 
       const contratSelect = document.getElementById('contratSegm');

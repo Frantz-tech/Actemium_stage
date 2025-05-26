@@ -1,3 +1,4 @@
+import { handleApiError } from '../tokenHandler/handleApi.js';
 export async function postData(url = '', data = {}) {
   const token = localStorage.getItem('token');
 
@@ -16,6 +17,7 @@ export async function postData(url = '', data = {}) {
     throw new Error(`Erreur serveur : ${response.status} - ${errorText}`);
   }
   const json = await response.json();
+  handleApiError(json);
   console.log('Réponse JSON', json);
   return json;
 }

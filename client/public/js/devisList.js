@@ -1,3 +1,5 @@
+import { handleApiError } from './tokenHandler/handleApi.js';
+
 document.querySelector('h1').innerText = 'DEVIS';
 
 // Charger les devis lorsque l'on arrive sur la page liste des devis :
@@ -14,6 +16,7 @@ function fetchDevisByRaId() {
   })
     .then(response => response.json())
     .then(data => {
+      handleApiError(data);
       console.log('Devis récupérés :', data);
       const devis = data.data;
 

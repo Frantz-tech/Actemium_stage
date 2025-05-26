@@ -1,9 +1,12 @@
+import { handleApiError } from '../tokenHandler/handleApi.js';
+
 // Fonction pour récuperer les rôles
 export function fetchRoles() {
   const roleSelect = document.getElementById('roleLogin');
   fetch('http://localhost:3000/api/users/roles')
     .then(response => response.json())
     .then(data => {
+      handleApiError(data);
       console.log('Roles récupérés', data);
 
       const roles = data.data;

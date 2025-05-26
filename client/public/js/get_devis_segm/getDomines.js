@@ -1,7 +1,10 @@
+import { handleApiError } from '../tokenHandler/handleApi.js';
+
 export function fetchDomaines() {
   fetch('http://localhost:3000/api/domaines')
     .then(response => response.json())
     .then(data => {
+      handleApiError(data);
       console.log('Domaine récupérées :', data);
 
       const domaineSelect = document.getElementById('domaineSegm');

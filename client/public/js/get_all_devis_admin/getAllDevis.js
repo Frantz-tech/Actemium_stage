@@ -1,3 +1,5 @@
+import { handleApiError } from '../tokenHandler/handleApi.js';
+
 export function fetchAllDevis(tableDevisBody) {
   const token = localStorage.getItem('token');
   fetch('http://localhost:3000/api/devis', {
@@ -7,6 +9,7 @@ export function fetchAllDevis(tableDevisBody) {
   })
     .then(response => response.json())
     .then(devis => {
+      handleApiError;
       console.log('Liste des devis :', devis);
       tableDevisBody.innerHTML = '';
       const devisList = devis.data;

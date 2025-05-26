@@ -1,7 +1,10 @@
+import { handleApiError } from '../tokenHandler/handleApi.js';
+
 export function fillSectionSelect(selectElement, context) {
   fetch(`http://localhost:3000/api/sections?context=${context}`)
     .then(res => res.json())
     .then(data => {
+      handleApiError(data);
       console.log('Sections recues : ', data);
 
       const sections = data.data;

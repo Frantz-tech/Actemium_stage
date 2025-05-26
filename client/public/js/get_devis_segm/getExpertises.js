@@ -1,7 +1,10 @@
+import { handleApiError } from '../tokenHandler/handleApi.js';
+
 export function fetchExpertises() {
   fetch('http://localhost:3000/api/expertises')
     .then(response => response.json())
     .then(data => {
+      handleApiError(data);
       console.log('Expertises récupérées :', data);
 
       const expertiseSelect = document.getElementById('expertiseSegm');
