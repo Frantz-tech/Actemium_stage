@@ -5,8 +5,15 @@ document.querySelector('h1').innerText = 'POSTES';
 const btnCreerPoste = document.querySelector('.btnCreerPoste');
 btnCreerPoste.innerText = 'Créer un poste';
 btnCreerPoste.addEventListener('click', () => {
-  alert('Création d un nouveau poste');
-  window.location.href = '../pages/poste.html';
+  const urlParams = new URLSearchParams(window.location.search);
+  const devis_id = urlParams.get('devis_id');
+  const ra_id = urlParams.get('ra_id');
+  if (!devis_id || !ra_id) {
+    alert("il manque le devis_id ou le ra_id dans l'URL");
+    return;
+  }
+  alert("Création d un nouveau poste + redirection vers la création d'un poste lié au devis");
+  window.location.href = `../pages/poste.html?devis_id=${devis_id}&ra_id=${ra_id}`;
 });
 // Action du bouton qui génère la FAP
 let btnCreerFap = document.querySelector('.btnCreerFap');

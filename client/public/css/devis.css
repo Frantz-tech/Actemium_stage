@@ -1,3 +1,4 @@
+@import url(./variables.css);
 .step {
   display: flex;
   flex-direction: column;
@@ -35,6 +36,14 @@ select {
   flex-direction: column;
   width: 80%;
 }
+.modalDevisLibelle {
+  text-transform: uppercase;
+  color: var(--primary-blue);
+  font-size: clamp(1.5rem, 3vw, 5rem);
+  font-weight: bold;
+  letter-spacing: 0.2rem;
+  padding: 0 clamp(1rem, 3vw, 2rem) clamp(1rem, 3vw, 1rem);
+}
 
 #libelleDevis,
 #raId,
@@ -48,4 +57,96 @@ select {
 
 .containerFormDevis {
   width: 100%;
+}
+
+.groupeSegmCodexRa {
+  display: flex;
+  flex-direction: column;
+}
+
+.modalDevisCodexRa {
+  text-align: center;
+  color: var(--primary-blue);
+  font-size: clamp(1.3rem, 2.3vw, 3rem);
+  font-weight: 600;
+}
+.modalCommanditaire {
+  background-color: var(--color-white);
+  border-radius: 5px;
+  padding: 5px;
+  width: 100%;
+}
+
+.modalCommanditaire,
+.modalSegm {
+  border: 2px solid var(--primary-blue);
+}
+
+.modalDevis_content,
+.modalUser_content,
+.modalPassword_content,
+.modalCmdt_content {
+  padding: 1vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.divBtns {
+  padding: 1vw;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.close-btn,
+.goToFapBtnDevis {
+  font-size: clamp(1.6rem, 2.5vw, 2.5rem);
+  cursor: pointer;
+  align-self: flex-start;
+  color: var(--primary-blue);
+  border: none;
+  background-color: transparent;
+}
+/* .goToFapBtnDevis {
+  display: none;
+} */
+
+.modalDevis {
+  display: flex;
+  flex-direction: column-reverse;
+  position: fixed;
+  left: 50%;
+  top: 55%;
+  height: fit-content;
+  width: 80vw;
+  max-width: 700px;
+  transform: translate(-50%, -50%);
+  z-index: 2000;
+  overflow: auto;
+  background-color: var(--color-white);
+  border-radius: 4px;
+}
+
+.modalSegm {
+  background-color: var(--color-white);
+  border-radius: 5px;
+  padding: 5px;
+  width: 100%;
+}
+
+.groupSegm {
+  padding: 2vw;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  row-gap: clamp(5px, 1vw, 10px);
+  column-gap: clamp(5px, 1vw, 10px);
+}
+
+@media screen and (width > 724px) {
+  .modalSegm {
+    max-width: calc((100% - clamp(5px, 1vw, 10px)) / 2);
+  }
 }

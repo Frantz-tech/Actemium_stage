@@ -61,7 +61,8 @@ function fetchDevisByRaId() {
 
           btnGoToPost.addEventListener('click', () => {
             alert('redirection vers la liste des postes associés a ce devis');
-            // window.location.href = '../pages/postesList.html';
+            const url = `../pages/postesList.html?devis_id=${d.DEVIS_ID}&ra_id=${d.RA_ID}`;
+            window.location.href = url;
           });
 
           // Supprimer un devis
@@ -73,8 +74,7 @@ function fetchDevisByRaId() {
               `Êtes-vous sûr de vouloir supprimer le devis ? Cette action est irréversible.`
             ); // Confirmation pour supprimer un devis, a faire également pour les postes dans le js postesListes
             if (confirmation) {
-              const removed = devisList.removeChild(devisItem);
-              console.log('Élément supprimé :', removed);
+              // fetch deleteDevis
             }
           });
 
@@ -82,6 +82,129 @@ function fetchDevisByRaId() {
           devisContent.append(devisItem, btnGoToPost, btnDeleteDevis);
           devisItem.append(libelleRef);
           libelleRef.append(libelle, devis_ref);
+          /* -- Action lors du clique sur le devis -- */
+          devisItem.addEventListener('click', e => {
+            e.preventDefault();
+            // devisItem.addEventListener suite ..
+            const modal = document.createElement('div');
+            modal.classList.add('modalDevis');
+            document.body.classList.add('noscroll');
+            modal.style.display = 'flex';
+            modal.classList.add('show');
+
+            const closeBtn = document.createElement('button');
+            closeBtn.textContent = 'x';
+            closeBtn.classList.add('close-btn');
+
+            const goToFapBtn = document.createElement('button');
+            goToFapBtn.textContent = '⎗';
+            goToFapBtn.classList.add('goToFapBtnDevis');
+
+            // Regroupement pour les buttons du modal
+            const divBtns = document.createElement('div');
+            divBtns.classList.add('divBtns');
+            divBtns.append(closeBtn, goToFapBtn);
+
+            const overlay = document.createElement('div');
+            overlay.classList.add('modalDevis-overlay');
+
+            const modalContent = document.createElement('div');
+            modalContent.classList.add('modalDevis_content');
+
+            //Libelle du devis
+            const devisLibelle = document.createElement('div');
+            devisLibelle.textContent = `${d.LIBELLE}`;
+            devisLibelle.classList.add('modalDevisLibelle');
+
+            // Groupe de la segmentation et le N°Codex + RA_ID
+            const groupSegmCodexRa = document.createElement('div');
+            groupSegmCodexRa.classList.add('groupeSegmCodexRa');
+
+            // Div pour regrouper la segmentation
+            const groupSegm = document.createElement('div');
+            groupSegm.classList.add('groupSegm');
+
+            // N°Codex RA_ID Etat
+            const devisCodexRa = document.createElement('div');
+            devisCodexRa.textContent = `${d.DEVIS_REF} - ETAT : ${d.ETAT}`;
+            devisCodexRa.classList.add('modalDevisCodexRa');
+
+            // Commanditaire
+            const devisCommanditaire = document.createElement('div');
+            devisCommanditaire.textContent = `${d.NOM}`;
+            devisCommanditaire.classList.add('modalCommanditaire');
+
+            // Client
+            const devisClient = document.createElement('div');
+            devisClient.textContent = `${d.NOM_CLIENT}`;
+            devisClient.classList.add('modalSegm');
+
+            // Expertise
+            const devisExpertise = document.createElement('div');
+            devisExpertise.textContent = `${d.NOM_EXPERTISE}`;
+            devisExpertise.classList.add('modalSegm');
+
+            // Domaine
+            const devisDomaine = document.createElement('div');
+            devisDomaine.textContent = `${d.NOM_DOMAINE}`;
+            devisDomaine.classList.add('modalSegm');
+
+            // Contrat
+            const devisContrat = document.createElement('div');
+            devisContrat.textContent = `${d.NOM_CONTRAT}`;
+            devisContrat.classList.add('modalSegm');
+
+            // Modifier le devis
+            const btnModifier = document.createElement('button');
+            btnModifier.classList.add('btnModal');
+            btnModifier.innerText = 'Modifier';
+            btnModifier.addEventListener('click', () => {
+              alert('Modifier le devis');
+            });
+
+            // AppendChild && Append
+            document.body.appendChild(overlay);
+            overlay.appendChild(modal);
+            modal.append(modalContent, divBtns);
+            modalContent.append(devisLibelle, groupSegmCodexRa, btnModifier);
+            groupSegmCodexRa.append(devisCodexRa, groupSegm);
+            groupSegm.append(
+              devisCommanditaire,
+              devisClient,
+              devisExpertise,
+              devisDomaine,
+              devisContrat
+            );
+
+            // Modal action btn close
+            modal.classList.remove('hidden');
+            document.body.classList.add('noscroll');
+            closeBtn.addEventListener('click', e => {
+              e.preventDefault();
+              modal.classList.add('hide');
+              setTimeout(() => {
+                overlay.remove();
+                document.body.removeChild(modal); // Ferme le modal
+              }, 300);
+              document.body.classList.remove('noscroll');
+            });
+            overlay.addEventListener('click', e => {
+              if (e.target === overlay) {
+                modal.classList.add('hide');
+                setTimeout(() => {
+                  overlay.remove();
+                  document.body.removeChild(modal); // Ferme le modal
+                }, 300);
+                document.body.classList.remove('noscroll');
+              }
+            });
+
+            // Modal action btn fap
+            goToFapBtn.addEventListener('click', e => {
+              e.preventDefault();
+              alert('Faire le get de la fap du devis');
+            });
+          });
         });
 
         contenuDevisList.appendChild(devisList);
@@ -102,92 +225,5 @@ function fetchDevisByRaId() {
       main.append(btnCreerDevis);
     });
 }
-
-/* -- Action lors du clique sur le devis -- */
-const devisItem = document.createElement('div');
-devisItem.classList.add('devisItem');
-
-devisItem.addEventListener('click', e => {
-  e.preventDefault();
-  // devisItem.addEventListener suite ..
-  const modal = document.createElement('div');
-  modal.classList.add('modalUser');
-  document.body.classList.add('noscroll');
-  modal.style.display = 'flex';
-  modal.classList.add('show');
-  const closeBtn = document.createElement('button').classList.add('close-btn');
-
-  const overlay = document.createElement('div');
-  overlay.classList.add('modalDevis-overlay');
-
-  const modalContent = document.createElement('div');
-  modalContent.classList.add('modalDevis_content');
-
-  //Libelle du devis
-  const devisLibelle = document.createElement('div');
-  devisLibelle.textContent = ``;
-  devisLibelle.classList.add('modalDevisLibelle');
-
-  // Groupe de la segmentation et le N°Codex + RA_ID
-  const groupSegmCodexRa = document.createElement('div');
-  groupSegmCodexRa.classList.add('groupeSegmCodexRa');
-  groupSegmCodexRa.appendChild(groupSegm);
-
-  // Div pour regrouper la segmentation
-  const groupSegm = document.createElement('div');
-  groupSegm.classList.add('groupSegm');
-
-  // N°Codex RA_ID Etat
-  const devisCodexRa = document.createElement('div');
-  devisCodexRa.textContent = ``;
-  devisCodexRa.classList.add('modalDevisCodexRa');
-
-  // Commanditaire
-  const devisCommanditaire = document.createElement('div');
-  devisCommanditaire.textContent = ``;
-  devisCommanditaire.classList.add('modalCommanditaire');
-
-  // Client
-  const devisClient = document.createElement('div');
-  devisClient.textContent = ``;
-  devisClient.classList.add('modalSegm');
-
-  // Expertise
-  const devisExpertise = document.createElement('div');
-  devisExpertise.textContent = ``;
-  devisExpertise.classList.add('modalSegm');
-
-  // Domaine
-  const devisDomaine = document.createElement('div');
-  devisDomaine.textContent = ``;
-  devisDomaine.classList.add('modalSegm');
-
-  // Contrat
-  const devisContrat = document.createElement('div');
-  devisContrat.textContent = ``;
-  devisContrat.classList.add('modalSegm');
-
-  // Modifier le devis
-  const btnModifier = document.createElement('button').classList.add('btnModal');
-  btnModifier.innerText = 'Modifier';
-  btnModifier.addEventListener('click', () => {
-    alert('Modifier le devis ');
-  });
-
-  // AppendChild && Append
-  overlay.appendChild(modal);
-  modal.appendChild(modalContent);
-  modalContent.append(devisLibelle, groupSegmCodexRa);
-  groupSegmCodexRa.appendChild(devisCodexRa);
-  groupSegm.append(devisCommanditaire, devisClient, devisExpertise, devisDomaine, devisContrat);
-
-  // Modal action
-  modal.classList.remove('hidden');
-  document.body.classList.add('noscroll');
-  closeBtn.onclick = () => {
-    modal.classList.add('hidden');
-    document.body.classList.remove('noscroll');
-  };
-});
 
 fetchDevisByRaId();

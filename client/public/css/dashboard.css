@@ -171,6 +171,7 @@ h2 {
   background-color: var(--color-white);
   border-radius: 4px;
 }
+
 .modalCmdt {
   height: 25vh;
 }
@@ -216,7 +217,7 @@ select {
     transform: translate(-50%, -50%) scale(0.7);
   }
 }
-
+.modalDevis,
 .modalUser,
 .modalPasswordLogin,
 .modal,
@@ -228,6 +229,7 @@ select {
 }
 
 .modalUser.show,
+.modalDevis.show,
 .modalPasswordLogin.show,
 .modal.show,
 .modalCmdt.show {
@@ -235,11 +237,13 @@ select {
 }
 
 .modalUser.hide,
+.modalDevis.hide,
 .modalPasswordLogin.hide,
 .modalCmdt.hide {
   animation-name: popOut;
 }
 
+.modalDevis-overlay,
 .modalUser-overlay,
 .modalPassword-overlay,
 .modal-overlay,
@@ -266,14 +270,6 @@ select {
   align-items: center;
   width: 70%;
   gap: 1em;
-}
-
-.modalUser_content,
-.modalPassword_content,
-.modalCmdt_content {
-  display: flex;
-  justify-content: center;
-  width: 100%;
 }
 
 .noscroll {

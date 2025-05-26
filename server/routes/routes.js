@@ -6,6 +6,9 @@ import contratRoutes from './contratRoutes.js';
 import devisRoutes from './devisRoutes.js';
 import domaineRoutes from './domaineRoutes.js';
 import expertiseRoutes from './expertiseRoutes.js';
+import achatRoutes from './segmentationRoutes/achatRoutes.js';
+import fraisFournitureRoutes from './segmentationRoutes/fraisFournitureRoutes.js';
+import sectionRoutes from './segmentationRoutes/sectionRoutes.js';
 import userRoutes from './userRoutes.js';
 const router = Router();
 
@@ -17,4 +20,7 @@ router.use('/commanditaires', commanditaireRoutes);
 router.use('/admin', adminRoutes);
 router.use('/users', userRoutes);
 router.use('/devis', devisRoutes);
+router.use('/sections', sectionRoutes);
+router.use('/achats', achatRoutes);
+router.use('/frais', fraisFournitureRoutes);
 export default router;

@@ -9,6 +9,9 @@ body {
     var(--color-secondary),
     var(--color-primary)
   );
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
 header {
   height: 8vh;
@@ -124,10 +127,7 @@ input {
 .btnCreerFap {
   display: flex; /* -- A voir si il ne faut pas mettre un display none plus tard -- */
 }
-.groupeSegmCodexRa {
-  display: flex;
-  flex-direction: column-reverse;
-}
+
 .form-separator {
   border: none;
   height: 1px;

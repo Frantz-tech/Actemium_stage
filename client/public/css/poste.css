@@ -224,17 +224,6 @@
   text-align: center;
   height: fit-content;
 }
-.close-btn,
-.goToPostBtn {
-  font-size: clamp(1.5em, 3.5vw, 3rem);
-  cursor: pointer;
-  align-self: flex-start;
-  color: var(--color-white);
-}
-.goToPostBtn {
-  border: none;
-  background-color: transparent;
-}
 
 #modal_body {
   display: flex;
@@ -244,23 +233,7 @@
   align-items: center;
 }
 
-.modalPostTitle,
-.modalDevisLibelle {
-  text-transform: uppercase;
-  color: var(--color-white);
-  font-size: clamp(1.5rem, 3vw, 5rem);
-  font-weight: bold;
-  letter-spacing: 0.2rem;
-  padding: 0 clamp(1rem, 3vw, 2rem) clamp(1rem, 3vw, 2rem);
-}
-
 .modalSectionAchatFraisTitle,
-.modalDevisCodexRa {
-  color: var(--color-white);
-  font-size: clamp(1.3rem, 2.3vw, 3rem);
-  font-weight: 600;
-}
-
 .liModal,
 .devisSegm {
   background-color: var(--color-white);
@@ -277,30 +250,14 @@ ul {
   gap: 1vw;
 }
 
-.groupSegm {
-  padding: 2vw;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  width: 100%;
-  row-gap: clamp(5px, 1vw, 10px);
-  column-gap: 4%;
-}
-
-.modalCommanditaire,
-.modalSegm {
-  background-color: var(--color-white);
-  border-radius: 5px;
-  padding: 5px;
-  width: 100%;
-}
-
-.modalSegm {
-  width: 48%;
-}
-
 .divCloseGoTo {
   display: flex;
   width: 100%;
   justify-content: space-between;
+}
+
+.groupeA {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
