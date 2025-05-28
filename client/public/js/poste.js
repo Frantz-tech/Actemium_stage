@@ -1,6 +1,7 @@
 import { fillAchatSelect } from './postes/fillAchatSelect.js';
 import { fillFraisChantierSelect } from './postes/fillChantierSelect.js';
 import { fillSectionSelect } from './postes/fillSectionSelect.js';
+import { sendPostes } from './postes/posteSumbit.js';
 // Fonction pour créer dynamiquement le formulaire poste dans <main>
 function createPosteForm() {
   const main = document.querySelector('main');
@@ -53,10 +54,13 @@ function createPosteForm() {
   optionCodeSection.textContent = 'Code Section';
   optionCodeSection.selected = true;
   optionCodeSection.disabled = true;
+  optionCodeSection.value = '';
 
   selectCodeSection.appendChild(optionCodeSection);
 
   fillSectionSelect(selectCodeSection, 'main_doeuvre');
+  selectCodeSection.dispatchEvent(new Event('change'));
+
   // Input nbr heures
   const inputNbHeures = document.createElement('input');
   inputNbHeures.type = 'number';
@@ -131,6 +135,7 @@ function createPosteForm() {
   optionCodeAchat.textContent = 'Code Achat';
   optionCodeAchat.selected = true;
   optionCodeAchat.disabled = true;
+  optionCodeAchat.value = '';
 
   selectCodeAchat.appendChild(optionCodeAchat);
   fillAchatSelect(selectCodeAchat, 'achats');
@@ -226,6 +231,7 @@ function createPosteForm() {
   optionCodeFraisChantier.textContent = 'Code Frais Chantier';
   optionCodeFraisChantier.selected = true;
   optionCodeFraisChantier.disabled = true;
+  optionCodeFraisChantier.value = '';
   selectCodeFrais.appendChild(optionCodeFraisChantier);
 
   fillFraisChantierSelect(selectCodeFrais, 'chantier');
@@ -233,12 +239,12 @@ function createPosteForm() {
   // Input nomAchat (produit)
   const inputNomFrais = document.createElement('input');
   inputNomFrais.type = 'text';
-  inputNomFrais.className = 'nomAchat';
+  inputNomFrais.className = 'nomFrais';
   inputNomFrais.placeholder = 'Produit';
 
   // Div inputAchat (quantité, unité, prixU, total)
   const divInputFrais = document.createElement('div');
-  divInputFrais.className = 'inputAchat';
+  divInputFrais.className = 'inputFrais';
 
   const inputQteFrais = document.createElement('input');
   inputQteFrais.type = 'number';
@@ -332,6 +338,67 @@ function ajouterBloc(modeleSelector, containerSelector) {
   clone.querySelectorAll('select').forEach(select => (select.selectedIndex = 0));
 
   document.querySelector(containerSelector).appendChild(clone);
+
+  const selectCodeSection = clone.querySelector('.codeSection');
+  const inputNbHeures = clone.querySelector('.nbHeures');
+  const inputTotalSection = clone.querySelector('.totalSection');
+
+  // Fonction de calcul du total section
+  if (selectCodeSection && inputNbHeures && inputTotalSection) {
+    function updateTotalSection() {
+      const selectedOption = selectCodeSection.options[selectCodeSection.selectedIndex];
+      const taux =
+        selectedOption && selectedOption.dataset && selectedOption.dataset.taux
+          ? parseFloat(selectedOption.dataset.taux)
+          : 0;
+      const nbHeures = parseFloat(inputNbHeures.value) || 0;
+      const total = taux * nbHeures;
+      console.log('Taux:', taux, 'Heures:', nbHeures, 'Total:', total);
+
+      inputTotalSection.value = total ? total.toFixed(2) + ' €' : '';
+    }
+    selectCodeSection.addEventListener('change', updateTotalSection);
+    inputNbHeures.addEventListener('input', updateTotalSection);
+    updateTotalSection();
+  }
+
+  const selectCodeAchat = clone.querySelector('.codeAchat');
+  const inputNomAchat = clone.querySelector('.nomAchat');
+  const inputQteAchat = clone.querySelector('.qteAchat');
+  const inputPrixUAchat = clone.querySelector('.prixUAchat');
+  const inputTotalAchat = clone.querySelector('.totalAchat');
+
+  if (selectCodeAchat && inputNomAchat && inputQteAchat && inputPrixUAchat && inputTotalAchat) {
+    // Fonction de calcul des Achats
+    function updateTotalAchat() {
+      const qte = parseFloat(inputQteAchat.value) || 0;
+      const prixU = parseFloat(inputPrixUAchat.value) || 0;
+      const total = qte * prixU;
+      inputTotalAchat.value = total ? total.toFixed(2) + ' €' : '';
+    }
+    inputQteAchat.addEventListener('input', updateTotalAchat);
+    inputPrixUAchat.addEventListener('input', updateTotalAchat);
+    updateTotalAchat();
+  }
+
+  const selectCodeFrais = clone.querySelector('.codeFraisChantier');
+  const inputNomFrais = clone.querySelector('.nomFrais');
+  const inputQteFrais = clone.querySelector('.qteFraisChantier');
+  const inputPrixUFrais = clone.querySelector('.prixUFraisChantier');
+  const inputTotalFrais = clone.querySelector('.totalFraisChantier');
+
+  if (selectCodeFrais && inputNomFrais && inputQteFrais && inputPrixUFrais && inputTotalFrais) {
+    // Fonction de calcul des Frais
+    function updateTotalFrais() {
+      const qte = parseFloat(inputQteFrais.value) || 0;
+      const prixU = parseFloat(inputPrixUFrais.value) || 0;
+      const total = qte * prixU;
+      inputTotalFrais.value = total ? total.toFixed(2) + ' €' : '';
+    }
+    inputQteFrais.addEventListener('input', updateTotalFrais);
+    inputPrixUFrais.addEventListener('input', updateTotalFrais);
+    updateTotalFrais();
+  }
 }
 
 btnAddSection.addEventListener('click', () => ajouterBloc('.contenuSection', '.groupePoste'));
@@ -365,6 +432,5 @@ document.addEventListener('click', e => {
 });
 
 btnCreerPoste.addEventListener('click', () => {
-  alert('Ajout d un poste dans la liste des postes + envoi vers cette page');
-  window.location.href = '../pages/postesList.html';
+  sendPostes();
 });

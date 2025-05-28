@@ -2,6 +2,7 @@ import { sendSuccessResponse } from '../../helper/responseHelper.js';
 import { Service } from '../../services/segmentationService/achatService.js';
 
 const getAllAchats = async (req, res) => {
+  console.log('Appel route getAllAchats avec context:', req.query.context);
   try {
     const context = req.query.context;
     console.log('context recu : ', context);

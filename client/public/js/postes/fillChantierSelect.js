@@ -1,7 +1,7 @@
 import { handleApiError } from '../tokenHandler/handleApi.js';
 
 export function fillFraisChantierSelect(selectElement, context) {
-  fetch(`http://localhost:3000/api/sections?context=${context}`)
+  fetch(`http://localhost:3000/api/frais?context=${context}`)
     .then(res => res.json())
     .then(data => {
       handleApiError(data);
@@ -11,7 +11,7 @@ export function fillFraisChantierSelect(selectElement, context) {
       if (Array.isArray(fraisChantier)) {
         fraisChantier.forEach(f => {
           const option = document.createElement('option');
-          option.value = f.SECTION;
+          option.value = f.CODE_ID;
           option.textContent = f.LIBELLE;
           selectElement.appendChild(option);
         });

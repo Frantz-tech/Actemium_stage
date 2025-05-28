@@ -28,7 +28,8 @@
   max-width: 450px;
   gap: 4.2vh;
 }
-.inputAchat {
+.inputAchat,
+.inputFrais {
   display: flex;
   justify-content: space-between;
   width: 80%;
@@ -37,6 +38,7 @@
 }
 
 .nomAchat,
+.nomFrais,
 .qteAchat,
 .uniteAchat,
 .prixUAchat,
@@ -49,7 +51,8 @@
   width: 48%;
   height: 3vh;
 }
-.nomAchat {
+.nomAchat,
+.nomFrais {
   width: 80%;
   height: 4vh;
 }
@@ -130,6 +133,7 @@
 
 .btnPostes {
   display: flex;
+  flex-direction: row-reverse;
   gap: 3vw;
 }
 

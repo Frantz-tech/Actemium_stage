@@ -11,8 +11,10 @@ export function fillSectionSelect(selectElement, context) {
       if (Array.isArray(sections)) {
         sections.forEach(s => {
           const option = document.createElement('option');
-          option.value = s.SECTION;
+          option.value = s.CODE_ID;
           option.textContent = s.LIBELLE;
+          option.dataset.taux = s.TAUX ?? 0;
+
           selectElement.appendChild(option);
         });
       } else {

@@ -11,8 +11,9 @@ export function fillAchatSelect(selectElement, context) {
       if (Array.isArray(achats)) {
         achats.forEach(a => {
           const option = document.createElement('option');
-          option.value = a.SECTION;
+          option.value = a.CODE_ID;
           option.textContent = a.LIBELLE;
+          option.dataset.taux = a.TAUX ?? 0;
           selectElement.appendChild(option);
         });
       } else {
