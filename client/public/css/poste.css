@@ -4,7 +4,7 @@
 #groupeSectionContainer,
 #groupeAchatContainer,
 #groupeDevisList,
-#groupePostesList {
+#groupePostList {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -13,7 +13,7 @@
 .contenuAchat,
 .contenuFraisChantier,
 .contenuDevisList,
-.contenuPostesList {
+.contenuPostList {
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -60,7 +60,8 @@
 .nbHeures {
   width: 80%;
 }
-.btnGoToPost {
+.btnGoToPost,
+.btnOpenPost {
   order: -1;
   font-size: 1.8rem;
   display: flex;
@@ -135,22 +136,25 @@
   display: flex;
   flex-direction: row-reverse;
   gap: 3vw;
+  order: 1;
 }
 
 /* page liste des devis  */
 
 #devisList,
-#postesList {
+#postList {
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 2vh;
 }
-#devisList {
+#devisList,
+#postList {
   width: 80%;
   max-width: 800px;
 }
-.devisContent {
+.devisContent,
+.postContent {
   display: flex;
   align-items: center;
   gap: 1vw;
@@ -164,11 +168,13 @@
 }
 
 .devisLibelle,
-.devis_ref {
+.devis_ref,
+.poste_ref {
   padding: 0 3vw;
 }
 
 .devisItem,
+.postItem,
 .sectionItem,
 .achatItem,
 .posteFap {
