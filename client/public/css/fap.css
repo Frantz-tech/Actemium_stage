@@ -2,7 +2,32 @@ h1 {
   text-align: center;
 }
 
-.styleCalculs {
+.postDiv {
+  display: flex;
+  width: 100%;
+  gap: 1vw;
+  max-width: 900px;
+}
+#contenuPost {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 1vw;
+}
+.postLibelleFap,
+.totalPostFap {
+  border-radius: 4px;
+  background-color: var(--color-white);
+  padding: 0.5vw 2vw;
+}
+.postLibelleFap {
+  flex: 3;
+}
+.totalPostFap {
+  flex: 1;
+}
+/* .styleCalculs {
   background-color: var(--color-primary);
   display: flex;
   justify-content: space-between;
@@ -77,4 +102,4 @@ h1 {
   font-weight: bold;
   text-align: center;
   font-size: clamp(0.6em, 1.7vw, 1.5em);
-}
+} */

@@ -53,7 +53,9 @@ function fetchDevisByRaId() {
           const devis_ref = document.createElement('p');
           devis_ref.classList.add('devis_ref');
           devis_ref.appendChild(
-            Object.assign(document.createElement('strong'), { textContent: 'Numéro du devis : ' })
+            Object.assign(document.createElement('strong'), {
+              textContent: 'Devis N° : ',
+            })
           );
           devis_ref.appendChild(document.createTextNode(d.DEVIS_REF));
 
@@ -178,6 +180,20 @@ function fetchDevisByRaId() {
               devisDomaine,
               devisContrat
             );
+
+            // Fermer le modal avec la touche Échap
+            const handleEscape = e => {
+              if (e.key === 'Escape') {
+                modal.classList.add('hide');
+                setTimeout(() => {
+                  overlay.remove();
+                  document.body.removeChild(modal);
+                }, 300);
+                document.body.classList.remove('noscroll');
+                document.removeEventListener('keydown', handleEscape); // Nettoyage du listener
+              }
+            };
+            document.addEventListener('keydown', handleEscape);
 
             // Modal action btn close
             modal.classList.remove('hidden');

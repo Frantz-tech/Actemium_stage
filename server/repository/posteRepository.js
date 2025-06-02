@@ -22,9 +22,27 @@ const createPoste = async poste => {
 // Recup les poste par id de devis
 const getAllPostes = async (devis_id, ra_id) => {
   const [rows] = await pool.query(
-    `SELECT p.DEVIS_ID, p.LIBELLE AS POSTE_LIBELLE,c.LIBELLE AS CODE_LIBELLE, p.PRODUIT, p.QTE, p.UNITE, p.NB_H, p.PRIX_U, p.TOTAL FROM POSTES p JOIN CODE c ON p.CODE_ID = c.CODE_ID WHERE p.DEVIS_ID = ? ORDER BY p.LIBELLE ASC`,
+    `SELECT 
+  p.DEVIS_ID,
+  p.LIBELLE AS POSTE_LIBELLE,
+  c.LIBELLE AS CODE_LIBELLE,
+  c.CONTEXT AS CONTEXT,
+  t.TAUX AS TAUX,
+  p.PRODUIT,
+  p.QTE,
+  p.UNITE,
+  p.NB_H,
+  p.PRIX_U,
+  p.TOTAL
+FROM POSTES p
+JOIN CODE c ON p.CODE_ID = c.CODE_ID
+LEFT JOIN HEURES_POSTE t ON p.CODE_ID = t.CODE_ID
+WHERE p.DEVIS_ID = ?
+ORDER BY p.POSTE_ID DESC;`,
     [devis_id, ra_id]
   );
+  console.log('Lignes postes ', rows);
+
   return rows;
 };
 

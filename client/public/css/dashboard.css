@@ -218,6 +218,7 @@ select {
   }
 }
 .modalDevis,
+.modalPost,
 .modalUser,
 .modalPasswordLogin,
 .modal,
@@ -230,6 +231,7 @@ select {
 
 .modalUser.show,
 .modalDevis.show,
+.modalPost.show,
 .modalPasswordLogin.show,
 .modal.show,
 .modalCmdt.show {
@@ -238,12 +240,14 @@ select {
 
 .modalUser.hide,
 .modalDevis.hide,
+.modalPost.hide,
 .modalPasswordLogin.hide,
 .modalCmdt.hide {
   animation-name: popOut;
 }
 
 .modalDevis-overlay,
+.modalPost-overlay,
 .modalUser-overlay,
 .modalPassword-overlay,
 .modal-overlay,

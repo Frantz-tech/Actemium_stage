@@ -36,9 +36,20 @@ select {
   flex-direction: column;
   width: 80%;
 }
-.modalDevisLibelle {
+.modalDevisLibelle,
+.modalPostLibelle {
+  text-align: center;
   text-transform: uppercase;
-  color: var(--primary-blue);
+  background: linear-gradient(
+    to top,
+    var(--color-accent),
+    var(--color-secondary),
+    var(--color-primary)
+  );
+  background-clip: text;
+  color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   font-size: clamp(1.5rem, 3vw, 5rem);
   font-weight: bold;
   letter-spacing: 0.2rem;
@@ -83,6 +94,7 @@ select {
 }
 
 .modalDevis_content,
+.modalPost_content,
 .modalUser_content,
 .modalPassword_content,
 .modalCmdt_content {
@@ -93,6 +105,10 @@ select {
   align-items: center;
   width: 100%;
 }
+
+.modalPost_content {
+  padding: 0 1vw 2vw;
+}
 .divBtns {
   padding: 1vw;
   width: 100%;
@@ -100,7 +116,8 @@ select {
   justify-content: space-between;
 }
 .close-btn,
-.goToFapBtnDevis {
+.goToFapBtnDevis,
+.edit-btn {
   font-size: clamp(1.6rem, 2.5vw, 2.5rem);
   cursor: pointer;
   align-self: flex-start;
@@ -108,10 +125,19 @@ select {
   border: none;
   background-color: transparent;
 }
-/* .goToFapBtnDevis {
-  display: none;
-} */
+.edit-btn {
+  font-size: clamp(1.4rem, 2.3vw, 2.3rem);
+}
 
+.saf {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  max-height: 40vh;
+  overflow: scroll;
+  gap: 2vw;
+  padding: 0 2vw;
+}
 .modalDevis {
   display: flex;
   flex-direction: column-reverse;
@@ -143,6 +169,82 @@ select {
   width: 100%;
   row-gap: clamp(5px, 1vw, 10px);
   column-gap: clamp(5px, 1vw, 10px);
+}
+.containerSection,
+.containerAchat,
+.containerFourniture {
+  display: flex;
+  background-color: var(--color-primary);
+  flex-direction: column;
+  width: 100%;
+  border-radius: 4px;
+}
+.sectionData,
+.achatsData,
+.fournituresData {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 1vw;
+  margin: 1vw 0;
+  gap: 0.8vw;
+}
+.sectionsBloc,
+.achatsBloc,
+.fournituresBloc {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  gap: 0.3vw;
+}
+
+.contextTitle {
+  text-align: center;
+  color: var(--color-white);
+  font-size: clamp(1.1rem, 2vw, 3rem);
+  letter-spacing: 0.1rem;
+  font-weight: bolder;
+  padding: 1vw 1vw 0;
+}
+.codeLibelle,
+.quantite,
+.prixUnitaire,
+.total,
+.produit,
+.unite {
+  background-color: var(--color-white);
+  /* border: 1.8px solid black; */
+  border-radius: 4px;
+  text-align: center;
+  padding: 0.2rem;
+  font-weight: 600;
+}
+
+.codeLibelle,
+.produit {
+  flex: 3.5;
+}
+
+.total {
+  flex: 2;
+}
+.quantite,
+.prixUnitaire,
+.unite {
+  flex: 1.5;
+}
+
+.totalMd,
+.tA,
+.tF,
+.totalGDiv {
+  color: var(--color-white);
+  font-weight: 800;
+  text-align: center;
+}
+.totalText {
+  text-transform: capitalize;
+  font-weight: bold;
 }
 
 @media screen and (width > 724px) {
