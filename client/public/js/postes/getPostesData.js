@@ -1,7 +1,7 @@
 import { handleApiError } from '../tokenHandler/handleApi.js';
 import { regrouperPostes } from './getpostList.js'; // adapte le chemin si besoin
 
-export async function getPostData(devis_id, ra_id) {
+export async function getPostData(devis_id, ra_id, poste_libelle) {
   const token = localStorage.getItem('token');
   console.log('📤 Appel API avec devis_id =', devis_id, 'et ra_id =', ra_id);
   try {
@@ -19,11 +19,23 @@ export async function getPostData(devis_id, ra_id) {
       handleApiError(response);
       throw Error(`Erreur HTTP : ${response.status}`);
     }
-    const data_1 = await response.json();
-    const postesRegroupés = regrouperPostes(data_1.data);
+    const postes = await response.json();
+    const postesRegroupes = regrouperPostes(postes.data);
 
-    console.log('Liste des postes récupérés : ', data_1.data);
-    return postesRegroupés;
+    console.log('Liste des postes récupérés : ', postes.data);
+
+    // 🔁 Regrouper les postes par POSTE_LIBELLE
+
+    const groupesParLibelle = postes.data.reduce((acc, poste) => {
+      const libelle = poste.POSTE_LIBELLE;
+      if (!acc[libelle]) acc[libelle] = [];
+      acc[libelle].push(poste);
+      return acc;
+    }, {});
+
+    console.log('📚 Postes regroupés par libellé :', groupesParLibelle);
+
+    return groupesParLibelle;
   } catch (error) {
     console.error('Erreur lors de la récupération des postData : ', error);
   }

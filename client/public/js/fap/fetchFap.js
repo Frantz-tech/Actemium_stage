@@ -1,4 +1,6 @@
 import { getPostData } from '../postes/getPostesData.js';
+import { openPostModal } from '../postes/openPostModal.js';
+import { totalParContext } from './calculsFap.js';
 
 export async function fetchFap() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -11,24 +13,280 @@ export async function fetchFap() {
     const contenuPost = document.createElement('div');
     contenuPost.id = 'contenuPost';
 
-    let totalPostFap = 0;
-    postes.forEach(p => {
+    Object.entries(postes).forEach(([libelle, groupe]) => {
       const postDiv = document.createElement('div');
       postDiv.classList.add('postDiv');
 
+      postDiv.addEventListener('click', e => {
+        e.preventDefault();
+        openPostModal(groupe[0], groupe);
+      });
+
       const postLibelleFap = document.createElement('p');
       postLibelleFap.classList.add('postLibelleFap');
-      postLibelleFap.textContent = `Libellé : ${p.POSTE_LIBELLE}`;
+      postLibelleFap.textContent = `Libellé : ${libelle}`;
 
-      totalPostFap = document.createElement('div');
+      const totalMontant = groupe.reduce((sum, p) => sum + (parseFloat(p.TOTAL) || 0), 0);
+
+      const totalPostFap = document.createElement('div');
       totalPostFap.classList.add('totalPostFap');
-      totalPostFap.textContent += `Montant : ${parseFloat(p.TOTAL || 0).toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
+      totalPostFap.textContent = ` ${totalMontant.toLocaleString('fr-FR', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })} €`;
 
       postDiv.append(postLibelleFap, totalPostFap);
       contenuPost.appendChild(postDiv);
     });
+
+    const totalParCtx = totalParContext(Object.values(postes).flat());
+    const totalAchat = totalParCtx['ACHATS'] || 0;
+    const totalMdvr = totalParCtx['MAIN_DOEUVRE'] || 0;
+    const totalFraisC = totalParCtx['CHANTIER'] || 0;
+    const totalPri = totalAchat + totalMdvr + totalFraisC;
+    // const totalFraisA = totalParCtx[''] || 0;
+
+    console.log('total des achats ', totalAchat);
+    console.log('total de la main doeuvre ', totalMdvr);
+    console.log('total des frais de chantier ', totalFraisC);
+
+    // Container pour les prix et les calculs de marge
+
+    const containerPrix = document.createElement('div');
+    containerPrix.classList.add('containerPrix');
+
+    // Div total de la main d'oeuvre
+    const mdvr = document.createElement('div');
+    mdvr.classList.add('mdvr');
+    mdvr.classList.add('divFap');
+
+    const mdvrP = document.createElement('p');
+    mdvrP.classList.add('divTextFap');
+    mdvrP.textContent = "Total main d'oeuvre";
+
+    const mdvrTotal = document.createElement('div');
+    mdvrTotal.textContent = `${totalMdvr.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
+    mdvrTotal.classList.add('divTotal');
+    mdvrTotal.classList.add('divTotal_2');
+
+    mdvr.append(mdvrP, mdvrTotal);
+
+    // Div total des achats
+    const achat = document.createElement('div');
+    achat.classList.add('achat');
+    achat.classList.add('divFap');
+
+    const achatP = document.createElement('p');
+    achatP.classList.add('divTextFap');
+    achatP.textContent = 'Total achats';
+
+    const achatTotal = document.createElement('div');
+    achatTotal.textContent = `${totalAchat.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
+    achatTotal.classList.add('divTotal');
+    achatTotal.classList.add('divTotal_2');
+
+    achat.append(achatP, achatTotal);
+
+    // Div Total Frais Achats
+    const fraisAchats = document.createElement('div');
+    fraisAchats.classList.add('fraisAchats');
+    fraisAchats.classList.add('divFap');
+
+    const fraisAchatsP = document.createElement('p');
+    fraisAchatsP.classList.add('divTextFap');
+    fraisAchatsP.textContent = "Frais d'achats";
+
+    const fraisAchatsTotal = document.createElement('div');
+    fraisAchatsTotal.classList.add('divTotal');
+    fraisAchatsTotal.classList.add('divTotal_2');
+
+    fraisAchats.append(fraisAchatsP, fraisAchatsTotal);
+
+    // Div total Frais chantier
+    const fraisChantier = document.createElement('div');
+    fraisChantier.classList.add('fraisChantier');
+    fraisChantier.classList.add('divFap');
+
+    const fraisChantierP = document.createElement('p');
+    fraisChantierP.classList.add('divTextFap');
+    fraisChantierP.textContent = 'Total frais de chantier';
+
+    const fraisChantierTotal = document.createElement('div');
+    fraisChantierTotal.textContent = `${totalFraisC.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
+    fraisChantierTotal.classList.add('divTotal');
+    fraisChantierTotal.classList.add('divTotal_2');
+
+    fraisChantier.append(fraisChantierP, fraisChantierTotal);
+
+    // Div Garantie ensemblier correspond a 2.5% du prix de vente retenu, elle est a ajouter au calcul
+    const garantieE = document.createElement('div');
+    garantieE.classList.add('garantieE');
+    garantieE.classList.add('divFap');
+
+    const garantieEP = document.createElement('p');
+    garantieEP.classList.add('divTextFap');
+    garantieEP.textContent = 'Garantie ensemblier';
+
+    const garantieETotal = document.createElement('div');
+    garantieETotal.classList.add('divTotal');
+
+    garantieE.append(garantieEP, garantieETotal);
+
+    // Div Prix de revient intermédiaire
+    const divPRI = document.createElement('div');
+    divPRI.classList.add('divPRI');
+    divPRI.classList.add('divFap');
+
+    const divPriP = document.createElement('p');
+    divPriP.classList.add('divTextFap');
+    divPriP.textContent = 'Prix de revient intermédiaire';
+
+    const divPriTotal = document.createElement('div');
+    divPriTotal.textContent = `${totalPri.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
+    divPriTotal.classList.add('divTotal');
+    divPriTotal.classList.add('divTotal_2');
+
+    divPRI.append(divPriP, divPriTotal);
+
+    // Div Groupement de frais
+    const divFrais = document.createElement('div');
+    divFrais.classList.add('divGrpFrais');
+    divFrais.classList.add('divFap');
+
+    // Frais de devis sans suite
+    const divFraisDSS = document.createElement('div');
+    divFraisDSS.classList.add('divFrais');
+    divFraisDSS.classList.add('divFap');
+
+    const divFraisDssP = document.createElement('p');
+    divFraisDssP.classList.add('divTextFap');
+    divFraisDssP.textContent = 'Frais de devis sans suite';
+
+    const divFraisDssTotal = document.createElement('div');
+    divFraisDssTotal.classList.add('divTotal');
+
+    divFraisDSS.append(divFraisDssP, divFraisDssTotal);
+
+    // Frais Financiers
+    const divFraisFinanciers = document.createElement('div');
+    divFraisFinanciers.classList.add('divFrais');
+    divFraisFinanciers.classList.add('divFap');
+
+    const divFraisFinanciersP = document.createElement('p');
+    divFraisFinanciersP.classList.add('divTextFap');
+    divFraisFinanciersP.textContent = 'Frais Financiers';
+
+    const divFraisFinanciersTotal = document.createElement('div');
+    divFraisFinanciersTotal.classList.add('divTotal');
+
+    divFraisFinanciers.append(divFraisFinanciersP, divFraisFinanciersTotal);
+
+    // Frais de groupe
+    const divFraisGroupe = document.createElement('div');
+    divFraisGroupe.classList.add('divFrais');
+    divFraisGroupe.classList.add('divFap');
+
+    const divFraisGroupeP = document.createElement('p');
+    divFraisGroupeP.classList.add('divTextFap');
+    divFraisGroupeP.textContent = 'Frais de Groupe';
+
+    const divFraisGroupeTotal = document.createElement('div');
+    divFraisGroupeTotal.classList.add('divTotal');
+
+    divFraisGroupe.append(divFraisGroupeP, divFraisGroupeTotal);
+
+    // Div Prix de revient
+    const divPr = document.createElement('div');
+    divPr.classList.add('divPr');
+    divPr.classList.add('divFap');
+
+    const divPrP = document.createElement('p');
+    divPrP.classList.add('divTextFap');
+    divPrP.textContent = 'Prix de revient';
+
+    const divPrTotal = document.createElement('div');
+    divPrTotal.classList.add('divTotal');
+
+    divPr.append(divPrP, divPrTotal);
+
+    // Marge Voulue
+    const margeVoulue = document.createElement('div');
+    margeVoulue.classList.add('margeVoulue');
+    margeVoulue.classList.add('divFap');
+
+    const margeVoulueP = document.createElement('p');
+    margeVoulueP.classList.add('divTextFap');
+    margeVoulueP.textContent = 'Marge Voulue';
+
+    const margeVoulueValue = document.createElement('input');
+    margeVoulueValue.id = 'margeVoulue';
+    margeVoulueValue.style.flex = 1;
+
+    margeVoulue.append(margeVoulueP, margeVoulueValue);
+
+    // Div Prix de vente estimé, calculer avec la marge voulu par rapport au prix de revient inter
+
+    const divPVE = document.createElement('div');
+    divPVE.classList.add('divPVE');
+    divPVE.classList.add('divFap');
+
+    const divPveP = document.createElement('p');
+    divPveP.classList.add('divTextFap');
+    divPveP.textContent = 'Prix de vente estimé';
+
+    const divPveTotal = document.createElement('div');
+    divPveTotal.classList.add('divTotal');
+
+    divPVE.append(divPveP, divPveTotal);
+
+    // Div Prix de vente retenu, a insérer par le responsable d'affaire
+
+    const divPVR = document.createElement('div');
+    divPVR.classList.add('divPVR');
+    divPVR.classList.add('divFap');
+
+    const divPvrP = document.createElement('p');
+    divPvrP.classList.add('divTextFap');
+    divPvrP.textContent = 'Prix de vente retenu';
+
+    const divPvrTotal = document.createElement('div');
+    divPvrTotal.classList.add('divTotal');
+
+    divPVR.append(divPvrP, divPvrTotal);
+
+    // Div marge finale qui correspond entre la différence entre le prix de vente retenu et le prix de vente estimé
+    const margeFinale = document.createElement('div');
+    margeFinale.classList.add('margeFinale');
+    margeFinale.classList.add('divFap');
+
+    const margeFinaleP = document.createElement('p');
+    margeFinaleP.classList.add('divTextFap');
+    margeFinaleP.textContent = 'Marge';
+
+    const margeFinaleTotal = document.createElement('div');
+    margeFinaleTotal.classList.add('divTotal');
+
+    margeFinale.append(margeFinaleP, margeFinaleTotal);
+
+    // Appends & appendChild
+    divFrais.append(divFraisDSS, divFraisFinanciers, divFraisGroupe);
+    containerPrix.append(
+      mdvr,
+      achat,
+      fraisAchats,
+      fraisChantier,
+      garantieE,
+      divPRI,
+      divFrais,
+      divPr,
+      margeVoulue,
+      divPVE,
+      divPVR,
+      margeFinale
+    );
+
     const main = document.querySelector('main');
-    main.appendChild(contenuPost);
+    main.append(contenuPost, containerPrix);
   } catch (error) {
     console.error('Erreur lors de la récupération des postes :', error);
   }

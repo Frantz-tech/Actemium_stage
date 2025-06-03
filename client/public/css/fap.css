@@ -6,7 +6,7 @@ h1 {
   display: flex;
   width: 100%;
   gap: 1vw;
-  max-width: 900px;
+  max-width: 1100px;
 }
 #contenuPost {
   width: 100%;
@@ -14,6 +14,8 @@ h1 {
   align-items: center;
   flex-direction: column;
   gap: 1vw;
+  margin-bottom: 2vw;
+  padding: 0 5vw;
 }
 .postLibelleFap,
 .totalPostFap {
@@ -22,10 +24,92 @@ h1 {
   padding: 0.5vw 2vw;
 }
 .postLibelleFap {
+  font-size: clamp(0.8rem, 2vw, 1.6em);
+  font-weight: 700;
+  text-transform: uppercase;
   flex: 3;
+  text-align: center;
 }
 .totalPostFap {
+  text-align: center;
+  font-weight: 700;
+  font-size: clamp(0.8rem, 2vw, 1.6em);
   flex: 1;
+}
+
+.buttons {
+  order: 2;
+  display: flex;
+  gap: 2vw;
+  margin-top: 3vw;
+}
+.containerPrix {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  gap: 1vw;
+}
+.divPRI,
+.divPr,
+.margeVoulue,
+.divPVE,
+.divPVR,
+.margeFinale,
+.garantieE,
+.mdvr,
+.achat,
+.fraisAchats,
+.fraisChantier {
+  background-color: var(--color-primary);
+  border-radius: 4px;
+}
+#margeVoulue {
+  border: 1px solid black;
+  padding: 0.4vw 1.4vw;
+}
+.divPRI,
+.divPr,
+.margeVoulue,
+.divPVE,
+.divPVR,
+.margeFinale,
+.divFrais,
+.garantieE,
+.mdvr,
+.achat,
+.fraisAchats,
+.fraisChantier {
+  display: flex;
+  align-items: center;
+  padding: 0.7vw 2vw;
+  color: var(--color-white);
+  font-weight: bold;
+}
+.divFap {
+  display: flex;
+  width: 100%;
+  max-width: 1100px;
+}
+.divGrpFrais {
+  flex-direction: column;
+  background-color: var(--color-primary);
+  border-radius: 4px;
+}
+.divTextFap {
+  flex: 4;
+  font-size: 1.6em;
+}
+.divTotal {
+  border: 1px solid black;
+  border-radius: 4px;
+  background-color: var(--color-white);
+  flex: 1;
+  padding: 1vw 1.4vw;
+  text-align: center;
+}
+.divTotal_2 {
+  color: black;
 }
 /* .styleCalculs {
   background-color: var(--color-primary);
@@ -88,11 +172,7 @@ h1 {
   margin-bottom: 4vw;
 }
 
-.buttons {
-  display: flex;
-  gap: 2vw;
-  margin-top: 3vw;
-}
+
 .libellePostFap {
   text-align: center;
   font-size: clamp(1.2em, 3vw, 1.6em);
