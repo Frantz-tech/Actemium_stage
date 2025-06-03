@@ -22,7 +22,6 @@ btnCreerPoste.addEventListener('click', () => {
     alert("il manque le devis_id ou le ra_id dans l'URL");
     return;
   }
-  alert("Création d un nouveau poste + redirection vers la création d'un poste lié au devis");
   window.location.href = `../pages/poste.html?devis_id=${devis_id}&ra_id=${ra_id}`;
 });
 

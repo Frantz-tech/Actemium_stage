@@ -156,7 +156,9 @@ selectCmdt.addEventListener('change', () => {
 
         setTimeout(() => {
           overlay.remove();
-          document.body.removeChild(modal); // Ferme le modal
+          if (modal.parentNode === document.body) {
+            document.body.removeChild(modal); // Ferme le modal
+          }
         }, 200);
       } catch (error) {
         console.error('Erreur lors de la création du commanditaire', error);
@@ -178,7 +180,9 @@ selectCmdt.addEventListener('change', () => {
 
         setTimeout(() => {
           overlay.remove();
-          document.body.removeChild(modal); // Ferme le modal
+          if (modal.parentNode === document.body) {
+            document.body.removeChild(modal); // Ferme le modal
+          }
         }, 200);
         const firstCmdtOption = [...selectCmdt.options].find(opt => opt.value !== 'add_new');
         if (firstCmdtOption) {

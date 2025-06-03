@@ -310,7 +310,6 @@ export async function fetchFap() {
     divPvrP.textContent = 'Prix de vente retenu';
 
     const divPvrTotal = document.createElement('input');
-    divPvrTotal.type = 'number';
     divPvrTotal.placeholder = '€';
     divPvrTotal.id = 'divPvrTotal';
     divPvrTotal.style.flex = 1;
@@ -322,7 +321,6 @@ export async function fetchFap() {
           maximumFractionDigits: 2,
         }) + ' €';
     });
-
     divPVR.append(divPvrP, divPvrTotal);
 
     // Div marge finale qui correspond entre la différence entre le prix de vente retenu et le prix de vente estimé

@@ -112,10 +112,16 @@ export function updatePrixVenteEsti(prixRevient, marge, totalPve) {
 
 export function updateMargeFinale(prixVenteRetenu, prixRevient, marge) {
   try {
-    const pv = parseFloat(prixVenteRetenu) || 0;
+    const pv = parseFloat(prixVenteRetenu.toString().replace(/\s/g, '').replace(',', '.'));
     const pr = parseFloat(prixRevient) || 0;
+
+    if (!pv || !pr || isNaN(pv) || isNaN(pr) || pr === 0) {
+      marge.textContent = ' - %';
+      return;
+    }
+
     const margeValue = pv - pr;
-    const margePercent = pr !== 0 ? (margeValue / pr) * 100 : 0;
+    const margePercent = (margeValue / pr) * 100;
 
     marge.textContent = ` ${margePercent.toFixed(2)} %`;
     return margePercent;

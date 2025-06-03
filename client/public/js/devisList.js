@@ -65,7 +65,6 @@ function fetchDevisByRaId() {
           btnGoToPost.classList.add('btnGoToPost');
 
           btnGoToPost.addEventListener('click', () => {
-            alert('redirection vers la liste des postes associés a ce devis');
             const url = `../pages/postesList.html?devis_id=${d.DEVIS_ID}&ra_id=${d.RA_ID}`;
             window.location.href = url;
           });
@@ -221,7 +220,8 @@ function fetchDevisByRaId() {
             // Modal action btn fap
             goToFapBtn.addEventListener('click', e => {
               e.preventDefault();
-              alert('Faire le get de la fap du devis');
+              const url = `../pages/fap.html?devis_id=${d.DEVIS_ID}&ra_id=${d.RA_ID}`;
+              window.location.href = url;
             });
           });
         });
