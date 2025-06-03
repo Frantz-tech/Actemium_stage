@@ -7,6 +7,7 @@ h1 {
   width: 100%;
   gap: 1vw;
   max-width: 1100px;
+  cursor: pointer;
 }
 #contenuPost {
   width: 100%;
@@ -64,9 +65,11 @@ h1 {
   background-color: var(--color-primary);
   border-radius: 4px;
 }
-#margeVoulue {
+#margeVoulue,
+#divPvrTotal {
   border: 1px solid black;
   padding: 0.4vw 1.4vw;
+  text-align: center;
 }
 .divPRI,
 .divPr,

@@ -1,6 +1,14 @@
 import { getPostData } from '../postes/getPostesData.js';
 import { openPostModal } from '../postes/openPostModal.js';
-import { totalParContext } from './calculsFap.js';
+import {
+  fraisDss,
+  fraisFinanciers,
+  fraisGroupe,
+  fraisTotalAchat,
+  totalParContext,
+  updateMargeFinale,
+  updatePrixVenteEsti,
+} from './calculsFap.js';
 
 export async function fetchFap() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -43,8 +51,15 @@ export async function fetchFap() {
     const totalAchat = totalParCtx['ACHATS'] || 0;
     const totalMdvr = totalParCtx['MAIN_DOEUVRE'] || 0;
     const totalFraisC = totalParCtx['CHANTIER'] || 0;
-    const totalPri = totalAchat + totalMdvr + totalFraisC;
-    // const totalFraisA = totalParCtx[''] || 0;
+
+    const allPostes = Object.values(postes).flat();
+
+    let totalAchatFrais = 0;
+    try {
+      totalAchatFrais = await fraisTotalAchat(allPostes);
+    } catch (e) {
+      console.error("Erreur lors du calcul des frais d'achat :", e);
+    }
 
     console.log('total des achats ', totalAchat);
     console.log('total de la main doeuvre ', totalMdvr);
@@ -97,6 +112,10 @@ export async function fetchFap() {
     fraisAchatsP.textContent = "Frais d'achats";
 
     const fraisAchatsTotal = document.createElement('div');
+    fraisAchatsTotal.textContent = `${totalAchatFrais.toLocaleString('fr-FR', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })} €`;
     fraisAchatsTotal.classList.add('divTotal');
     fraisAchatsTotal.classList.add('divTotal_2');
 
@@ -141,6 +160,8 @@ export async function fetchFap() {
     divPriP.classList.add('divTextFap');
     divPriP.textContent = 'Prix de revient intermédiaire';
 
+    const totalPri = totalAchat + totalMdvr + totalFraisC + totalAchatFrais;
+
     const divPriTotal = document.createElement('div');
     divPriTotal.textContent = `${totalPri.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
     divPriTotal.classList.add('divTotal');
@@ -154,6 +175,13 @@ export async function fetchFap() {
     divFrais.classList.add('divFap');
 
     // Frais de devis sans suite
+
+    let totalFraisDss = { totalDss: 0 };
+    try {
+      totalFraisDss = await fraisDss(allPostes, totalPri);
+    } catch (e) {
+      console.error("Erreur lors du calcul des frais d'achat :", e);
+    }
     const divFraisDSS = document.createElement('div');
     divFraisDSS.classList.add('divFrais');
     divFraisDSS.classList.add('divFap');
@@ -163,11 +191,20 @@ export async function fetchFap() {
     divFraisDssP.textContent = 'Frais de devis sans suite';
 
     const divFraisDssTotal = document.createElement('div');
+    divFraisDssTotal.textContent = `${totalFraisDss.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
     divFraisDssTotal.classList.add('divTotal');
+    divFraisDssTotal.classList.add('divTotal_2');
 
     divFraisDSS.append(divFraisDssP, divFraisDssTotal);
 
     // Frais Financiers
+
+    let totalFraisFinancier = { totalFinancier: 0 };
+    try {
+      totalFraisFinancier = await fraisFinanciers(allPostes, totalPri);
+    } catch (e) {
+      console.error("Erreur lors du calcul des frais d'achat :", e);
+    }
     const divFraisFinanciers = document.createElement('div');
     divFraisFinanciers.classList.add('divFrais');
     divFraisFinanciers.classList.add('divFap');
@@ -177,11 +214,20 @@ export async function fetchFap() {
     divFraisFinanciersP.textContent = 'Frais Financiers';
 
     const divFraisFinanciersTotal = document.createElement('div');
+    divFraisFinanciersTotal.textContent = `${totalFraisFinancier.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
     divFraisFinanciersTotal.classList.add('divTotal');
+    divFraisFinanciersTotal.classList.add('divTotal_2');
 
     divFraisFinanciers.append(divFraisFinanciersP, divFraisFinanciersTotal);
 
     // Frais de groupe
+
+    let totalFraisDeGroupe = { totalGroupe: 0 };
+    try {
+      totalFraisDeGroupe = await fraisGroupe(allPostes, totalPri);
+    } catch (e) {
+      console.error('Erreur lors du calcul des frais de groupe : ', e);
+    }
     const divFraisGroupe = document.createElement('div');
     divFraisGroupe.classList.add('divFrais');
     divFraisGroupe.classList.add('divFap');
@@ -191,11 +237,16 @@ export async function fetchFap() {
     divFraisGroupeP.textContent = 'Frais de Groupe';
 
     const divFraisGroupeTotal = document.createElement('div');
-    divFraisGroupeTotal.classList.add('divTotal');
 
+    divFraisGroupeTotal.classList.add('divTotal');
+    divFraisGroupeTotal.classList.add('divTotal_2');
+    divFraisGroupeTotal.textContent = `${totalFraisDeGroupe.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
     divFraisGroupe.append(divFraisGroupeP, divFraisGroupeTotal);
 
     // Div Prix de revient
+
+    const totalPR = totalFraisDeGroupe + totalFraisDss + totalFraisFinancier + totalPri;
+
     const divPr = document.createElement('div');
     divPr.classList.add('divPr');
     divPr.classList.add('divFap');
@@ -205,7 +256,9 @@ export async function fetchFap() {
     divPrP.textContent = 'Prix de revient';
 
     const divPrTotal = document.createElement('div');
+    divPrTotal.textContent = `${totalPR.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
     divPrTotal.classList.add('divTotal');
+    divPrTotal.classList.add('divTotal_2');
 
     divPr.append(divPrP, divPrTotal);
 
@@ -219,6 +272,8 @@ export async function fetchFap() {
     margeVoulueP.textContent = 'Marge Voulue';
 
     const margeVoulueValue = document.createElement('input');
+    margeVoulueValue.type = 'number';
+    margeVoulueValue.placeholder = '%';
     margeVoulueValue.id = 'margeVoulue';
     margeVoulueValue.style.flex = 1;
 
@@ -236,7 +291,12 @@ export async function fetchFap() {
 
     const divPveTotal = document.createElement('div');
     divPveTotal.classList.add('divTotal');
+    divPveTotal.classList.add('divTotal_2');
 
+    margeVoulueValue.addEventListener('input', () => {
+      const marge = parseFloat(margeVoulueValue.value) || 0;
+      updatePrixVenteEsti(totalPR, marge, divPveTotal);
+    });
     divPVE.append(divPveP, divPveTotal);
 
     // Div Prix de vente retenu, a insérer par le responsable d'affaire
@@ -249,8 +309,19 @@ export async function fetchFap() {
     divPvrP.classList.add('divTextFap');
     divPvrP.textContent = 'Prix de vente retenu';
 
-    const divPvrTotal = document.createElement('div');
-    divPvrTotal.classList.add('divTotal');
+    const divPvrTotal = document.createElement('input');
+    divPvrTotal.type = 'number';
+    divPvrTotal.placeholder = '€';
+    divPvrTotal.id = 'divPvrTotal';
+    divPvrTotal.style.flex = 1;
+    divPvrTotal.addEventListener('blur', e => {
+      const val = parseFloat(e.target.value.replace(/\s/g, '').replace(',', '.')) || 0;
+      e.target.value =
+        val.toLocaleString('fr-FR', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        }) + ' €';
+    });
 
     divPVR.append(divPvrP, divPvrTotal);
 
@@ -265,6 +336,12 @@ export async function fetchFap() {
 
     const margeFinaleTotal = document.createElement('div');
     margeFinaleTotal.classList.add('divTotal');
+    margeFinaleTotal.classList.add('divTotal_2');
+
+    divPvrTotal.addEventListener('input', e => {
+      const pvRetenu = e.target.value;
+      updateMargeFinale(pvRetenu, totalPR, margeFinaleTotal);
+    });
 
     margeFinale.append(margeFinaleP, margeFinaleTotal);
 
