@@ -17,7 +17,7 @@ const loginAdmin = async (req, res) => {
       },
 
       process.env.JWT_SECRET,
-      { expiresIn: '1h' }
+      { expiresIn: '3h' }
     );
 
     sendSuccessResponse(res, 200, 'Connexion Réussie', {

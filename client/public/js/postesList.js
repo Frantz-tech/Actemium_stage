@@ -30,7 +30,6 @@ btnCreerFap.textContent = 'Générer FAP';
 btnCreerFap.classList.add('btnCreerFap');
 btnCreerFap.classList.add('btnCreer');
 
-// Action du bouton qui génère la FAP
 btnCreerFap.addEventListener('click', () => {
   const urlParams = new URLSearchParams(window.location.search);
   const devis_id = urlParams.get('devis_id');
@@ -42,8 +41,7 @@ btnCreerFap.addEventListener('click', () => {
   window.location.href = `../pages/fap.html?devis_id=${devis_id}&ra_id=${ra_id}`;
 });
 
-btnPostes.append(btnCreerFap, btnCreerPoste);
+btnPostes.appendChild(btnCreerPoste);
 
 // Creation de la liste des postes :
-
 fetchPostList();

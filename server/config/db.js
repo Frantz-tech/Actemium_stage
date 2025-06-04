@@ -12,6 +12,6 @@ const pool = mysql.createPool({
   connectionLimit: 10,
   queueLimit: 0,
 });
-console.log('🔐 Password from env :', process.env.DB_PASSWORD);
+// console.log('🔐 Password from env :', process.env.DB_PASSWORD);
 
 export default pool;

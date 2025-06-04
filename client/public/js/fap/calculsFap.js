@@ -22,27 +22,36 @@ export async function fraisTotalAchat(postes) {
   const tauxSousTraitance = taux['frais_achat_St_Etudes'] || 0;
 
   let totalFourniture = 0;
+  let totalBonsChantiers = 0;
   let totalSousTraitance = 0;
+  let totalEtudes = 0;
 
   postes.forEach(poste => {
     const codeLibelle = poste.CODE_LIBELLE?.trim().toUpperCase();
     const total = parseFloat(poste.TOTAL) || 0;
+    const contextPoste = poste.CONTEXT?.trim().toUpperCase();
 
     if (codeLibelle === 'FOURNITURES') {
       totalFourniture += total;
     }
+    if (codeLibelle === 'BONS DE CHANTIERS') {
+      totalBonsChantiers += total;
+    }
 
-    if (codeLibelle === 'SOUS-TRAITANCE EXTERNE' || codeLibelle === 'ETUDES') {
+    if (contextPoste === 'CHANTIER' && codeLibelle === 'SOUS-TRAITANCE EXTERNE') {
       totalSousTraitance += total;
+    }
+    if (contextPoste === 'CHANTIER' && codeLibelle === 'ETUDES') {
+      totalEtudes += total;
     }
   });
 
-  const fraisFourniture = totalFourniture * tauxFourniture;
-  const fraisSousTraitance = totalSousTraitance * tauxSousTraitance;
-  const totalFraisAchat = fraisFourniture + fraisSousTraitance;
+  const fraisFourniture_BonsChantier = (totalFourniture + totalBonsChantiers) * tauxFourniture;
+  const fraisSousTraitance_Etudes = (totalSousTraitance + totalEtudes) * tauxSousTraitance;
+  const totalFraisAchat = fraisFourniture_BonsChantier + fraisSousTraitance_Etudes;
 
-  console.log('1- Frais achat fourniture :', fraisFourniture);
-  console.log('2- Frais sous-traitance :', fraisSousTraitance);
+  console.log('1- Frais achat fourniture :', fraisFourniture_BonsChantier);
+  console.log('2- Frais sous-traitance :', fraisSousTraitance_Etudes);
   console.log("3 ( Somme de 1 & 2 ) Total frais d'achat :", totalFraisAchat);
 
   return totalFraisAchat;
@@ -100,7 +109,7 @@ export async function fraisGroupe(postes, prixRevientInter) {
 
 export function updatePrixVenteEsti(prixRevient, marge, totalPve) {
   try {
-    const pve = prixRevient * (1 + marge / 100);
+    const pve = prixRevient / (1 - marge / 100);
 
     totalPve.textContent = `${pve.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
 
@@ -120,12 +129,72 @@ export function updateMargeFinale(prixVenteRetenu, prixRevient, marge) {
       return;
     }
 
-    const margeValue = pv - pr;
-    const margePercent = (margeValue / pr) * 100;
+    const margePercent = (1 - pr / pv) * 100;
 
     marge.textContent = ` ${margePercent.toFixed(2)} %`;
     return margePercent;
   } catch (e) {
     console.error('Erreur lors du calcul de la marge finale :', e);
   }
+}
+
+export async function totalGarantieEnsemblier(prixVenteRetenu, garantie_ensemblier) {
+  try {
+    const pvr = parseFloat(prixVenteRetenu.toString().replace(/\s/g, '').replace(',', '.')) || 0;
+    if (!pvr || isNaN(pvr) || Number(pvr) < 150000) {
+      garantie_ensemblier.textContent = ' 0 €';
+      console.log('Le prix de vente retenu est invalide ou inférieur à 150 000 €');
+      return;
+    }
+    const taux = await fetchFraisGlobaux();
+    const fraisGE = parseFloat(taux['garantie_E']) || 0;
+    const ge = pvr * fraisGE;
+    console.log('Prix de vente retenu : ', pvr);
+    console.log('fraisGE reçu pour calcul GE :', fraisGE);
+    console.log('Prix de vente retenu * fraisGE = ', pvr * fraisGE);
+    garantie_ensemblier.textContent = `${ge.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
+    return ge;
+  } catch (error) {
+    console.error('Erreur lors du calcul de la garantie ensemblier', error);
+    throw Error('Erreur lors du calcul de la GE');
+  }
+}
+
+export function updateTotalPRI(
+  garantieETotal,
+  totalAchat,
+  totalMdvr,
+  totalFraisC,
+  totalAchatFrais,
+  divPriTotal,
+  divPvrTotal,
+  margeFinaleTotal
+) {
+  const garantie =
+    parseFloat(garantieETotal.textContent.replace(/\s/g, '').replace('€', '').replace(',', '.')) ||
+    0;
+
+  const totalPri = totalAchat + totalMdvr + totalFraisC + totalAchatFrais + garantie;
+
+  divPriTotal.textContent = `${totalPri.toLocaleString('fr-FR', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  })} €`;
+
+  const pvRetenu = divPvrTotal.value.replace(/\s/g, '').replace('€', '').replace(',', '.');
+  const val = parseFloat(pvRetenu);
+  if (!isNaN(val)) updateMargeFinale(val, totalPri, margeFinaleTotal);
+
+  return totalPri;
+}
+
+export async function updateTotalPR(postes, totalPRI, divPrTotal) {
+  const totalFraisDss = await fraisDss(postes, totalPRI);
+  const totalFF = await fraisFinanciers(postes, totalPRI);
+  const totalGroupe = await fraisGroupe(postes, totalPRI);
+
+  const totalPR = totalPRI + totalFraisDss + totalGroupe + totalFF;
+
+  divPrTotal.textContent = `${totalPR.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
+  return totalPR;
 }

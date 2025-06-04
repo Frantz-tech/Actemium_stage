@@ -5,9 +5,12 @@ import {
   fraisFinanciers,
   fraisGroupe,
   fraisTotalAchat,
+  totalGarantieEnsemblier,
   totalParContext,
   updateMargeFinale,
   updatePrixVenteEsti,
+  updateTotalPR,
+  updateTotalPRI,
 } from './calculsFap.js';
 
 export async function fetchFap() {
@@ -147,7 +150,9 @@ export async function fetchFap() {
     garantieEP.textContent = 'Garantie ensemblier';
 
     const garantieETotal = document.createElement('div');
+    garantieETotal.textContent = '0 €';
     garantieETotal.classList.add('divTotal');
+    garantieETotal.classList.add('divTotal_2');
 
     garantieE.append(garantieEP, garantieETotal);
 
@@ -160,14 +165,124 @@ export async function fetchFap() {
     divPriP.classList.add('divTextFap');
     divPriP.textContent = 'Prix de revient intermédiaire';
 
-    const totalPri = totalAchat + totalMdvr + totalFraisC + totalAchatFrais;
-
     const divPriTotal = document.createElement('div');
-    divPriTotal.textContent = `${totalPri.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
+
     divPriTotal.classList.add('divTotal');
     divPriTotal.classList.add('divTotal_2');
 
     divPRI.append(divPriP, divPriTotal);
+
+    divPriTotal.addEventListener('blur', async e => {
+      const val = parseFloat(e.target.value.replace(/\s/g, '').replace(',', '.')) || 0;
+      e.target.value =
+        val.toLocaleString('fr-FR', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        }) + ' €';
+    });
+
+    // Div Prix de vente retenu, a insérer par le responsable d'affaire
+
+    const divPVR = document.createElement('div');
+    divPVR.classList.add('divPVR');
+    divPVR.classList.add('divFap');
+
+    const divPvrP = document.createElement('p');
+    divPvrP.classList.add('divTextFap');
+    divPvrP.textContent = 'Prix de vente retenu';
+
+    const divPvrTotal = document.createElement('input');
+    divPvrTotal.placeholder = '€';
+    divPvrTotal.id = 'divPvrTotal';
+    divPvrTotal.style.flex = 1;
+    divPvrTotal.addEventListener('blur', e => {
+      const val = parseFloat(e.target.value.replace(/\s/g, '').replace(',', '.')) || 0;
+      e.target.value =
+        val.toLocaleString('fr-FR', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        }) + ' €';
+    });
+    divPVR.append(divPvrP, divPvrTotal);
+
+    // Div marge finale qui correspond entre la différence entre le prix de vente retenu et le prix de vente estimé
+    const margeFinale = document.createElement('div');
+    margeFinale.classList.add('margeFinale');
+    margeFinale.classList.add('divFap');
+
+    const margeFinaleP = document.createElement('p');
+    margeFinaleP.classList.add('divTextFap');
+    margeFinaleP.textContent = 'Marge';
+
+    const margeFinaleTotal = document.createElement('div');
+    margeFinaleTotal.classList.add('divTotal');
+    margeFinaleTotal.classList.add('divTotal_2');
+
+    // Calculate initial garantie ensemblier if prix de vente retenu is already entered
+
+    try {
+      const pvrInit = parseFloat(divPvrTotal.value.replace(/\s/g, '').replace(',', '.')) || 0;
+      (await totalGarantieEnsemblier(pvrInit, garantieETotal)) || 0;
+    } catch (e) {
+      console.error('Erreur lors du calcul initial de la garantie ensemblier :', e);
+    }
+
+    // Appel updateTotalPRI après déclaration des éléments nécessaires
+    const totalPri = await updateTotalPRI(
+      garantieETotal,
+      totalAchat,
+      totalMdvr,
+      totalFraisC,
+      totalAchatFrais,
+      divPriTotal,
+      divPvrTotal,
+      margeFinaleTotal
+    );
+
+    divPriTotal.textContent = `${totalPri.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
+
+    divPvrTotal.addEventListener('input', e => {
+      const pvRetenu = e.target.value;
+      updateMargeFinale(pvRetenu, totalPri, margeFinaleTotal);
+    });
+
+    divPvrTotal.addEventListener('blur', async e => {
+      const val = parseFloat(e.target.value.replace(/\s/g, '').replace(',', '.')) || 0;
+      e.target.value =
+        val.toLocaleString('fr-FR', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        }) + ' €';
+
+      await totalGarantieEnsemblier(val, garantieETotal);
+
+      const newTotalPri = updateTotalPRI(
+        garantieETotal,
+        totalAchat,
+        totalMdvr,
+        totalFraisC,
+        totalAchatFrais,
+        divPriTotal,
+        divPvrTotal,
+        margeFinaleTotal
+      );
+
+      const totalPR = await updateTotalPR(allPostes, newTotalPri, divPrTotal);
+
+      updateMargeFinale(val, newTotalPri, margeFinaleTotal);
+
+      divPrTotal.textContent =
+        totalPR.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) +
+        ' €';
+
+      const marge = parseFloat(margeVoulueValue.value) || 0;
+      updatePrixVenteEsti(totalPR, marge, divPveTotal);
+      console.log('Je cherche val ', val);
+
+      updateMargeFinale(val, totalPR, margeFinaleTotal);
+    });
+
+    margeFinale.append(margeFinaleP, margeFinaleTotal);
 
     // Div Groupement de frais
     const divFrais = document.createElement('div');
@@ -245,8 +360,6 @@ export async function fetchFap() {
 
     // Div Prix de revient
 
-    const totalPR = totalFraisDeGroupe + totalFraisDss + totalFraisFinancier + totalPri;
-
     const divPr = document.createElement('div');
     divPr.classList.add('divPr');
     divPr.classList.add('divFap');
@@ -256,9 +369,10 @@ export async function fetchFap() {
     divPrP.textContent = 'Prix de revient';
 
     const divPrTotal = document.createElement('div');
-    divPrTotal.textContent = `${totalPR.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
     divPrTotal.classList.add('divTotal');
     divPrTotal.classList.add('divTotal_2');
+
+    const totalPR = await updateTotalPR(allPostes, totalPri, divPrTotal);
 
     divPr.append(divPrP, divPrTotal);
 
@@ -298,50 +412,6 @@ export async function fetchFap() {
       updatePrixVenteEsti(totalPR, marge, divPveTotal);
     });
     divPVE.append(divPveP, divPveTotal);
-
-    // Div Prix de vente retenu, a insérer par le responsable d'affaire
-
-    const divPVR = document.createElement('div');
-    divPVR.classList.add('divPVR');
-    divPVR.classList.add('divFap');
-
-    const divPvrP = document.createElement('p');
-    divPvrP.classList.add('divTextFap');
-    divPvrP.textContent = 'Prix de vente retenu';
-
-    const divPvrTotal = document.createElement('input');
-    divPvrTotal.placeholder = '€';
-    divPvrTotal.id = 'divPvrTotal';
-    divPvrTotal.style.flex = 1;
-    divPvrTotal.addEventListener('blur', e => {
-      const val = parseFloat(e.target.value.replace(/\s/g, '').replace(',', '.')) || 0;
-      e.target.value =
-        val.toLocaleString('fr-FR', {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        }) + ' €';
-    });
-    divPVR.append(divPvrP, divPvrTotal);
-
-    // Div marge finale qui correspond entre la différence entre le prix de vente retenu et le prix de vente estimé
-    const margeFinale = document.createElement('div');
-    margeFinale.classList.add('margeFinale');
-    margeFinale.classList.add('divFap');
-
-    const margeFinaleP = document.createElement('p');
-    margeFinaleP.classList.add('divTextFap');
-    margeFinaleP.textContent = 'Marge';
-
-    const margeFinaleTotal = document.createElement('div');
-    margeFinaleTotal.classList.add('divTotal');
-    margeFinaleTotal.classList.add('divTotal_2');
-
-    divPvrTotal.addEventListener('input', e => {
-      const pvRetenu = e.target.value;
-      updateMargeFinale(pvRetenu, totalPR, margeFinaleTotal);
-    });
-
-    margeFinale.append(margeFinaleP, margeFinaleTotal);
 
     // Appends & appendChild
     divFrais.append(divFraisDSS, divFraisFinanciers, divFraisGroupe);
