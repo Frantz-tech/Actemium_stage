@@ -7,6 +7,7 @@ import {
   fraisTotalAchat,
   totalGarantieEnsemblier,
   totalParContext,
+  updateFrais,
   updateMargeFinale,
   updatePrixVenteEsti,
   updateTotalPR,
@@ -64,10 +65,6 @@ export async function fetchFap() {
       console.error("Erreur lors du calcul des frais d'achat :", e);
     }
 
-    console.log('total des achats ', totalAchat);
-    console.log('total de la main doeuvre ', totalMdvr);
-    console.log('total des frais de chantier ', totalFraisC);
-
     // Container pour les prix et les calculs de marge
 
     const containerPrix = document.createElement('div');
@@ -83,7 +80,7 @@ export async function fetchFap() {
     mdvrP.textContent = "Total main d'oeuvre";
 
     const mdvrTotal = document.createElement('div');
-    mdvrTotal.textContent = `${totalMdvr.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
+    mdvrTotal.textContent = `${Math.round(totalMdvr).toLocaleString('fr-FR')} €`;
     mdvrTotal.classList.add('divTotal');
     mdvrTotal.classList.add('divTotal_2');
 
@@ -99,7 +96,7 @@ export async function fetchFap() {
     achatP.textContent = 'Total achats';
 
     const achatTotal = document.createElement('div');
-    achatTotal.textContent = `${totalAchat.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
+    achatTotal.textContent = `${Math.round(totalAchat).toLocaleString('fr-FR')} €`;
     achatTotal.classList.add('divTotal');
     achatTotal.classList.add('divTotal_2');
 
@@ -115,10 +112,7 @@ export async function fetchFap() {
     fraisAchatsP.textContent = "Frais d'achats";
 
     const fraisAchatsTotal = document.createElement('div');
-    fraisAchatsTotal.textContent = `${totalAchatFrais.toLocaleString('fr-FR', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })} €`;
+    fraisAchatsTotal.textContent = `${Math.round(totalAchatFrais).toLocaleString('fr-FR')} €`;
     fraisAchatsTotal.classList.add('divTotal');
     fraisAchatsTotal.classList.add('divTotal_2');
 
@@ -134,7 +128,7 @@ export async function fetchFap() {
     fraisChantierP.textContent = 'Total frais de chantier';
 
     const fraisChantierTotal = document.createElement('div');
-    fraisChantierTotal.textContent = `${totalFraisC.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
+    fraisChantierTotal.textContent = `${Math.round(totalFraisC).toLocaleString('fr-FR')} €`;
     fraisChantierTotal.classList.add('divTotal');
     fraisChantierTotal.classList.add('divTotal_2');
 
@@ -197,11 +191,7 @@ export async function fetchFap() {
     divPvrTotal.style.flex = 1;
     divPvrTotal.addEventListener('blur', e => {
       const val = parseFloat(e.target.value.replace(/\s/g, '').replace(',', '.')) || 0;
-      e.target.value =
-        val.toLocaleString('fr-FR', {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        }) + ' €';
+      e.target.value = Math.round(val).toLocaleString('fr-FR') + ' €';
     });
     divPVR.append(divPvrP, divPvrTotal);
 
@@ -248,11 +238,7 @@ export async function fetchFap() {
 
     divPvrTotal.addEventListener('blur', async e => {
       const val = parseFloat(e.target.value.replace(/\s/g, '').replace(',', '.')) || 0;
-      e.target.value =
-        val.toLocaleString('fr-FR', {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        }) + ' €';
+      e.target.value = `${Math.round(val).toLocaleString('fr-FR') + ' €'}`;
 
       await totalGarantieEnsemblier(val, garantieETotal);
 
@@ -269,7 +255,15 @@ export async function fetchFap() {
 
       const totalPR = await updateTotalPR(allPostes, newTotalPri, divPrTotal);
 
+      await updateFrais(
+        allPostes,
+        newTotalPri,
+        divFraisDssTotal,
+        divFraisFinanciersTotal,
+        divFraisGroupeTotal
+      );
       updateMargeFinale(val, newTotalPri, margeFinaleTotal);
+      updateMargeFinale(val, totalPR, margeFinaleTotal);
 
       divPrTotal.textContent =
         totalPR.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) +
@@ -277,9 +271,6 @@ export async function fetchFap() {
 
       const marge = parseFloat(margeVoulueValue.value) || 0;
       updatePrixVenteEsti(totalPR, marge, divPveTotal);
-      console.log('Je cherche val ', val);
-
-      updateMargeFinale(val, totalPR, margeFinaleTotal);
     });
 
     margeFinale.append(margeFinaleP, margeFinaleTotal);
@@ -306,7 +297,7 @@ export async function fetchFap() {
     divFraisDssP.textContent = 'Frais de devis sans suite';
 
     const divFraisDssTotal = document.createElement('div');
-    divFraisDssTotal.textContent = `${totalFraisDss.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
+    divFraisDssTotal.textContent = `${Math.round(totalFraisDss).toLocaleString('fr-FR')} €`;
     divFraisDssTotal.classList.add('divTotal');
     divFraisDssTotal.classList.add('divTotal_2');
 
@@ -329,7 +320,7 @@ export async function fetchFap() {
     divFraisFinanciersP.textContent = 'Frais Financiers';
 
     const divFraisFinanciersTotal = document.createElement('div');
-    divFraisFinanciersTotal.textContent = `${totalFraisFinancier.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
+    divFraisFinanciersTotal.textContent = `${Math.round(totalFraisFinancier).toLocaleString('fr-FR')} €`;
     divFraisFinanciersTotal.classList.add('divTotal');
     divFraisFinanciersTotal.classList.add('divTotal_2');
 
@@ -355,7 +346,7 @@ export async function fetchFap() {
 
     divFraisGroupeTotal.classList.add('divTotal');
     divFraisGroupeTotal.classList.add('divTotal_2');
-    divFraisGroupeTotal.textContent = `${totalFraisDeGroupe.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
+    divFraisGroupeTotal.textContent = `${Math.round(totalFraisDeGroupe).toLocaleString('fr-FR')} €`;
     divFraisGroupe.append(divFraisGroupeP, divFraisGroupeTotal);
 
     // Div Prix de revient
@@ -386,10 +377,14 @@ export async function fetchFap() {
     margeVoulueP.textContent = 'Marge Voulue';
 
     const margeVoulueValue = document.createElement('input');
-    margeVoulueValue.type = 'number';
     margeVoulueValue.placeholder = '%';
     margeVoulueValue.id = 'margeVoulue';
     margeVoulueValue.style.flex = 1;
+
+    margeVoulueValue.addEventListener('blur', e => {
+      const val = e.target.value;
+      e.target.value = parseFloat(val).toLocaleString('fr-FR') + ' %';
+    });
 
     margeVoulue.append(margeVoulueP, margeVoulueValue);
 
@@ -404,6 +399,7 @@ export async function fetchFap() {
     divPveP.textContent = 'Prix de vente estimé';
 
     const divPveTotal = document.createElement('div');
+    divPveTotal.textContent = ' 0 € ';
     divPveTotal.classList.add('divTotal');
     divPveTotal.classList.add('divTotal_2');
 

@@ -17,6 +17,7 @@ export function totalParContext(postes) {
 
 export async function fraisTotalAchat(postes) {
   const taux = await fetchFraisGlobaux();
+  console.log('Taux de frais_globaux récupérés avec succes : ', taux);
 
   const tauxFourniture = taux['frais_achat_fourniture'] || 0;
   const tauxSousTraitance = taux['frais_achat_St_Etudes'] || 0;
@@ -70,10 +71,8 @@ export async function fraisDss(postes, prixRevientInter) {
       totalSousTraitanceInterne += total;
     }
   });
-  console.log('prixRevientInter reçu :', prixRevientInter);
   const baseDSS = (parseFloat(prixRevientInter) || 0) - totalSousTraitanceInterne;
   const fraisDss = baseDSS * tauxDss;
-  console.log('Frais devis sans suite :', fraisDss);
 
   return fraisDss;
 }
@@ -83,6 +82,7 @@ export async function fraisFinanciers(postes, prixRevientInter) {
   const tauxFinancier = parseFloat(taux['frais_financiers']) || 0;
 
   const fraisFinancier = (parseFloat(prixRevientInter) || 0) * tauxFinancier;
+
   return fraisFinancier;
 }
 
@@ -99,20 +99,17 @@ export async function fraisGroupe(postes, prixRevientInter) {
       totalSousTraitanceInterne += total;
     }
   });
-  console.log('prixRevientInter reçu :', prixRevientInter);
   const baseGroupe = (parseFloat(prixRevientInter) || 0) - totalSousTraitanceInterne;
   const fraisGroupe = baseGroupe * tauxGroupe;
-  console.log('Frais de groupe :', fraisGroupe);
 
   return fraisGroupe;
 }
 
-export function updatePrixVenteEsti(prixRevient, marge, totalPve) {
+export async function updatePrixVenteEsti(prixRevient, marge, totalPve) {
   try {
     const pve = prixRevient / (1 - marge / 100);
 
-    totalPve.textContent = `${pve.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
-
+    totalPve.textContent = `${Math.round(pve).toLocaleString('fr-FR')} €`;
     return pve;
   } catch (error) {
     console.error('Erreur lors du calcul du pve : ', error);
@@ -149,10 +146,8 @@ export async function totalGarantieEnsemblier(prixVenteRetenu, garantie_ensembli
     const taux = await fetchFraisGlobaux();
     const fraisGE = parseFloat(taux['garantie_E']) || 0;
     const ge = pvr * fraisGE;
-    console.log('Prix de vente retenu : ', pvr);
-    console.log('fraisGE reçu pour calcul GE :', fraisGE);
-    console.log('Prix de vente retenu * fraisGE = ', pvr * fraisGE);
-    garantie_ensemblier.textContent = `${ge.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
+    garantie_ensemblier.textContent = `${Math.round(ge).toLocaleString('fr-FR')} €`;
+
     return ge;
   } catch (error) {
     console.error('Erreur lors du calcul de la garantie ensemblier', error);
@@ -195,6 +190,28 @@ export async function updateTotalPR(postes, totalPRI, divPrTotal) {
 
   const totalPR = totalPRI + totalFraisDss + totalGroupe + totalFF;
 
-  divPrTotal.textContent = `${totalPR.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
+  divPrTotal.textContent = `${Math.round(totalPR).toLocaleString('fr-FR')} €`;
   return totalPR;
+}
+
+export async function updateFrais(
+  postes,
+  totalPr,
+  divFraisDSS,
+  divFraisFinanciers,
+  divFraisGroupe
+) {
+  const newFraisDSS = await fraisDss(postes, totalPr);
+  const newFraisFinanciers = await fraisFinanciers(postes, totalPr);
+  const newFraisGroupe = await fraisGroupe(postes, totalPr);
+
+  // Mise à jour des divs individuelles
+
+  divFraisDSS.textContent = `${Math.round(newFraisDSS).toLocaleString('fr-FR')} €`;
+  divFraisFinanciers.textContent = `${Math.round(newFraisFinanciers).toLocaleString('fr-FR')} €`;
+  divFraisGroupe.textContent = `${Math.round(newFraisGroupe).toLocaleString('fr-FR')} €`;
+  console.log('Frais devis Sans suite :', newFraisDSS);
+  console.log('Frais Financiers :', newFraisFinanciers);
+  console.log('Frais de Groupe :', newFraisGroupe);
+  return { newFraisDSS, newFraisFinanciers, newFraisGroupe };
 }

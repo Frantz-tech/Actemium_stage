@@ -6,7 +6,6 @@ export async function fetchFraisGlobaux() {
     const data = await response.json();
 
     handleApiError(data);
-    console.log('Frais globaux récupérés avec succes(fetchfrais) : ', data);
 
     // convertir en objet
 

@@ -1,7 +1,7 @@
 import { handleApiError } from '../tokenHandler/handleApi.js';
 import { regrouperPostes } from './getpostList.js'; // adapte le chemin si besoin
 
-export async function getPostData(devis_id, ra_id, poste_libelle) {
+export async function getPostData(devis_id, ra_id) {
   const token = localStorage.getItem('token');
   console.log('📤 Appel API avec devis_id =', devis_id, 'et ra_id =', ra_id);
   try {
@@ -22,7 +22,7 @@ export async function getPostData(devis_id, ra_id, poste_libelle) {
     const postes = await response.json();
     const postesRegroupes = regrouperPostes(postes.data);
 
-    console.log('Liste des postes récupérés : ', postes.data);
+    console.log('Liste des postes récupérés : ', postesRegroupes);
 
     // 🔁 Regrouper les postes par POSTE_LIBELLE
 
