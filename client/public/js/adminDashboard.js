@@ -1,9 +1,6 @@
 import { tableDevisContent } from './adminMenu/adminDevisList.js';
 import { tableContent } from './adminMenu/adminUsersList.js';
 import { sections, slideMenu } from './slideMenu/adminSlideMenu.js';
-import { verifierAuthentification } from './tokenHandler/handleApi.js';
-
-verifierAuthentification();
 
 document.querySelector('h1').textContent = 'LISTE DES UTILISATEURS';
 

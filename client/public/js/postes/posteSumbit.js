@@ -4,6 +4,7 @@ export async function sendPostes() {
   const params = new URLSearchParams(window.location.search);
   const devisId = params.get('devis_id');
   const ra_id = params.get('ra_id');
+
   if (!devisId) {
     console.error("Le paramètre 'devis_id' est manquant dans l'URL");
     return;

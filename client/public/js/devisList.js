@@ -1,5 +1,5 @@
-import { handleApiError, verifierAuthentification } from './tokenHandler/handleApi.js';
-verifierAuthentification();
+import { handleApiError } from './tokenHandler/handleApi.js';
+
 document.querySelector('h1').innerText = 'DEVIS';
 
 // Charger les devis lorsque l'on arrive sur la page liste des devis :

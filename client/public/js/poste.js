@@ -2,9 +2,6 @@ import { fillAchatSelect } from './postes/fillAchatSelect.js';
 import { fillFraisChantierSelect } from './postes/fillChantierSelect.js';
 import { fillSectionSelect } from './postes/fillSectionSelect.js';
 import { sendPostes } from './postes/posteSumbit.js';
-import { verifierAuthentification } from './tokenHandler/handleApi.js';
-
-verifierAuthentification();
 
 // Fonction pour créer dynamiquement le formulaire poste dans <main>
 function createPosteForm() {

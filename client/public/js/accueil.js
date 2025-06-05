@@ -1,6 +1,3 @@
-import { verifierAuthentification } from './tokenHandler/handleApi.js';
-verifierAuthentification();
-
 document.querySelector('h1').innerText = 'ACTEMIUM';
 
 const utilisateur = JSON.parse(localStorage.getItem('utilisateur'));

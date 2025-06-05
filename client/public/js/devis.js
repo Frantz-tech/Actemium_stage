@@ -4,9 +4,6 @@ import { fetchContrats } from './get_devis_segm/getContrats.js';
 import { fetchDomaines } from './get_devis_segm/getDomines.js';
 import { fetchExpertises } from './get_devis_segm/getExpertises.js';
 import { postData } from './post/postData.js';
-import { verifierAuthentification } from './tokenHandler/handleApi.js';
-
-verifierAuthentification();
 
 document.querySelector('h1').innerText = 'DEVIS';
 
@@ -14,7 +11,7 @@ document.querySelector('h1').innerText = 'DEVIS';
 const utilisateur = JSON.parse(localStorage.getItem('utilisateur'));
 const ra_id = utilisateur?.RA_ID;
 
-async function refreshCmdtSelect(selectedId = null) {
+async function refreshCmdtSelect(selectedId) {
   try {
     const response = await fetch('http://localhost:3000/api/commanditaires');
     if (!response.ok) throw new Error('Erreur lors du chargement des commanditaires');
@@ -49,7 +46,7 @@ async function refreshCmdtSelect(selectedId = null) {
     if (selectedId) {
       selectCmdt.value = selectedId;
       if (selectCmdt.value !== selectedId) {
-        const optionToSelect = [...selectCmdt.options].find(o => o.value === selectedId);
+        const optionToSelect = [...selectCmdt.options].find(o => o.value === selectCmdt.value);
         if (optionToSelect) {
           optionToSelect.selected = true;
         } else {

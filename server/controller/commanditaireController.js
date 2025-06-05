@@ -11,7 +11,7 @@ const createCommanditaire = async (req, res) => {
 
     const result = await Service.createCommanditaire(req.body);
 
-    if (result.errors || result.errors.length > 0) {
+    if (result.errors && result.errors.length > 0) {
       return res.status(400).json({ message: result.errors });
     }
     sendSuccessResponse(res, 201, 'Commanditaire créer avec succès', result);

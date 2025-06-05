@@ -1,8 +1,5 @@
-import { verifierAuthentification } from '../tokenHandler/handleApi.js';
 import { openAdminPresentation } from './modalAdmin.js';
 import { openUserPresentation } from './modalUser.js';
-
-verifierAuthentification();
 
 fetch('../pages/header.html')
   .then(res => res.text())

@@ -1,7 +1,4 @@
 import { fetchPostList } from './postes/getpostList.js';
-import { verifierAuthentification } from './tokenHandler/handleApi.js';
-
-verifierAuthentification();
 
 document.querySelector('h1').textContent = 'POSTES';
 

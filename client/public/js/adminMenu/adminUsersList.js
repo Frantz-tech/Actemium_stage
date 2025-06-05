@@ -18,7 +18,6 @@ newUser.textContent = 'Ajouter un nouvel utilisateur';
 newUser.classList.add('btnNewUserDashboard');
 
 newUser.addEventListener('click', e => {
-  // Je dois mettre une verification pour savoir si c'est un admin ? Sachant que on peut pas arriver a cet page sans avoir eu la validation avant du role
   e.preventDefault();
   const existingModal = document.querySelector('.modal');
   if (existingModal) {
