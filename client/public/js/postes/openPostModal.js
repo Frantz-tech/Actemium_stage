@@ -20,7 +20,7 @@ export function openPostModal(p, postes) {
   divBtns.classList.add('divBtns');
   divBtns.append(closeBtn, editPost);
 
-  // overlay ( blur ) du devis
+  // overlay ( blur ) du poste
   const overlay = document.createElement('div');
   overlay.classList.add('modalPost-overlay');
   overlay.appendChild(modal);

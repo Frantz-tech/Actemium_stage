@@ -235,6 +235,129 @@ footer {
   justify-content: space-evenly;
 }
 
+.containerConnected {
+  position: fixed;
+  top: 10vh;
+  right: 2vw;
+}
+
+.connectedBtn,
+.ra_id_user {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: none;
+  width: 40px;
+  height: 40px;
+  transform: scale(1);
+  transition:
+    0.3s ease,
+    color 0.3s ease;
+  cursor: pointer;
+  background-color: var(--color-secondary);
+  color: var(--color-white);
+}
+.ra_id_user {
+  width: clamp(45px, 6vw, 70px);
+  height: clamp(45px, 6vw, 70px);
+  font-size: clamp(1rem, 2.5vw, 2rem);
+}
+.roleUser,
+.helloUser {
+  font-size: clamp(1.4rem, 1.3vw, 2rem);
+}
+.roleUser {
+  margin-top: -10px;
+  text-transform: uppercase;
+}
+
+.deconnectBtn {
+  z-index: 200;
+  background-color: var(--color-adminBtn);
+  border: 2px solid transparent;
+  border-radius: 25px;
+  position: relative;
+  overflow: hidden;
+  transform: scale(1);
+  transition: transform 0.2s ease color 0.3s ease;
+  padding: 0.2vw 1vw;
+  width: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: var(--color-accent);
+  cursor: pointer;
+}
+.btnText {
+  position: relative;
+  z-index: 2;
+}
+
+.deconnectBtn::after {
+  content: '→';
+  position: absolute;
+  left: 15px;
+  top: auto;
+  text-align: center;
+  color: var(--color-white);
+  transition: transform color 0.3s ease;
+  font-size: 1.5em;
+}
+.deconnectBtn:hover::after {
+  color: var(--primary-blue);
+}
+.deconnectBtn:hover {
+  transform: scale(1.03);
+  transition:
+    0.3s ease,
+    color 0.3s ease;
+  color: var(--color-white);
+  border: 2px solid var(--color-adminBtn);
+}
+
+.deconnectBtn::before {
+  z-index: 0;
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background-color: var(--color-secondary);
+  border-radius: 25px;
+  transform: translate(-50%, -50%);
+
+  transition:
+    width 0.3s ease,
+    height 0.3s ease;
+}
+
+.deconnectBtn:hover::before {
+  width: 100%;
+  height: 100%;
+}
+
+.connectedBtn:hover {
+  transform: scale(1.05);
+  transition:
+    0.3s ease,
+    color 0.3s ease;
+  background-color: var(--color-accent);
+  color: var(--color-white);
+}
+.modalUserConnected {
+  display: flex;
+  position: fixed;
+  margin-right: 4vw;
+  right: 0;
+  top: 8vh;
+  width: 346px;
+  z-index: 2000;
+  background-color: var(--color-white);
+  border-radius: 25px;
+}
+
 @media screen and (min-width: 1024px) {
   .burger,
   .slideMenu {

@@ -217,9 +217,32 @@ select {
     transform: translate(-50%, -50%) scale(0.7);
   }
 }
+
+@keyframes popInConnected {
+  0% {
+    opacity: 0;
+    transform: translate(0, 8vh) scale(0.7);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 8vh) scale(1);
+  }
+}
+@keyframes popOutConnected {
+  0% {
+    opacity: 1;
+    transform: translate(0, 8vh) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(0, 8vh) scale(0.7);
+  }
+}
+
 .modalDevis,
 .modalPost,
 .modalUser,
+.modalUserConnected,
 .modalPasswordLogin,
 .modal,
 .modalCmdt {
@@ -238,6 +261,12 @@ select {
   animation-name: popIn;
 }
 
+.modalUserConnected.show {
+  animation-name: popInConnected;
+}
+.modalUserConnected.hide {
+  animation-name: popOutConnected;
+}
 .modalUser.hide,
 .modalDevis.hide,
 .modalPost.hide,

@@ -96,7 +96,6 @@ select {
 
 .modalDevis_content,
 .modalPost_content,
-.modalUser_content,
 .modalPassword_content,
 .modalCmdt_content {
   padding: 1vw;
@@ -106,7 +105,16 @@ select {
   align-items: center;
   width: 100%;
 }
-
+.modalUser_content {
+  position: relative;
+  padding: 1vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1vw;
+  width: 100%;
+  color: var(--color-accent);
+}
 .modalPost_content {
   padding: 0 1vw 2vw;
 }
@@ -125,6 +133,10 @@ select {
   color: var(--primary-blue);
   border: none;
   background-color: transparent;
+}
+
+.close-btn {
+  order: 2;
 }
 .edit-btn {
   font-size: clamp(1.4rem, 2.3vw, 2.3rem);

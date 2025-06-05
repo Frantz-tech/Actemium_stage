@@ -109,7 +109,7 @@ export async function fetchFap() {
 
     const fraisAchatsP = document.createElement('p');
     fraisAchatsP.classList.add('divTextFap');
-    fraisAchatsP.textContent = "Frais d'achats";
+    fraisAchatsP.textContent = "Total frais d'achats";
 
     const fraisAchatsTotal = document.createElement('div');
     fraisAchatsTotal.textContent = `${Math.round(totalAchatFrais).toLocaleString('fr-FR')} €`;
