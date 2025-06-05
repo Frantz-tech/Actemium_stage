@@ -1,5 +1,5 @@
-export function openUserPresentation() {
-  const existingModal = document.querySelector('.modalUserConnected');
+export function openAdminPresentation() {
+  const existingModal = document.querySelector('.modalAdminConnected');
   if (existingModal) {
     existingModal.classList.add('hide');
     setTimeout(() => {
@@ -17,18 +17,18 @@ export function openUserPresentation() {
   const ra_id = utilisateur?.RA_ID;
 
   const modal = document.createElement('div');
-  modal.classList.add('modalUserConnected');
+  modal.classList.add('modalAdminConnected');
   modal.style.display = 'flex';
   modal.classList.add('show');
 
   // Contenu du modal
   const modalContent = document.createElement('div');
-  modalContent.classList.add('modalUser_content');
+  modalContent.classList.add('modalAdmin_content');
 
-  // Role de l'utilisateur
-  const roleUser = document.createElement('div');
-  roleUser.classList.add('roleUser');
-  roleUser.textContent = role;
+  // Role
+  const roleAdmin = document.createElement('div');
+  roleAdmin.classList.add('roleAdmin');
+  roleAdmin.textContent = role;
 
   // Bouton gerer mon compte
   const btnGererCompte = document.createElement('button');
@@ -39,19 +39,19 @@ export function openUserPresentation() {
   btnGererCompteText.textContent = ' Gérer mon comte Actemium';
 
   // Logo style google dans le modal en dessous du role
-  const ra_id_user = document.createElement('div');
-  ra_id_user.classList.add('ra_id_user');
-  ra_id_user.textContent = ra_id;
+  const ra_id_admin = document.createElement('div');
+  ra_id_admin.classList.add('ra_id_admin');
+  ra_id_admin.textContent = ra_id;
 
-  // Bonjour : 'prénom du ra'
-  const helloUser = document.createElement('div');
-  helloUser.classList.add('helloUser');
-  helloUser.textContent = `Bonjour ${prenom} !`;
+  // Bonjour : 'prénom '
+  const helloAdmin = document.createElement('div');
+  helloAdmin.classList.add('helloAdmin');
+  helloAdmin.textContent = `Bonjour ${prenom} !`;
 
-  // Email de l'utilisateur
-  const emailUser = document.createElement('div');
-  emailUser.classList.add('emailUser');
-  emailUser.textContent = email;
+  // Email
+  const emailAdmin = document.createElement('div');
+  emailAdmin.classList.add('emailAdmin');
+  emailAdmin.textContent = email;
 
   // Bouton se déconnecter
   const deconnectBtn = document.createElement('button');
@@ -73,7 +73,7 @@ export function openUserPresentation() {
 
       if (!modal) return;
       const isVisible = modal.classList.contains('show');
-      if (!isVisible) openUserPresentation();
+      if (!isVisible) openAdminPresentation();
     }
   });
 
@@ -113,6 +113,6 @@ export function openUserPresentation() {
   document.body.appendChild(modal);
   modal.appendChild(modalContent);
   deconnectBtn.appendChild(btnText);
-  btnGererCompte.append(btnGererCompteText);
-  modalContent.append(emailUser, ra_id_user, btnGererCompte, helloUser, roleUser, deconnectBtn);
+  btnGererCompte.appendChild(btnGererCompteText);
+  modalContent.append(emailAdmin, ra_id_admin, btnGererCompte, helloAdmin, roleAdmin, deconnectBtn);
 }

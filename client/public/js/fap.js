@@ -1,5 +1,7 @@
 import { fetchFap } from './fap/fetchFap.js';
+import { verifierAuthentification } from './tokenHandler/handleApi.js';
 
+verifierAuthentification();
 document.querySelector('h1').innerText = 'FAP ACTEMIUM';
 
 const btnMail = document.createElement('button');

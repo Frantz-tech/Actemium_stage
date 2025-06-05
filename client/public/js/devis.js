@@ -4,6 +4,9 @@ import { fetchContrats } from './get_devis_segm/getContrats.js';
 import { fetchDomaines } from './get_devis_segm/getDomines.js';
 import { fetchExpertises } from './get_devis_segm/getExpertises.js';
 import { postData } from './post/postData.js';
+import { verifierAuthentification } from './tokenHandler/handleApi.js';
+
+verifierAuthentification();
 
 document.querySelector('h1').innerText = 'DEVIS';
 
@@ -285,7 +288,7 @@ form.addEventListener('submit', async e => {
     }
     alert(`✅ Devis ${devisData.LIBELLE} crée avec succès`);
 
-    window.location.href = '../pages/devisList.html';
+    window.location.href = `../pages/devisList.html?ra_id=${devisData.RA_ID}`;
   } catch (error) {
     console.error('Erreur lors de la création du devis', error);
   }

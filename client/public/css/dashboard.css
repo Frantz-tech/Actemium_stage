@@ -243,6 +243,7 @@ select {
 .modalPost,
 .modalUser,
 .modalUserConnected,
+.modalAdminConnected,
 .modalPasswordLogin,
 .modal,
 .modalCmdt {
@@ -261,10 +262,12 @@ select {
   animation-name: popIn;
 }
 
-.modalUserConnected.show {
+.modalUserConnected.show,
+.modalAdminConnected.show {
   animation-name: popInConnected;
 }
-.modalUserConnected.hide {
+.modalUserConnected.hide,
+.modalAdminConnected.hide {
   animation-name: popOutConnected;
 }
 .modalUser.hide,

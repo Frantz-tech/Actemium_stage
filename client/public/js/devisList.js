@@ -1,5 +1,5 @@
-import { handleApiError } from './tokenHandler/handleApi.js';
-
+import { handleApiError, verifierAuthentification } from './tokenHandler/handleApi.js';
+verifierAuthentification();
 document.querySelector('h1').innerText = 'DEVIS';
 
 // Charger les devis lorsque l'on arrive sur la page liste des devis :
@@ -226,22 +226,19 @@ function fetchDevisByRaId() {
           });
         });
 
+        const btnCreerDevis = document.createElement('button');
+        btnCreerDevis.classList.add('btnCreer');
+        btnCreerDevis.textContent = 'Créer un devis';
+        btnCreerDevis.addEventListener('click', () => {
+          alert('Création d un nouveau devis');
+          window.location.href = `../pages/devis.html?ra_id=${ra_id}`;
+        });
+
         contenuDevisList.appendChild(devisList);
         grpDevisList.appendChild(contenuDevisList);
         const main = document.querySelector('main');
-        main.appendChild(grpDevisList);
+        main.append(grpDevisList, btnCreerDevis);
       }
-
-      const btnCreerDevis = document.createElement('button');
-      btnCreerDevis.classList.add('btnCreer');
-      btnCreerDevis.textContent = 'Créer un devis';
-      btnCreerDevis.addEventListener('click', () => {
-        alert('Création d un nouveau devis');
-        window.location.href = '../pages/devis.html';
-      });
-
-      const main = document.querySelector('main');
-      main.append(btnCreerDevis);
     });
 }
 

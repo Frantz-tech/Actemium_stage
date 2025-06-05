@@ -105,7 +105,8 @@ select {
   align-items: center;
   width: 100%;
 }
-.modalUser_content {
+.modalUser_content,
+.modalAdmin_content {
   position: relative;
   padding: 1vw;
   display: flex;

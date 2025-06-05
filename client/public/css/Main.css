@@ -242,7 +242,8 @@ footer {
 }
 
 .connectedBtn,
-.ra_id_user {
+.ra_id_user,
+.ra_id_admin {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -258,16 +259,20 @@ footer {
   background-color: var(--color-secondary);
   color: var(--color-white);
 }
-.ra_id_user {
+.ra_id_user,
+.ra_id_admin {
   width: clamp(45px, 6vw, 70px);
   height: clamp(45px, 6vw, 70px);
   font-size: clamp(1rem, 2.5vw, 2rem);
 }
 .roleUser,
-.helloUser {
+.roleAdmin,
+.helloUser,
+.helloAdmin {
   font-size: clamp(1.4rem, 1.3vw, 2rem);
 }
-.roleUser {
+.roleUser,
+.roleAdmin {
   margin-top: -10px;
   text-transform: uppercase;
 }
@@ -346,7 +351,8 @@ footer {
   background-color: var(--color-accent);
   color: var(--color-white);
 }
-.modalUserConnected {
+.modalUserConnected,
+.modalAdminConnected {
   display: flex;
   position: fixed;
   margin-right: 4vw;
@@ -357,7 +363,17 @@ footer {
   background-color: var(--color-white);
   border-radius: 25px;
 }
+.btnGererCompte {
+  cursor: pointer;
+  border: 1px solid black;
+  padding: 0.2vw 1vw;
+  border-radius: 25px;
+  background-color: var(--bg-color);
+}
 
+.btnGererCompte:hover {
+  background-color: var(--color-border);
+}
 @media screen and (min-width: 1024px) {
   .burger,
   .slideMenu {

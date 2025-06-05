@@ -1,4 +1,8 @@
+import { verifierAuthentification } from '../tokenHandler/handleApi.js';
+import { openAdminPresentation } from './modalAdmin.js';
 import { openUserPresentation } from './modalUser.js';
+
+verifierAuthentification();
 
 fetch('../pages/header.html')
   .then(res => res.text())
@@ -21,6 +25,16 @@ fetch('../pages/header.html')
       const currentPage = window.location.pathname.split('/').pop();
       const currentHost = window.location.host;
       const connectedBtn = document.getElementById('connectedBtn');
+
+      document.querySelectorAll('a[href*="accueil.html"]').forEach(link => {
+        link.href = `../pages/accueil.html?ra_id=${ra_id}`;
+      });
+      document.querySelectorAll('a[href*="devis.html"]').forEach(link => {
+        link.href = `../pages/devis.html?ra_id=${ra_id}`;
+      });
+      document.querySelectorAll('a[href*="devisList.html"]').forEach(link => {
+        link.href = `../pages/devisList.html?ra_id=${ra_id}`;
+      });
 
       if (logoEvent) {
         const isDashboard = currentPage === 'adminDashboard.html';
@@ -51,20 +65,27 @@ fetch('../pages/header.html')
       }
 
       if (connectedBtn) {
-        const pageBtnConnected =
+        const pageBtnConnectedUser =
           currentPage === 'accueil.html' ||
           currentPage === 'devis.html' ||
           currentPage === 'devisList.html' ||
           currentPage === 'fap.html' ||
           currentPage === 'poste.html' ||
           currentPage === 'postesList.html';
+        const pageBtnConnectedAdmin = currentPage === 'adminDashboard.html';
 
-        if (pageBtnConnected) {
+        if (pageBtnConnectedUser) {
           connectedBtn.textContent = `${ra_id}`;
 
-          // Ecouteur sur le clic du bouton qui indique que l'on est connecté
+          // Ecouteur sur le clic du bouton qui indique que l'utilisateur est connecté
           connectedBtn.addEventListener('click', () => {
             openUserPresentation();
+          });
+        } else if (pageBtnConnectedAdmin) {
+          connectedBtn.textContent = `${ra_id}`;
+          // Ecouteur sur le clic du bouton qui indique que l'admin est connecté
+          connectedBtn.addEventListener('click', () => {
+            openAdminPresentation();
           });
         } else {
           connectedBtn.style.display = 'none';
