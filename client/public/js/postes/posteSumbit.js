@@ -90,15 +90,27 @@ export async function sendPostes() {
     frais: frais,
   };
 
+  if (!libelle.trim()) {
+    alert('Veuillez remplir le libellé du devis.');
+    return;
+  }
+
+  if (sections.length === 0 && achats.length === 0 && frais.length === 0) {
+    alert('Veuillez ajouter au moins une section, un achat ou un frais chantier avant de valider.');
+    return;
+  }
+
   try {
     const response = await postData('http://localhost:3000/api/postes', payload);
-    console.log('données envoyées avec succès :', response.data);
     // Redirection vers la liste des postes du devis :
-    if (Array.isArray(response.data) && response.data.length > 0) {
+
+    if (Array.isArray(response.data?.resultats) && response.data.resultats.length > 0) {
       alert('Succes');
+      console.log('données envoyées avec succès :', response.data.resultats);
       window.location.href = `../../pages/postesList.html?devis_id=${devisId}&ra_id=${ra_id}`;
     } else {
-      alert('Aucune donnée recu après l envoie du post');
+      alert('Aucune donnée reçue après l’envoi du post');
+      return;
     }
     // Ici tu peux ajouter une redirection ou un message utilisateur
   } catch (error) {

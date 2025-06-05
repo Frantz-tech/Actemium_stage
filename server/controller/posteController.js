@@ -6,12 +6,12 @@ const createPoste = async (req, res) => {
     const postes = req.body;
     console.log('Payload recu : ', postes);
 
-    const result = await Service.createPoste(postes);
+    const { resultats, errors } = await Service.createPoste(postes);
 
-    if (result.errors && result.errors.length > 0) {
-      return res.status(400).json({ message: result.errors });
+    if (resultats.length === 0 && errors.length > 0) {
+      return res.status(400).json({ errors });
     }
-    sendSuccessResponse(res, 201, 'Poste créer avec succès', result);
+    sendSuccessResponse(res, 201, 'Poste créer avec succès', { resultats, errors });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
