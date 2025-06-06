@@ -1,3 +1,4 @@
+import { postData } from '../post/postData.js';
 import { getPostData } from '../postes/getPostesData.js';
 import { openPostModal } from '../postes/openPostModal.js';
 import {
@@ -20,6 +21,19 @@ export async function fetchFap() {
   const ra_id = urlParams.get('ra_id');
 
   try {
+    document.querySelector('h1').innerText = 'FAP ACTEMIUM';
+
+    const btnValider = document.createElement('button');
+    btnValider.classList.add('btnValider');
+    btnValider.textContent = `Valider`;
+
+    const btnExporterPDF = document.createElement('button');
+    btnExporterPDF.classList.add('btnExporter');
+    btnExporterPDF.textContent = `Exporter PDF`;
+
+    const buttons = document.createElement('div');
+    buttons.classList.add('buttons');
+
     const postes = await getPostData(devis_id, ra_id);
 
     const contenuPost = document.createElement('div');
@@ -59,8 +73,17 @@ export async function fetchFap() {
     const allPostes = Object.values(postes).flat();
 
     let totalAchatFrais = 0;
+    let fraisSTEtudes = 0;
+    let totalFraisFourniture_BC = 0;
     try {
-      totalAchatFrais = await fraisTotalAchat(allPostes);
+      const { totalFraisAchat, fraisSousTraitance_Etudes, fraisFourniture_BonsChantier } =
+        await fraisTotalAchat(allPostes);
+      totalAchatFrais = totalFraisAchat;
+      fraisSTEtudes = fraisSousTraitance_Etudes;
+      totalFraisFourniture_BC = fraisFourniture_BonsChantier;
+      console.log('1 - total Frais sous traitance inter + etude = ', fraisSTEtudes);
+      console.log('2 - total Frais achat fourniture = ', totalFraisFourniture_BC);
+      console.log('3 - total Frais achat = 1 + 2 ', totalAchatFrais);
     } catch (e) {
       console.error("Erreur lors du calcul des frais d'achat :", e);
     }
@@ -177,8 +200,7 @@ export async function fetchFap() {
     fraisAchatsP.classList.add('divTextFap');
     fraisAchatsP.classList.add('textCout');
 
-    fraisAchatsP.textContent = "Total frais d'achats";
-
+    fraisAchatsP.textContent = `Total frais d'achats ( frais achat fourniture ${Math.round(totalFraisFourniture_BC).toLocaleString('fr-FR')} € + (frais achat sous traitance + études ${fraisSTEtudes} €) )`;
     const fraisAchatsTotal = document.createElement('div');
     fraisAchatsTotal.textContent = `${Math.round(totalAchatFrais).toLocaleString('fr-FR')} €`;
     fraisAchatsTotal.classList.add('divTotal');
@@ -486,6 +508,70 @@ export async function fetchFap() {
     });
     divPVE.append(divPveP, divPveTotal);
 
+    // Envoie vers la base de donnée
+    btnValider.addEventListener('click', async () => {
+      // Check si les champs sont bien rempli
+      if (!margeVoulueValue.value || !divPvrTotal.value || divPvrTotal.value === '0 €') {
+        alert('Veuillez remplir la marge et le prix de vente retenu avant de valider');
+      }
+      const margeFinaleNum =
+        parseFloat(
+          margeFinaleTotal.textContent.replace(/\s/g, '').replace('€', '').replace(',', '.')
+        ) || 0;
+
+      // Check si la marge est positive
+      if (margeFinaleNum < 0) {
+        alert('Le prix de vente retenu ne peut pas être inférieur au prix de revient');
+      }
+      // Récupération des éléments a envoyer
+      const garantieEns = garantieETotal.textContent.replace(/\s/g, '').replace('€', '');
+      const totalMd = mdvrTotal.textContent.replace(/\s/g, '').replace('€', '');
+      const totalAch = achatTotal.textContent.replace(/\s/g, '').replace('€', '');
+      const prixRevientInter = divPriTotal.textContent.replace(/\s/g, '').replace('€', '');
+      const fraisDevisSS = divFraisDssTotal.textContent.replace(/\s/g, '').replace('€', '');
+      const fraisFin = divFraisFinanciersTotal.textContent.replace(/\s/g, '').replace('€', '');
+      const fraisGrp = divFraisGroupeTotal.textContent.replace(/\s/g, '').replace('€', '');
+      const margeVoulueVal = margeVoulueValue.value.replace(/\s/g, '').replace('%', '');
+      const prixRevt = divPrTotal.textContent.replace(/\s/g, '').replace('€', '');
+      const totalFFBC = parseFloat(totalFraisFourniture_BC);
+      const totalFSTE = parseFloat(fraisSTEtudes);
+      const totalAF = fraisAchatsTotal.textContent.replace(/\s/g, '').replace('€', '');
+      const totalFC = fraisChantierTotal.textContent.replace(/\s/g, '').replace('€', '');
+      const prixVenteEsti = divPveTotal.textContent.replace(/\s/g, '').replace('€', '');
+      const prixVenteRetenu = divPvrTotal.value.replace(/\s/g, '').replace('€', '');
+
+      const dataFap = {
+        devis_id,
+        garantieE: garantieEns,
+        total_Main_d_oeuvre: totalMd,
+        total_achats: totalAch,
+        total_frais_achat_fourniture: totalFFBC,
+        total_frais_achat_ste: totalFSTE,
+        total_frais_d_achat: totalAF,
+        total_frais_chantier: totalFC,
+        prix_revient_inter: prixRevientInter,
+        frais_dss: fraisDevisSS,
+        frais_financier: fraisFin,
+        frais_groupe: fraisGrp,
+        prix_revient: prixRevt,
+        marge_voulue: margeVoulueVal,
+        prix_vente_esti: prixVenteEsti,
+        prix_vente_retenu: prixVenteRetenu,
+        marge_finale: margeFinaleNum,
+      };
+      console.log('données à envoyer en bdd :', dataFap);
+
+      try {
+        const sendFap = await postData('http://localhost:3000/api/fap', dataFap);
+
+        if (sendFap.ok) {
+          alert('succes fap envoyé avec succes en base de donnée');
+        }
+      } catch (error) {
+        console.error("Erreur lors de l'envoie de la fap");
+        throw new Error('Erreur serveur ', error);
+      }
+    });
     // Appends & appendChild
     blocHideFrais.append(divFraisDSS, divFraisFinanciers, divFraisGroupe);
     voirFrais.append(blocHideFraisP, blocHideFrais);
@@ -504,7 +590,9 @@ export async function fetchFap() {
     );
 
     const main = document.querySelector('main');
-    main.append(contenuPost, containerPrix);
+    buttons.append(btnValider, btnExporterPDF);
+
+    main.append(buttons, contenuPost, containerPrix);
   } catch (error) {
     console.error('Erreur lors de la récupération des postes :', error);
   }

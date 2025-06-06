@@ -51,11 +51,7 @@ export async function fraisTotalAchat(postes) {
   const fraisSousTraitance_Etudes = (totalSousTraitance + totalEtudes) * tauxSousTraitance;
   const totalFraisAchat = fraisFourniture_BonsChantier + fraisSousTraitance_Etudes;
 
-  console.log('1- Frais achat fourniture :', fraisFourniture_BonsChantier);
-  console.log('2- Frais sous-traitance :', fraisSousTraitance_Etudes);
-  console.log("3 ( Somme de 1 & 2 ) Total frais d'achat :", totalFraisAchat);
-
-  return totalFraisAchat;
+  return { totalFraisAchat, fraisFourniture_BonsChantier, fraisSousTraitance_Etudes };
 }
 
 export async function fraisDss(postes, prixRevientInter) {

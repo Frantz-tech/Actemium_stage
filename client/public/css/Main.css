@@ -109,7 +109,7 @@ input {
 .btnCreer,
 .btnModal,
 .btnExporter,
-.btnMail {
+.btnValider {
   cursor: pointer;
   border-radius: 25px;
   border: none;
@@ -236,7 +236,7 @@ footer {
 }
 
 .containerConnected {
-  position: fixed;
+  position: absolute;
   top: 10vh;
   right: 2vw;
 }
