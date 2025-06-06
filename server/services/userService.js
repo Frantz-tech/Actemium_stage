@@ -4,13 +4,19 @@ import { Repository } from '../repository/userRepository.js';
 import { validateEmail, validatePassword, validateRole } from '../utils/validator.js';
 
 const generateUniqueRaId = async (prenom, nom) => {
-  const baseRaId = (prenom[0] + nom[0]).toUpperCase();
-  let raId = baseRaId;
-  let suffix = 0;
+  const baseRaId = (prenom[0] + nom[0]).toUpperCase(); // e.g. "DC"
+
+  if (!(await Repository.checkRaIdExists(baseRaId))) {
+    return baseRaId; // Return base ID if it doesn't exist
+  }
+
+  let suffix = 1;
+  let raId = baseRaId + suffix;
   while (await Repository.checkRaIdExists(raId)) {
     suffix++;
     raId = baseRaId + suffix;
   }
+
   return raId;
 };
 
