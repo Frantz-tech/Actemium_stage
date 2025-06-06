@@ -96,6 +96,9 @@ export function openPostModal(p, postes) {
   const tMd = document.createElement('div');
   tMd.classList.add('totalMd');
   tMd.textContent = `${totalMainDvre.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
+  if (totalMainDvre === 0) {
+    containerSection.style.dsplay = 'none';
+  }
   totalMdvr.append(totalMdvrP, tMd);
   containerSection.append(contextSection, sectionData, totalMdvr);
 
@@ -157,6 +160,9 @@ export function openPostModal(p, postes) {
   const tA = document.createElement('div');
   tA.classList.add('tA');
   tA.textContent = `${totalAchats.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
+  if (totalAchats === 0) {
+    containerAchat.style.display = 'none';
+  }
   totalA.append(totalAchatsP, tA);
   containerAchat.append(contextAchat, achatsData, totalA);
 
@@ -220,6 +226,9 @@ export function openPostModal(p, postes) {
   const tF = document.createElement('div');
   tF.classList.add('tF');
   tF.textContent = `${totalFournitures.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
+  if (totalFournitures === 0) {
+    containerFourniture.style.display = 'none';
+  }
   totalF.append(totalFournituresP, tF);
 
   const totalGlobal = document.createElement('div');

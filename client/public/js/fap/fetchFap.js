@@ -66,10 +66,40 @@ export async function fetchFap() {
     }
 
     // Container pour les prix et les calculs de marge
-
     const containerPrix = document.createElement('div');
     containerPrix.classList.add('containerPrix');
 
+    // Div rassemblement des couts
+    const voirCouts = document.createElement('div');
+    voirCouts.classList.add('voirCouts');
+
+    // Cacher les couts dans ce bloc par défaut
+    const blocHideCouts = document.createElement('div');
+    blocHideCouts.classList.add('blocHideCouts');
+    blocHideCouts.classList.add('hidden');
+
+    const blocHideCoutsP = document.createElement('p');
+    blocHideCoutsP.classList.add('blocHideCoutsP');
+    blocHideCoutsP.textContent = 'Voir les coûts';
+
+    // Appelle de la fonction qui ouvre les couts lors du click
+    blocHideCoutsP.addEventListener('click', () => {
+      const isHidden = blocHideCouts.classList.contains('hidden');
+
+      if (isHidden) {
+        blocHideCouts.classList.remove('hidden');
+        setTimeout(() => {
+          blocHideCoutsP.textContent = 'Réduire';
+          blocHideCoutsP.classList.add('active');
+        }, 300);
+      } else {
+        blocHideCouts.classList.add('hidden');
+        blocHideCoutsP.classList.remove('active');
+        setTimeout(() => {
+          blocHideCoutsP.textContent = 'Voir les coûts';
+        }, 1000);
+      }
+    });
     // Div total de la main d'oeuvre
     const mdvr = document.createElement('div');
     mdvr.classList.add('mdvr');
@@ -77,12 +107,14 @@ export async function fetchFap() {
 
     const mdvrP = document.createElement('p');
     mdvrP.classList.add('divTextFap');
+    mdvrP.classList.add('textCout');
     mdvrP.textContent = "Total main d'oeuvre";
 
     const mdvrTotal = document.createElement('div');
     mdvrTotal.textContent = `${Math.round(totalMdvr).toLocaleString('fr-FR')} €`;
     mdvrTotal.classList.add('divTotal');
     mdvrTotal.classList.add('divTotal_2');
+    mdvrTotal.classList.add('divTotal_Cout');
 
     mdvr.append(mdvrP, mdvrTotal);
 
@@ -93,15 +125,49 @@ export async function fetchFap() {
 
     const achatP = document.createElement('p');
     achatP.classList.add('divTextFap');
+    achatP.classList.add('textCout');
+
     achatP.textContent = 'Total achats';
 
     const achatTotal = document.createElement('div');
     achatTotal.textContent = `${Math.round(totalAchat).toLocaleString('fr-FR')} €`;
     achatTotal.classList.add('divTotal');
     achatTotal.classList.add('divTotal_2');
+    achatTotal.classList.add('divTotal_Cout');
 
     achat.append(achatP, achatTotal);
 
+    // Div rassemblement des frais
+    const voirFrais = document.createElement('div');
+    voirFrais.classList.add('voirFrais');
+
+    // Cacher les frais dans ce bloc par défaut
+    const blocHideFrais = document.createElement('div');
+    blocHideFrais.classList.add('blocHideFrais');
+    blocHideFrais.classList.add('hidden');
+
+    const blocHideFraisP = document.createElement('p');
+    blocHideFraisP.classList.add('blocHideCoutsP');
+    blocHideFraisP.textContent = 'Voir les frais';
+
+    // Appelle de la fonction qui ouvre les couts lors du click
+    blocHideFraisP.addEventListener('click', () => {
+      const isHidden = blocHideFrais.classList.contains('hidden');
+
+      if (isHidden) {
+        blocHideFrais.classList.remove('hidden');
+        setTimeout(() => {
+          blocHideFraisP.textContent = 'Réduire';
+          blocHideFraisP.classList.add('active');
+        }, 300);
+      } else {
+        blocHideFrais.classList.add('hidden');
+        blocHideFraisP.classList.remove('active');
+        setTimeout(() => {
+          blocHideFraisP.textContent = 'Voir les frais';
+        }, 1000);
+      }
+    });
     // Div Total Frais Achats
     const fraisAchats = document.createElement('div');
     fraisAchats.classList.add('fraisAchats');
@@ -109,12 +175,15 @@ export async function fetchFap() {
 
     const fraisAchatsP = document.createElement('p');
     fraisAchatsP.classList.add('divTextFap');
+    fraisAchatsP.classList.add('textCout');
+
     fraisAchatsP.textContent = "Total frais d'achats";
 
     const fraisAchatsTotal = document.createElement('div');
     fraisAchatsTotal.textContent = `${Math.round(totalAchatFrais).toLocaleString('fr-FR')} €`;
     fraisAchatsTotal.classList.add('divTotal');
     fraisAchatsTotal.classList.add('divTotal_2');
+    fraisAchatsTotal.classList.add('divTotal_Cout');
 
     fraisAchats.append(fraisAchatsP, fraisAchatsTotal);
 
@@ -125,12 +194,15 @@ export async function fetchFap() {
 
     const fraisChantierP = document.createElement('p');
     fraisChantierP.classList.add('divTextFap');
+    fraisChantierP.classList.add('textCout');
+
     fraisChantierP.textContent = 'Total frais de chantier';
 
     const fraisChantierTotal = document.createElement('div');
     fraisChantierTotal.textContent = `${Math.round(totalFraisC).toLocaleString('fr-FR')} €`;
     fraisChantierTotal.classList.add('divTotal');
     fraisChantierTotal.classList.add('divTotal_2');
+    fraisChantierTotal.classList.add('divTotal_Cout');
 
     fraisChantier.append(fraisChantierP, fraisChantierTotal);
 
@@ -294,12 +366,14 @@ export async function fetchFap() {
 
     const divFraisDssP = document.createElement('p');
     divFraisDssP.classList.add('divTextFap');
+    divFraisDssP.classList.add('textCout');
     divFraisDssP.textContent = 'Frais de devis sans suite';
 
     const divFraisDssTotal = document.createElement('div');
     divFraisDssTotal.textContent = `${Math.round(totalFraisDss).toLocaleString('fr-FR')} €`;
     divFraisDssTotal.classList.add('divTotal');
     divFraisDssTotal.classList.add('divTotal_2');
+    divFraisDssTotal.classList.add('divTotal_Cout');
 
     divFraisDSS.append(divFraisDssP, divFraisDssTotal);
 
@@ -317,12 +391,14 @@ export async function fetchFap() {
 
     const divFraisFinanciersP = document.createElement('p');
     divFraisFinanciersP.classList.add('divTextFap');
+    divFraisFinanciersP.classList.add('textCout');
     divFraisFinanciersP.textContent = 'Frais Financiers';
 
     const divFraisFinanciersTotal = document.createElement('div');
     divFraisFinanciersTotal.textContent = `${Math.round(totalFraisFinancier).toLocaleString('fr-FR')} €`;
     divFraisFinanciersTotal.classList.add('divTotal');
     divFraisFinanciersTotal.classList.add('divTotal_2');
+    divFraisFinanciersTotal.classList.add('divTotal_Cout');
 
     divFraisFinanciers.append(divFraisFinanciersP, divFraisFinanciersTotal);
 
@@ -340,13 +416,14 @@ export async function fetchFap() {
 
     const divFraisGroupeP = document.createElement('p');
     divFraisGroupeP.classList.add('divTextFap');
+    divFraisGroupeP.classList.add('textCout');
     divFraisGroupeP.textContent = 'Frais de Groupe';
 
     const divFraisGroupeTotal = document.createElement('div');
-
+    divFraisGroupeTotal.textContent = `${Math.round(totalFraisDeGroupe).toLocaleString('fr-FR')} €`;
     divFraisGroupeTotal.classList.add('divTotal');
     divFraisGroupeTotal.classList.add('divTotal_2');
-    divFraisGroupeTotal.textContent = `${Math.round(totalFraisDeGroupe).toLocaleString('fr-FR')} €`;
+    divFraisGroupeTotal.classList.add('divTotal_Cout');
     divFraisGroupe.append(divFraisGroupeP, divFraisGroupeTotal);
 
     // Div Prix de revient
@@ -410,15 +487,15 @@ export async function fetchFap() {
     divPVE.append(divPveP, divPveTotal);
 
     // Appends & appendChild
-    divFrais.append(divFraisDSS, divFraisFinanciers, divFraisGroupe);
+    blocHideFrais.append(divFraisDSS, divFraisFinanciers, divFraisGroupe);
+    voirFrais.append(blocHideFraisP, blocHideFrais);
+    blocHideCouts.append(mdvr, achat, fraisAchats, fraisChantier);
+    voirCouts.append(blocHideCoutsP, blocHideCouts);
     containerPrix.append(
-      mdvr,
-      achat,
-      fraisAchats,
-      fraisChantier,
       garantieE,
+      voirCouts,
       divPRI,
-      divFrais,
+      voirFrais,
       divPr,
       margeVoulue,
       divPVE,
