@@ -14,6 +14,7 @@ import {
   updateTotalPR,
   updateTotalPRI,
 } from './calculsFap.js';
+import { detailModal } from './detailModal.js';
 
 export async function fetchFap() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -81,7 +82,7 @@ export async function fetchFap() {
       totalAchatFrais = totalFraisAchat;
       fraisSTEtudes = fraisSousTraitance_Etudes;
       totalFraisFourniture_BC = fraisFourniture_BonsChantier;
-      console.log('1 - total Frais sous traitance inter + etude = ', fraisSTEtudes);
+      console.log('1 - total Frais sous traitance externe + etude = ', fraisSTEtudes);
       console.log('2 - total Frais achat fourniture = ', totalFraisFourniture_BC);
       console.log('3 - total Frais achat = 1 + 2 ', totalAchatFrais);
     } catch (e) {
@@ -134,10 +135,17 @@ export async function fetchFap() {
     mdvrP.textContent = "Total main d'oeuvre";
 
     const mdvrTotal = document.createElement('div');
+    mdvrTotal.style.cursor = 'pointer';
     mdvrTotal.textContent = `${Math.round(totalMdvr).toLocaleString('fr-FR')} €`;
     mdvrTotal.classList.add('divTotal');
     mdvrTotal.classList.add('divTotal_2');
     mdvrTotal.classList.add('divTotal_Cout');
+
+    // Ecouteur sur le total de la main d'oeuvre pour voir le détail
+
+    mdvrTotal.addEventListener('click', () => {
+      detailModal(devis_id, ra_id, 'MAIN_DOEUVRE');
+    });
 
     mdvr.append(mdvrP, mdvrTotal);
 
@@ -153,10 +161,17 @@ export async function fetchFap() {
     achatP.textContent = 'Total achats';
 
     const achatTotal = document.createElement('div');
+    achatTotal.style.cursor = 'pointer';
     achatTotal.textContent = `${Math.round(totalAchat).toLocaleString('fr-FR')} €`;
     achatTotal.classList.add('divTotal');
     achatTotal.classList.add('divTotal_2');
     achatTotal.classList.add('divTotal_Cout');
+
+    // Ecouteur sur le total des Achats pour voir le détail des achats
+
+    achatTotal.addEventListener('click', () => {
+      detailModal(devis_id, ra_id, 'ACHATS');
+    });
 
     achat.append(achatP, achatTotal);
 
@@ -221,10 +236,16 @@ export async function fetchFap() {
     fraisChantierP.textContent = 'Total frais de chantier';
 
     const fraisChantierTotal = document.createElement('div');
+    fraisChantierTotal.style.cursor = 'pointer';
     fraisChantierTotal.textContent = `${Math.round(totalFraisC).toLocaleString('fr-FR')} €`;
     fraisChantierTotal.classList.add('divTotal');
     fraisChantierTotal.classList.add('divTotal_2');
     fraisChantierTotal.classList.add('divTotal_Cout');
+
+    // Ecouteur sur le total du frais Chantier
+    fraisChantierTotal.addEventListener('click', () => {
+      detailModal(devis_id, ra_id, 'CHANTIER');
+    });
 
     fraisChantier.append(fraisChantierP, fraisChantierTotal);
 

@@ -165,3 +165,65 @@ h1 {
   left: 0;
   bottom: 0;
 }
+
+.modalDetail {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 50%;
+  top: 55%;
+  height: fit-content;
+  width: 50vw;
+  max-width: 70%;
+  transform: translate(-50%, -50%);
+  z-index: 2000;
+  overflow: auto;
+  background-color: var(--color-white);
+  border-radius: 4px;
+}
+.grpHeadModal {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  padding: 1vw 0;
+}
+
+.titleModalDetail {
+  color: black;
+  margin: 0;
+}
+
+.modalDetail_content {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 1vw;
+}
+.dataDetail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--color-primary);
+  padding: 0 1.5vw 0.5vw;
+  font-weight: bold;
+}
+.totalDetail {
+  border-radius: 4px;
+  color: var(--color-white);
+  padding: 0.5vw 1.5vw;
+  background-color: var(--color-primary);
+  font-weight: lighter;
+  flex: 1;
+  text-align: center;
+}
+
+.close-btnDetail {
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: black !important;
+}
+
+.libelleDetail {
+  flex: 3;
+  color: black;
+}
