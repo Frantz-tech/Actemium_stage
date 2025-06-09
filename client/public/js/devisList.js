@@ -1,3 +1,4 @@
+import { deleteDevis } from './delete/deleteDevis.js';
 import { handleApiError } from './tokenHandler/handleApi.js';
 
 document.querySelector('h1').innerText = 'DEVIS';
@@ -5,6 +6,15 @@ document.querySelector('h1').innerText = 'DEVIS';
 // Charger les devis lorsque l'on arrive sur la page liste des devis :
 // Fetch la route get devis par RA_ID
 function fetchDevisByRaId() {
+  const existList = document.getElementById('groupeDevisList');
+  if (existList) {
+    existList.remove();
+  }
+
+  const existBtnCreer = document.querySelector('.btnCreer');
+  if (existBtnCreer) {
+    existBtnCreer.remove();
+  }
   const utilisateur = JSON.parse(localStorage.getItem('utilisateur'));
   const ra_id = utilisateur?.RA_ID;
 
@@ -73,12 +83,18 @@ function fetchDevisByRaId() {
           const btnDeleteDevis = document.createElement('button');
           btnDeleteDevis.classList.add('deletebtn');
 
-          btnDeleteDevis.addEventListener('click', () => {
+          btnDeleteDevis.addEventListener('click', async () => {
             const confirmation = confirm(
               `Êtes-vous sûr de vouloir supprimer le devis ? Cette action est irréversible.`
             ); // Confirmation pour supprimer un devis, a faire également pour les postes dans le js postesListes
             if (confirmation) {
-              // fetch deleteDevis
+              try {
+                await deleteDevis(d.DEVIS_ID, d.RA_ID);
+                fetchDevisByRaId();
+              } catch (error) {
+                console.error(`Erreur lors de la suppréssion du devis : ${d.DEVIS_ID}`, error);
+                throw error;
+              }
             }
           });
 

@@ -1,3 +1,4 @@
+import { response } from 'express';
 import { handleApiError } from '../tokenHandler/handleApi.js';
 
 export function fetchAllDevis(tableDevisBody) {
@@ -9,7 +10,7 @@ export function fetchAllDevis(tableDevisBody) {
   })
     .then(response => response.json())
     .then(devis => {
-      handleApiError;
+      handleApiError(response);
       console.log('Liste des devis :', devis);
       tableDevisBody.innerHTML = '';
       const devisList = devis.data;
