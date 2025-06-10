@@ -273,7 +273,6 @@ export function openPostModal(p, postes) {
     modal.classList.add('hide');
     setTimeout(() => {
       overlay.remove();
-      document.body.removeChild(modal); // Ferme le modal
     }, 300);
     document.body.classList.remove('noscroll');
   });
@@ -282,7 +281,6 @@ export function openPostModal(p, postes) {
       modal.classList.add('hide');
       setTimeout(() => {
         overlay.remove();
-        document.body.removeChild(modal); // Ferme le modal
       }, 300);
       document.body.classList.remove('noscroll');
     }

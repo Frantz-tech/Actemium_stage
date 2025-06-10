@@ -29,7 +29,25 @@ const getAllPostes = async (req, res) => {
   }
 };
 
+const deletePoste = async (req, res) => {
+  try {
+    const { devis_id, libelle } = req.query;
+    console.log('req.query : ', req.query);
+
+    if (!devis_id || !libelle) {
+      return res
+        .status(400)
+        .json({ error: 'Le deivs et le libelle sont requis pour la suppression' });
+    }
+    const result = await Service.deletePoste(devis_id, libelle);
+    sendSuccessResponse(res, 200, 'Poste supprimé avec succès', result);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
 export const Controller = {
   createPoste,
   getAllPostes,
+  deletePoste,
 };

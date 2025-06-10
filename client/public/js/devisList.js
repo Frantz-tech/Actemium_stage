@@ -245,8 +245,8 @@ function fetchDevisByRaId() {
         const btnCreerDevis = document.createElement('button');
         btnCreerDevis.classList.add('btnCreer');
         btnCreerDevis.textContent = 'Créer un devis';
+
         btnCreerDevis.addEventListener('click', () => {
-          alert('Création d un nouveau devis');
           window.location.href = `../pages/devis.html?ra_id=${ra_id}`;
         });
 

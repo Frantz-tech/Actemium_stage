@@ -46,7 +46,15 @@ ORDER BY p.POSTE_ID DESC;`,
   return rows;
 };
 
+const deletePoste = async (devis_id, libelle) => {
+  return await pool.query('DELETE FROM POSTES WHERE DEVIS_ID = ? AND LIBELLE = ?', [
+    devis_id,
+    libelle,
+  ]);
+};
+
 export const Repository = {
   createPoste,
   getAllPostes,
+  deletePoste,
 };

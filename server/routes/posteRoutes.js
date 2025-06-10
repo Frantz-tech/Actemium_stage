@@ -8,5 +8,6 @@ const router = Router();
 
 router.post('/', authenticate, Controller.createPoste);
 router.get('/', authenticate, Controller.getAllPostes);
+router.delete('/', authenticate, Controller.deletePoste);
 
 export default router;
