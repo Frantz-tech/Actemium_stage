@@ -202,7 +202,6 @@ function fetchDevisByRaId() {
                 modal.classList.add('hide');
                 setTimeout(() => {
                   overlay.remove();
-                  document.body.removeChild(modal);
                 }, 300);
                 document.body.classList.remove('noscroll');
                 document.removeEventListener('keydown', handleEscape); // Nettoyage du listener
@@ -218,7 +217,6 @@ function fetchDevisByRaId() {
               modal.classList.add('hide');
               setTimeout(() => {
                 overlay.remove();
-                document.body.removeChild(modal); // Ferme le modal
               }, 300);
               document.body.classList.remove('noscroll');
             });
@@ -227,7 +225,6 @@ function fetchDevisByRaId() {
                 modal.classList.add('hide');
                 setTimeout(() => {
                   overlay.remove();
-                  document.body.removeChild(modal); // Ferme le modal
                 }, 300);
                 document.body.classList.remove('noscroll');
               }

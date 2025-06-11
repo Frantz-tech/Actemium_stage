@@ -99,18 +99,19 @@
 }
 
 .groupePoste,
-.groupeDevis,
-.groupePostes {
+.groupeDevis {
   display: flex;
   justify-content: center;
 }
-#hidden {
-  display: none;
-}
+
 .groupePoste {
   display: flex;
   flex-direction: column;
   gap: 2vw;
+}
+
+#hidden {
+  display: none;
 }
 
 .posteFap {
@@ -142,7 +143,7 @@
   order: 1;
 }
 
-/* page liste des devis  */
+/* Listes  */
 #clientList,
 #devisList,
 #postList {
@@ -198,84 +199,12 @@
   background-color: var(--color-white);
 }
 
-.groupeLibelle {
+/* .groupeLibelle {
   display: flex;
   gap: 2vw;
   align-items: center;
-}
+} */
 
-.modalPost {
-  display: flex;
-  flex-direction: column-reverse;
-  position: fixed;
-  left: 50%;
-  top: 55%;
-  height: fit-content;
-  width: 80vw;
-  max-width: 70%;
-  transform: translate(-50%, -50%);
-  z-index: 2000;
-  overflow: auto;
-  background-color: var(--color-white);
-  border-radius: 4px;
-}
-
-.modal,
-.modalDevis {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.85);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow-y: auto;
-}
-.noscroll {
-  overflow: hidden;
-}
-.modal.hidden,
-.modalDevis.hidden {
-  display: none;
-}
-.modal-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(
-    to top,
-    var(--color-accent),
-    var(--color-secondary),
-    var(--color-primary)
-  );
-  padding: 20px;
-  border-radius: 6px;
-  width: clamp(300px, 70vw, 1440px);
-  text-align: center;
-  height: fit-content;
-}
-
-#modal_body {
-  display: flex;
-  flex-direction: column;
-  overflow: scroll;
-  max-height: 75vh;
-  align-items: center;
-}
-
-.modalSectionAchatFraisTitle,
-.liModal,
-.devisSegm {
-  background-color: var(--color-white);
-  border-radius: 5px;
-  font-size: clamp(0.7rem, 1.5vw, 1.4rem);
-  text-align: start;
-  padding: clamp(0.5rem, 1vw, 2rem);
-  letter-spacing: 0.15rem;
-}
 ul {
   padding: 2vw;
   display: flex;
@@ -283,50 +212,14 @@ ul {
   gap: 1vw;
 }
 
-.divCloseGoTo {
+/* .divCloseGoTo {
   display: flex;
   width: 100%;
   justify-content: space-between;
-}
+} */
 
 .groupeA {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.totalMdvr,
-.totalA,
-.totalF,
-.totalGlobal {
-  display: flex;
-  justify-content: space-between;
-  padding: 0.5vw 1vw;
-  align-items: center;
-  border-top: 1.8px dashed var(--color-white);
-  background-color: var(--color-primary);
-  border-bottom-right-radius: 4px;
-  border-bottom-left-radius: 4px;
-}
-.totalGlobal {
-  border-top: none;
-  border-radius: 4px;
-}
-.totalMdvrP,
-.totalAchatsP,
-.totalFournituresP,
-.totalGlobalP {
-  color: var(--color-white);
-  text-transform: uppercase;
-  font-weight: bolder;
-  font-size: 1.2rem;
-}
-
-.clientLogo {
-  display: flex;
-  align-items: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 100px;
-  border: 2px solid var(--color-primary);
 }

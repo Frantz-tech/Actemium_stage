@@ -90,12 +90,14 @@ h1 {
 
 select,
 input {
-  border: 1px solid var(--color-black);
+  /* border: 1px solid var(--color-black);
+  box-shadow: 0 2px 3px var(--color-box-shadow); */
   padding: 0.5em 1em;
   border-radius: 4px;
   width: 80%;
   max-width: 450px;
-  box-shadow: 0 2px 3px var(--color-box-shadow);
+  border: 2px solid var(--primary-blue);
+  box-shadow: none;
 }
 select {
   cursor: pointer;
@@ -121,10 +123,7 @@ input {
 .btnCreerClient {
   order: 2;
 }
-.btnModal {
-  margin-top: 1vw;
-  font-size: clamp(0.8rem, 2vw, 1.3rem);
-}
+
 .btnCreer {
   margin-top: 3vw;
 }
@@ -355,18 +354,7 @@ footer {
   background-color: var(--color-accent);
   color: var(--color-white);
 }
-.modalUserConnected,
-.modalAdminConnected {
-  display: flex;
-  position: fixed;
-  margin-right: 4vw;
-  right: 0;
-  top: 8vh;
-  width: 346px;
-  z-index: 2000;
-  background-color: var(--color-white);
-  border-radius: 25px;
-}
+
 .btnGererCompte {
   cursor: pointer;
   border: 1px solid black;
@@ -378,6 +366,14 @@ footer {
 .btnGererCompte:hover {
   background-color: var(--color-border);
 }
+
+.divBtns {
+  padding: 1vw;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
 @media screen and (min-width: 1024px) {
   .burger,
   .slideMenu {
@@ -394,4 +390,22 @@ footer {
     justify-content: center;
     align-items: flex-end;
   }
+}
+
+.close-btn,
+.goToFapBtnDevis,
+.edit-btn {
+  font-size: clamp(1.6rem, 2.5vw, 2.5rem);
+  cursor: pointer;
+  align-self: flex-start;
+  color: var(--primary-blue);
+  border: none;
+  background-color: transparent;
+}
+
+.close-btn {
+  order: 2;
+}
+.edit-btn {
+  font-size: clamp(1.4rem, 2.3vw, 2.3rem);
 }

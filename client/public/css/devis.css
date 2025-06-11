@@ -6,25 +6,6 @@
   width: 100%;
 }
 
-.modal h2 {
-  color: red;
-  text-transform: uppercase;
-}
-
-.noscroll {
-  overflow: hidden;
-}
-.modal.hide {
-  display: none;
-}
-
-.modal_content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
 select {
   max-height: 200px;
 }
@@ -36,25 +17,6 @@ select {
   flex-direction: column;
   gap: 1vw;
   width: 80%;
-}
-.modalDevisLibelle,
-.modalPostLibelle {
-  text-align: center;
-  text-transform: uppercase;
-  background: linear-gradient(
-    to top,
-    var(--color-accent),
-    var(--color-secondary),
-    var(--color-primary)
-  );
-  background-clip: text;
-  color: transparent;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-size: clamp(1.5rem, 3vw, 5rem);
-  font-weight: bold;
-  letter-spacing: 0.2rem;
-  padding: 0 clamp(1rem, 3vw, 2rem) clamp(1rem, 3vw, 1rem);
 }
 
 #libelleDevis,
@@ -76,106 +38,6 @@ select {
   flex-direction: column;
 }
 
-.modalDevisCodexRa {
-  text-align: center;
-  color: var(--primary-blue);
-  font-size: clamp(1.3rem, 2.3vw, 3rem);
-  font-weight: 600;
-}
-.modalCommanditaire {
-  background-color: var(--color-white);
-  border-radius: 5px;
-  padding: 5px;
-  width: 100%;
-}
-
-.modalCommanditaire,
-.modalSegm {
-  border: 2px solid var(--primary-blue);
-}
-
-.modalDevis_content,
-.modalPost_content,
-.modalPassword_content,
-.modalCmdt_content {
-  padding: 1vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-}
-.modalUser_content,
-.modalAdmin_content {
-  position: relative;
-  padding: 1vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1vw;
-  width: 100%;
-  color: var(--color-accent);
-}
-.modalPost_content {
-  padding: 0 1vw 2vw;
-}
-.divBtns {
-  padding: 1vw;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-.close-btn,
-.goToFapBtnDevis,
-.edit-btn {
-  font-size: clamp(1.6rem, 2.5vw, 2.5rem);
-  cursor: pointer;
-  align-self: flex-start;
-  color: var(--primary-blue);
-  border: none;
-  background-color: transparent;
-}
-
-.close-btn {
-  order: 2;
-}
-.edit-btn {
-  font-size: clamp(1.4rem, 2.3vw, 2.3rem);
-}
-
-.saf {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  max-height: 40vh;
-  overflow: scroll;
-  gap: 2vw;
-  padding: 0 2vw;
-}
-.modalDevis {
-  display: flex;
-  flex-direction: column-reverse;
-  position: fixed;
-  left: 50%;
-  top: 55%;
-  height: fit-content;
-  width: 80vw;
-  max-width: 700px;
-  transform: translate(-50%, -50%);
-  z-index: 2000;
-  overflow: auto;
-  background-color: var(--color-white);
-  border-radius: 4px;
-}
-
-.modalSegm {
-  background-color: var(--color-white);
-  border-radius: 5px;
-  padding: 5px;
-  width: 100%;
-}
-
 .groupSegm {
   padding: 2vw;
   display: flex;
@@ -184,82 +46,6 @@ select {
   width: 100%;
   row-gap: clamp(5px, 1vw, 10px);
   column-gap: clamp(5px, 1vw, 10px);
-}
-.containerSection,
-.containerAchat,
-.containerFourniture {
-  display: flex;
-  background-color: var(--color-primary);
-  flex-direction: column;
-  width: 100%;
-  border-radius: 4px;
-}
-.sectionData,
-.achatsData,
-.fournituresData {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding: 0 1vw;
-  margin: 1vw 0;
-  gap: 0.8vw;
-}
-.sectionsBloc,
-.achatsBloc,
-.fournituresBloc {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  gap: 0.3vw;
-}
-
-.contextTitle {
-  text-align: center;
-  color: var(--color-white);
-  font-size: clamp(1.1rem, 2vw, 3rem);
-  letter-spacing: 0.1rem;
-  font-weight: bolder;
-  padding: 1vw 1vw 0;
-}
-.codeLibelle,
-.quantite,
-.prixUnitaire,
-.total,
-.produit,
-.unite {
-  background-color: var(--color-white);
-  /* border: 1.8px solid black; */
-  border-radius: 4px;
-  text-align: center;
-  padding: 0.2rem;
-  font-weight: 600;
-}
-
-.codeLibelle,
-.produit {
-  flex: 3.5;
-}
-
-.total {
-  flex: 2;
-}
-.quantite,
-.prixUnitaire,
-.unite {
-  flex: 1.5;
-}
-
-.totalMd,
-.tA,
-.tF,
-.totalGDiv {
-  color: var(--color-white);
-  font-weight: 800;
-  text-align: center;
-}
-.totalText {
-  text-transform: capitalize;
-  font-weight: bold;
 }
 
 @media screen and (width > 724px) {

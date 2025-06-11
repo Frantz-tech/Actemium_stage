@@ -15,6 +15,7 @@ slideMenu.classList.add('slideMenuDashboard');
 slideMenu.id = 'slideMenuDashboard';
 
 const menuUl = document.createElement('ul');
+menuUl.classList.add('ulDashboard');
 slideMenu.appendChild(menuUl);
 
 const menuItem = [

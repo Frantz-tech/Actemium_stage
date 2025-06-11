@@ -121,7 +121,6 @@ selectCmdt.addEventListener('change', () => {
     const inputEmailCmdt = document.createElement('input');
     inputEmailCmdt.type = 'email';
     inputEmailCmdt.placeholder = 'Email du commanditaire';
-    inputEmailCmdt.focus();
     inputEmailCmdt.id = 'inputEmailCmdt';
 
     // Ajout du bouton creer un commanditaire
@@ -196,6 +195,8 @@ selectCmdt.addEventListener('change', () => {
     divBtn.classList.add('divBtnModal');
     divBtn.append(sumbitNewCmdt, cancelBtn);
     form.append(inputNameCmdt, inputEmailCmdt, divBtn);
+    inputNameCmdt.focus();
+
     modalContent.appendChild(form);
     modal.appendChild(modalContent);
     overlay.appendChild(modal);
@@ -310,7 +311,7 @@ form.append(
   contratSegm,
   btnCreer
 );
-
+libelleDevis.focus();
 fetchClients();
 fetchContrats();
 fetchExpertises();

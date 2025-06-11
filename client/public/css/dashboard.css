@@ -9,16 +9,17 @@
   z-index: 1000;
   padding: 5rem 2rem;
 }
-ul {
+.slideMenuDashboard.open {
+  left: 0;
+}
+
+.ulDashboard {
   display: flex;
   flex-direction: column;
   gap: 2rem;
   padding: 0;
 }
 
-.slideMenuDashboard.open {
-  left: 0;
-}
 main {
   padding: 0;
 }
@@ -78,6 +79,7 @@ h2 {
   position: relative;
   z-index: 1;
 }
+
 .listSlideMenu {
   background-color: var(--color-adminBtn);
   border: 2px solid transparent;
@@ -153,155 +155,6 @@ h2 {
   padding: 0.2rem 1rem;
 }
 
-.divBtnModal {
-  display: flex;
-  gap: 15px;
-}
-
-.modalUser,
-.modalCmdt {
-  position: fixed;
-  left: 50%;
-  top: 55%;
-  height: 50vh;
-  width: 50vw;
-  transform: translate(-50%, -50%);
-  z-index: 2000;
-  overflow: auto;
-  background-color: var(--color-white);
-  border-radius: 4px;
-}
-
-.modalCmdt {
-  height: 25vh;
-}
-.modalPasswordLogin,
-.modal {
-  display: flex;
-  position: fixed;
-  left: 50%;
-  top: 55%;
-  height: 38vh;
-  width: 30vw;
-  transform: translate(-50%, -50%);
-  z-index: 2000;
-  overflow: auto;
-  background-color: var(--color-white);
-  border-radius: 4px;
-}
-
-input,
-select {
-  border: 2px solid var(--primary-blue);
-  box-shadow: none;
-}
-
-@keyframes popIn {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.7);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-}
-
-@keyframes popOut {
-  0% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.7);
-  }
-}
-
-@keyframes popInConnected {
-  0% {
-    opacity: 0;
-    transform: translate(0, 8vh) scale(0.7);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(0, 8vh) scale(1);
-  }
-}
-@keyframes popOutConnected {
-  0% {
-    opacity: 1;
-    transform: translate(0, 8vh) scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(0, 8vh) scale(0.7);
-  }
-}
-
-.modalDevis,
-.modalPost,
-.modalDetail,
-.modalUser,
-.modalUserConnected,
-.modalAdminConnected,
-.modalPasswordLogin,
-.modal,
-.modalCmdt {
-  /* tes styles existants */
-  animation-fill-mode: forwards;
-  animation-duration: 0.3s;
-  animation-timing-function: ease-out;
-}
-
-.modalUser.show,
-.modalDevis.show,
-.modalPost.show,
-.modalDetail.show,
-.modalPasswordLogin.show,
-.modal.show,
-.modalCmdt.show {
-  animation-name: popIn;
-}
-
-.modalUserConnected.show,
-.modalAdminConnected.show {
-  animation-name: popInConnected;
-}
-.modalUserConnected.hide,
-.modalAdminConnected.hide {
-  animation-name: popOutConnected;
-}
-.modalUser.hide,
-.modalDevis.hide,
-.modalPost.hide,
-.modalDetail.hide,
-.modalPasswordLogin.hide,
-.modalCmdt.hide {
-  animation-name: popOut;
-}
-
-.modalDevis-overlay,
-.modalPost-overlay,
-.modalDetail-overlay,
-.modalUser-overlay,
-.modalPassword-overlay,
-.modal-overlay,
-.modalCmdt-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: transparent; /* fond sombre transparent */
-  -webkit-backdrop-filter: blur(3px);
-  backdrop-filter: blur(3px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
 .newUserForm,
 .changePasswordForm {
   display: flex;
@@ -310,8 +163,4 @@ select {
   align-items: center;
   width: 70%;
   gap: 1em;
-}
-
-.noscroll {
-  overflow: hidden;
 }

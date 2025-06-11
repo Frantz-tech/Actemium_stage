@@ -102,7 +102,6 @@ loginForm.addEventListener('submit', async e => {
             overlay.addEventListener('click', e => {
               if (e.target === overlay) {
                 alert('Vous devez modifier votre mot de passe');
-                inputNewPassword.focus();
               }
             });
 
