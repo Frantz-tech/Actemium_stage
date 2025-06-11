@@ -8,13 +8,28 @@ const createDevis = async devisData => {
 
   // Récupération du nom du commanditaire
   const [cmdtRows] = await pool.query('SELECT NOM FROM COMMANDITAIRE WHERE CMDT_ID = ?', [CMDT_ID]);
-  const cmdtName = cmdtRows.length > 0 ? cmdtRows[0].NOM : 'XXX';
+  const cmdtName = cmdtRows.length > 0 ? cmdtRows[0].NOM : 'XXXXX';
 
   // Extraction des 3 premières lettres du commanditaire en majuscule
   const cmdtCode = `${cmdtName.substring(0, 5).toUpperCase()}`;
+  const prefix = `${RA_ID}-${cmdtCode}`;
 
-  // Génération du devisRef simple avec numéro 01 fixe
-  const devisRef = `${RA_ID}-${cmdtCode}-01`;
+  // Chercher le dernier DEVIS_REF existant
+  const [rows] = await pool.query(
+    `SELECT DEVIS_REF FROM DEVIS WHERE DEVIS_REF LIKE ? ORDER BY DEVIS_REF DESC LIMIT 1`,
+    [`${prefix}-%`]
+  );
+
+  let nextNumber = 1;
+  if (rows.length > 0) {
+    const lastRef = rows[0].DEVIS_REF;
+    const parts = lastRef.split('-');
+    const lastNumber = parseInt(parts[2]);
+    nextNumber = lastNumber + 1;
+  }
+
+  const formattedNumber = nextNumber.toString().padStart(2, '0');
+  const devisRef = `${prefix}-${formattedNumber}`;
 
   // Insertion du devis
   const [result] = await pool.query(

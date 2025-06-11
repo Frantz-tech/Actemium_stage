@@ -4,6 +4,7 @@
 #groupeSectionContainer,
 #groupeAchatContainer,
 #groupeDevisList,
+#groupeClientList,
 #groupePostList {
   width: 100%;
   display: flex;
@@ -13,6 +14,7 @@
 .contenuAchat,
 .contenuFraisChantier,
 .contenuDevisList,
+.contenuClientList,
 .contenuPostList {
   display: flex;
   align-items: flex-start;
@@ -61,6 +63,7 @@
   width: 80%;
 }
 .btnGoToPost,
+#btnUpdateClient,
 .btnOpenFap {
   order: -1;
   font-size: 1.8rem;
@@ -140,7 +143,7 @@
 }
 
 /* page liste des devis  */
-
+#clientList,
 #devisList,
 #postList {
   display: flex;
@@ -148,12 +151,14 @@
   justify-content: center;
   gap: 2vh;
 }
+#clientList,
 #devisList,
 #postList {
   width: 80%;
   max-width: 800px;
 }
 .devisContent,
+.clientContent,
 .postContent {
   display: flex;
   align-items: center;
@@ -174,6 +179,7 @@
   padding: 0 3vw;
 }
 
+.clientItem,
 .devisItem,
 .postItem,
 .sectionItem,
@@ -314,4 +320,11 @@ ul {
   text-transform: uppercase;
   font-weight: bolder;
   font-size: 1.2rem;
+}
+
+.clientLogo {
+  width: 48px;
+  height: 48px;
+  border-radius: 100px;
+  border: 2px solid var(--color-primary);
 }

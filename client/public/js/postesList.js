@@ -2,6 +2,26 @@ import { fetchPostList } from './postes/getpostList.js';
 
 document.querySelector('h1').textContent = 'POSTES';
 
+const main = document.querySelector('main');
+
+const btnCreerPoste = document.createElement('button');
+btnCreerPoste.innerText = 'Créer un poste';
+btnCreerPoste.classList.add('btnCreerPoste');
+btnCreerPoste.classList.add('btnCreer');
+
+// Action du btn qui créer un poste
+btnCreerPoste.addEventListener('click', () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const devis_id = urlParams.get('devis_id');
+  const ra_id = urlParams.get('ra_id');
+  if (!devis_id || !ra_id) {
+    alert("il manque le devis_id ou le ra_id dans l'URL");
+    return;
+  }
+  window.location.href = `../pages/poste.html?devis_id=${devis_id}&ra_id=${ra_id}`;
+});
+
+main.appendChild(btnCreerPoste);
 // const btnCreerFap = document.createElement('button');
 // btnCreerFap.textContent = 'Générer FAP';
 // btnCreerFap.classList.add('btnCreerFap');

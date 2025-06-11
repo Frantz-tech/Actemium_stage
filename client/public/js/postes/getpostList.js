@@ -37,10 +37,10 @@ export function fetchPostList() {
     existList.remove();
   }
 
-  const existBtnCreer = document.querySelector('.btnCreer');
-  if (existBtnCreer) {
-    existBtnCreer.remove();
-  }
+  // const existBtnCreer = document.querySelector('.btnCreer');
+  // if (existBtnCreer) {
+  //   existBtnCreer.remove();
+  // }
   const token = localStorage.getItem('token');
   fetch(`http://localhost:3000/api/postes?devis_id=${devis_id}&ra_id=${ra_id}`, {
     method: 'GET',
@@ -138,28 +138,10 @@ export function fetchPostList() {
           postContent.append(postItem, btnOpenFap, btnDeletePost);
           postList.appendChild(postContent);
         });
-        // Btn creer poste
-
-        const btnCreerPoste = document.createElement('button');
-        btnCreerPoste.innerText = 'Créer un poste';
-        btnCreerPoste.classList.add('btnCreerPoste');
-        btnCreerPoste.classList.add('btnCreer');
-
-        // Action du btn qui créer un poste
-        btnCreerPoste.addEventListener('click', () => {
-          const urlParams = new URLSearchParams(window.location.search);
-          const devis_id = urlParams.get('devis_id');
-          const ra_id = urlParams.get('ra_id');
-          if (!devis_id || !ra_id) {
-            alert("il manque le devis_id ou le ra_id dans l'URL");
-            return;
-          }
-          window.location.href = `../pages/poste.html?devis_id=${devis_id}&ra_id=${ra_id}`;
-        });
 
         grpPostList.appendChild(contenuPostList);
         contenuPostList.appendChild(postList);
-        main.append(grpPostList, btnCreerPoste);
+        main.appendChild(grpPostList);
       }
     })
 

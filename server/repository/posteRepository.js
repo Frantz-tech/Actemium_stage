@@ -41,7 +41,6 @@ WHERE p.DEVIS_ID = ?
 ORDER BY p.POSTE_ID DESC;`,
     [devis_id, ra_id]
   );
-  console.log('Lignes postes ', rows);
 
   return rows;
 };

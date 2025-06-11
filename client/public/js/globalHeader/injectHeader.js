@@ -32,6 +32,9 @@ fetch('../pages/header.html')
       document.querySelectorAll('a[href*="devisList.html"]').forEach(link => {
         link.href = `../pages/devisList.html?ra_id=${ra_id}`;
       });
+      document.querySelectorAll('a[href*="clients.html"]').forEach(link => {
+        link.href = `../pages/clients.html?ra_id=${ra_id}`;
+      });
 
       if (logoEvent) {
         const isDashboard = currentPage === 'adminDashboard.html';
