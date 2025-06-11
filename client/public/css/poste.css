@@ -323,6 +323,8 @@ ul {
 }
 
 .clientLogo {
+  display: flex;
+  align-items: center;
   width: 48px;
   height: 48px;
   border-radius: 100px;

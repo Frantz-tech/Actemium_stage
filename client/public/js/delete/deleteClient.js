@@ -1,7 +1,7 @@
 export async function deleteClient(cmdt_id) {
   const token = localStorage.getItem('token');
   try {
-    const response = await fetch(`http://localhost:3000/api/clients/${cmdt_id}`, {
+    const response = await fetch(`http://localhost:3000/api/commanditaires/${cmdt_id}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${token}`,

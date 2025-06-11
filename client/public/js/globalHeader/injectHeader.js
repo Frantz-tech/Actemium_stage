@@ -71,6 +71,7 @@ fetch('../pages/header.html')
           currentPage === 'devisList.html' ||
           currentPage === 'fap.html' ||
           currentPage === 'poste.html' ||
+          currentPage === 'clients.html' ||
           currentPage === 'postesList.html';
         const pageBtnConnectedAdmin = currentPage === 'adminDashboard.html';
 

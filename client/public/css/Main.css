@@ -117,7 +117,8 @@ input {
   color: var(--color-white);
   padding: 0.2rem 1rem;
 }
-.btnCreerPoste {
+.btnCreerPoste,
+.btnCreerClient {
   order: 2;
 }
 .btnModal {
