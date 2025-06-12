@@ -158,7 +158,7 @@
   border-radius: 4px;
 }
 
-/* Animations pop up pop out pour les modals */
+/* Animations popIn @ popOut pour les modals */
 
 @keyframes popIn {
   0% {
@@ -180,6 +180,7 @@
     transform: translate(-50%, -50%) scale(0.7);
   }
 }
+
 @keyframes popInConnected {
   0% {
     opacity: 0;

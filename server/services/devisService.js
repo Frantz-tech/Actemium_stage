@@ -33,6 +33,7 @@ const createDevis = async devisData => {
     return { errors: ['Erreur lors de la création du devis'] };
   }
 };
+
 const getAllDevis = async () => {
   return await Repository.getAllDevis();
 };
