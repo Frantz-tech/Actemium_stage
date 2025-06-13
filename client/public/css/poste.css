@@ -62,15 +62,22 @@
 .nbHeures {
   width: 80%;
 }
-.btnGoToPost,
-#btnUpdateClient,
 .btnOpenFap {
+  order: 3;
+}
+.btnGoToPost,
+#btnUpdateClient {
   order: -1;
   font-size: 1.8rem;
   display: flex;
   color: white;
   border-radius: 5px;
   cursor: pointer;
+}
+.divBtnPoste_fap {
+  display: flex;
+  order: 2;
+  gap: 1vw;
 }
 .deletebtn {
   width: 20px;

@@ -8,7 +8,10 @@ function createPosteForm() {
   const main = document.querySelector('main');
   main.innerHTML = ''; // Vide le contenu
 
-  document.querySelector('h1').innerText = 'POSTES';
+  // Création du h1
+  const h1 = document.createElement('h1');
+  h1.innerText = 'POSTES';
+  main.appendChild(h1);
 
   // Formulaire
   const form = document.createElement('form');

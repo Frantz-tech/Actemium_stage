@@ -91,23 +91,6 @@ export function fetchPostList() {
           );
           poste_ref.appendChild(document.createTextNode(p.DEVIS_ID));
 
-          const btnOpenFap = document.createElement('div');
-          btnOpenFap.textContent = '⎘';
-          btnOpenFap.classList.add('btnOpenFap');
-
-          // Action du bouton qui génère la FAP
-
-          btnOpenFap.addEventListener('click', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const devis_id = urlParams.get('devis_id');
-            const ra_id = urlParams.get('ra_id');
-            if (!devis_id || !ra_id) {
-              alert("il manque le devis_id ou le ra_id dans l'URL");
-              return;
-            }
-            window.location.href = `../pages/fap.html?devis_id=${devis_id}&ra_id=${ra_id}`;
-          });
-
           const btnDeletePost = document.createElement('button');
           btnDeletePost.classList.add('deletebtn');
 
@@ -135,13 +118,35 @@ export function fetchPostList() {
 
           postItem.append(libelleRef);
           libelleRef.append(libelle, poste_ref);
-          postContent.append(postItem, btnOpenFap, btnDeletePost);
           postList.appendChild(postContent);
+          postContent.append(postItem, btnDeletePost);
         });
 
+        main.appendChild(grpPostList);
         grpPostList.appendChild(contenuPostList);
         contenuPostList.appendChild(postList);
-        main.appendChild(grpPostList);
+
+        const btnOpenFap = document.querySelector('.btnOpenFap');
+        if (postesRegroupés.length > 0) {
+          if (btnOpenFap) {
+            btnOpenFap.style.display = 'flex';
+          }
+
+          // Action du bouton qui génère la FAP
+
+          btnOpenFap.addEventListener('click', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const devis_id = urlParams.get('devis_id');
+            const ra_id = urlParams.get('ra_id');
+            if (!devis_id || !ra_id) {
+              alert("il manque le devis_id ou le ra_id dans l'URL");
+              return;
+            }
+            window.location.href = `../pages/fap.html?devis_id=${devis_id}&ra_id=${ra_id}`;
+          });
+        } else {
+          btnOpenFap.style.display = 'none';
+        }
       }
     })
 

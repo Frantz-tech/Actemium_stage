@@ -43,6 +43,10 @@ export function openUserPresentation() {
   ra_id_user.classList.add('ra_id_user');
   ra_id_user.textContent = ra_id;
 
+  ra_id_user.addEventListener('click', () => {
+    alert('Ajout du patch pour modifier l avatar du RA');
+  });
+
   // Bonjour : 'prénom du ra'
   const helloUser = document.createElement('div');
   helloUser.classList.add('helloUser');

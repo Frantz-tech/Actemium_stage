@@ -4,10 +4,19 @@ document.querySelector('h1').textContent = 'POSTES';
 
 const main = document.querySelector('main');
 
+const divBtns = document.createElement('div');
+divBtns.classList.add('divBtnPoste_fap');
+
 const btnCreerPoste = document.createElement('button');
 btnCreerPoste.innerText = 'Créer un poste';
 btnCreerPoste.classList.add('btnCreerPoste');
 btnCreerPoste.classList.add('btnCreer');
+
+const btnOpenFap = document.createElement('div');
+btnOpenFap.style.display = 'none';
+btnOpenFap.textContent = 'Ouvrir la Fap';
+btnOpenFap.classList.add('btnOpenFap');
+btnOpenFap.classList.add('btnCreer');
 
 // Action du btn qui créer un poste
 btnCreerPoste.addEventListener('click', () => {
@@ -21,7 +30,9 @@ btnCreerPoste.addEventListener('click', () => {
   window.location.href = `../pages/poste.html?devis_id=${devis_id}&ra_id=${ra_id}`;
 });
 
-main.appendChild(btnCreerPoste);
+divBtns.append(btnCreerPoste, btnOpenFap);
+main.appendChild(divBtns);
+
 // const btnCreerFap = document.createElement('button');
 // btnCreerFap.textContent = 'Générer FAP';
 // btnCreerFap.classList.add('btnCreerFap');

@@ -263,9 +263,20 @@ footer {
 }
 .ra_id_user,
 .ra_id_admin {
+  position: relative;
   width: clamp(45px, 6vw, 70px);
   height: clamp(45px, 6vw, 70px);
   font-size: clamp(1rem, 2.5vw, 2rem);
+}
+
+.ra_id_admin::after,
+.ra_id_user::after {
+  content: '⊕';
+  position: fixed;
+  right: -6px;
+  bottom: -12px;
+  font-size: clamp(1rem, 2.5vw, 2rem);
+  color: var(--color-border);
 }
 .roleUser,
 .roleAdmin,
