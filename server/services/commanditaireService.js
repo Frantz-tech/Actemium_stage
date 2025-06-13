@@ -1,7 +1,7 @@
 import { Repository } from '../repository/commanditaireRepository.js';
 import { validateEmail } from '../utils/validator.js';
 
-const createCommanditaire = async commanditaireData => {
+const createCommanditaire = async (commanditaireData, logo) => {
   try {
     const errors = [];
     if (!commanditaireData) {
@@ -15,6 +15,10 @@ const createCommanditaire = async commanditaireData => {
     }
     if (errors.length > 0) {
       return { errors };
+    }
+
+    if (logo) {
+      commanditaireData.LOGO = logo.filename;
     }
     const newCmdt = await Repository.createCommanditaire(commanditaireData);
     return newCmdt;

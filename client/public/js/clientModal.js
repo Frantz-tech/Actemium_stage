@@ -1,3 +1,5 @@
+import { postdatawithfiles } from './post/postData.js';
+
 export function creerClientModal() {
   const main = document.querySelector('main');
 
@@ -77,8 +79,8 @@ export function creerClientModal() {
 
   // Input pour le logo
   const logoClient = document.createElement('input');
+  logoClient.setAttribute('name', 'logo');
   logoClient.id = 'logoClient';
-  logoClient.textContent = 'hello';
   logoClient.type = 'file';
   logoClient.classList.add('logoClientModal');
   logoClient.required = false;
@@ -90,7 +92,8 @@ export function creerClientModal() {
   btnCreer.textContent = 'Créer';
 
   // Event sur le bouton créer un commanditaire
-  btnCreer.addEventListener('click', async () => {
+  btnCreer.addEventListener('click', async e => {
+    e.preventDefault();
     const nom = document.getElementById('nomClient').value.trim();
     const email = document.getElementById('emailClient').value.trim();
     const file = document.getElementById('logoClient').files[0];
@@ -99,15 +102,16 @@ export function creerClientModal() {
       return;
     }
     // Crée un objet avec les données du formulaire
-    const formData = new FormData();
-    formData.append('NOM', nom);
-    formData.append('EMAIL', email);
-    if (file) {
-      formData.append('LOGO', file);
-    }
+    const data = {
+      NOM: nom,
+      EMAIL: email,
+    };
+    const files = {
+      logo: file,
+    };
+
     try {
-      // faire un nvx postData ( postdatawithfiles)
-      // await postData('http://localhost:3000/api/commanditaires', formData);
+      await postdatawithfiles(`http://localhost:3000/api/commanditaires`, data, files);
 
       // Fermeture du modal
       modal.classList.add('hide');

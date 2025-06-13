@@ -520,15 +520,6 @@
   font-size: 1.2rem;
 }
 
-.clientLogo {
-  display: flex;
-  align-items: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 100px;
-  border: 2px solid var(--color-primary);
-}
-
 .labelModalClient {
   width: 80%;
   font-weight: bold;

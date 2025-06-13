@@ -5,12 +5,12 @@ import pool from '../config/db.js';
 // Créer une nouvelle commanditaire :
 
 const createCommanditaire = async commanditaireData => {
-  const { NOM, EMAIL } = commanditaireData;
-  console.log('🔎 Insertion commanditaire avec :', { NOM, EMAIL });
-  const [result] = await pool.query('INSERT INTO COMMANDITAIRE (NOM, EMAIL) VALUES (?,?)', [
-    NOM,
-    EMAIL,
-  ]);
+  const { NOM, EMAIL, LOGO } = commanditaireData;
+  console.log('🔎 Insertion commanditaire avec :', { NOM, EMAIL, LOGO });
+  const [result] = await pool.query(
+    'INSERT INTO COMMANDITAIRE (NOM, EMAIL, LOGO) VALUES (?,?, ?)',
+    [NOM, EMAIL, LOGO]
+  );
   return result.insertId;
 };
 

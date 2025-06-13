@@ -1,6 +1,8 @@
 import cors from 'cors';
 import dotenv from 'dotenv';
 import e from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import pool from './config/db.js';
 import routes from './routes/routes.js';
 dotenv.config();
@@ -8,8 +10,12 @@ dotenv.config();
 const app = e();
 
 app.use(e.json());
+
 app.use(cors());
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use('/api/upload', e.static(path.resolve(__dirname, 'public', 'uploads')));
 // Vérification la connexion de MYSQL
 pool.getConnection((err, connection) => {
   if (err) {
