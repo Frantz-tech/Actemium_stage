@@ -16,7 +16,7 @@ import {
 } from './calculsFap.js';
 import { detailModal } from './detailModal.js';
 
-export async function fetchFap() {
+export async function fetchFap(fapData = {}) {
   const urlParams = new URLSearchParams(window.location.search);
   const devis_id = urlParams.get('devis_id');
   const ra_id = urlParams.get('ra_id');
@@ -35,7 +35,7 @@ export async function fetchFap() {
     const buttons = document.createElement('div');
     buttons.classList.add('buttons');
 
-    const postes = await getPostData(devis_id, ra_id);
+    const postes = await getPostData(devis_id);
 
     const contenuPost = document.createElement('div');
     contenuPost.id = 'contenuPost';
@@ -259,7 +259,10 @@ export async function fetchFap() {
     garantieEP.textContent = 'Garantie ensemblier';
 
     const garantieETotal = document.createElement('div');
-    garantieETotal.textContent = '0 €';
+    garantieETotal.textContent =
+      fapData.GARANTIE_ENSEMBLIER !== undefined && fapData.GARANTIE_ENSEMBLIER !== null
+        ? `${parseFloat(fapData.GARANTIE_ENSEMBLIER).toLocaleString('fr-FR')} €`
+        : '0 €';
     garantieETotal.classList.add('divTotal');
     garantieETotal.classList.add('divTotal_2');
 
@@ -275,10 +278,13 @@ export async function fetchFap() {
     divPriP.textContent = 'Prix de revient intermédiaire';
 
     const divPriTotal = document.createElement('div');
-
     divPriTotal.classList.add('divTotal');
     divPriTotal.classList.add('divTotal_2');
-
+    // Champ numérique/textuel, appliquer la logique de test existence
+    divPriTotal.textContent =
+      fapData.PRI !== undefined && fapData.PRI !== null
+        ? `${parseFloat(fapData.PRI).toLocaleString('fr-FR')} €`
+        : '';
     divPRI.append(divPriP, divPriTotal);
 
     divPriTotal.addEventListener('blur', async e => {
@@ -304,6 +310,7 @@ export async function fetchFap() {
     divPvrTotal.placeholder = '€';
     divPvrTotal.id = 'divPvrTotal';
     divPvrTotal.style.flex = 1;
+    divPvrTotal.value = fapData.PRIX_VENTE_RETENUE ?? '';
     divPvrTotal.addEventListener('blur', e => {
       const val = parseFloat(e.target.value.replace(/\s/g, '').replace(',', '.')) || 0;
       e.target.value = Math.round(val).toLocaleString('fr-FR') + ' €';
@@ -322,6 +329,10 @@ export async function fetchFap() {
     const margeFinaleTotal = document.createElement('div');
     margeFinaleTotal.classList.add('divTotal');
     margeFinaleTotal.classList.add('divTotal_2');
+    margeFinaleTotal.textContent =
+      fapData.MARGE !== undefined && fapData.MARGE !== null
+        ? `${parseFloat(fapData.MARGE).toLocaleString('fr-FR')} €`
+        : '';
 
     // Calculate initial garantie ensemblier if prix de vente retenu is already entered
 
@@ -500,12 +511,11 @@ export async function fetchFap() {
     margeVoulueValue.placeholder = '%';
     margeVoulueValue.id = 'margeVoulue';
     margeVoulueValue.style.flex = 1;
-
+    margeVoulueValue.value = fapData.MARGE_VOULUE ?? '';
     margeVoulueValue.addEventListener('blur', e => {
       const val = e.target.value;
       e.target.value = parseFloat(val).toLocaleString('fr-FR') + ' %';
     });
-
     margeVoulue.append(margeVoulueP, margeVoulueValue);
 
     // Div Prix de vente estimé, calculer avec la marge voulu par rapport au prix de revient inter
@@ -519,7 +529,10 @@ export async function fetchFap() {
     divPveP.textContent = 'Prix de vente estimé';
 
     const divPveTotal = document.createElement('div');
-    divPveTotal.textContent = ' 0 € ';
+    divPveTotal.textContent =
+      fapData.PRIX_VENTE_ESTIME !== undefined && fapData.PRIX_VENTE_ESTIME !== null
+        ? `${parseFloat(fapData.PRIX_VENTE_ESTIME).toLocaleString('fr-FR')} €`
+        : '0 €';
     divPveTotal.classList.add('divTotal');
     divPveTotal.classList.add('divTotal_2');
 

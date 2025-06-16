@@ -1,4 +1,4 @@
-export function handleApiError(data) {
+export async function handleApiError(data) {
   if (data?.error?.name === 'TokenExpiredError') {
     alert('Votre session à expiré, veuillez vous reconnecter');
     localStorage.removeItem('token');

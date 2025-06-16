@@ -231,13 +231,11 @@ function fetchDevisByRaId() {
             });
 
             // Modal action btn fap
-            goToFapBtn.addEventListener('click', e => {
+            goToFapBtn.addEventListener('click', async e => {
               e.preventDefault();
 
-              alert('faire le get de la FAP');
-
-              // const url = `../pages/fap.html?devis_id=${d.DEVIS_ID}&ra_id=${d.RA_ID}`;
-              // window.location.href = url;
+              const url = `../pages/fap.html?devis_id=${d.DEVIS_ID}`;
+              window.location.href = url;
             });
           });
         });
@@ -255,6 +253,10 @@ function fetchDevisByRaId() {
         const main = document.querySelector('main');
         main.append(grpDevisList, btnCreerDevis);
       }
+    })
+    .catch(error => {
+      console.log('Erreur lors du fetch des devis par RA_ID', error);
+      throw error;
     });
 }
 

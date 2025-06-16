@@ -49,7 +49,6 @@ const deleteDevis = async id => {
 
 const getDevisByRaId = async id => {
   try {
-    console.log('📥 Liste des devis récupérés = ', id);
     const devis = await Repository.getDevisByRaId(id);
     return devis;
   } catch (error) {

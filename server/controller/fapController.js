@@ -1,0 +1,37 @@
+import { sendSuccessResponse } from '../helper/responseHelper.js';
+import { Service } from '../services/fapService.js';
+
+const createFap = async (req, res) => {
+  console.log('Requete recu par fab body ', req.body);
+
+  try {
+    const result = await Service.createFap(req.body);
+    console.log('Résultat controller.createFap : ', result);
+
+    if (result.errors && result.errors.length > 0) {
+      return res.status(400).json({ errors: result.errors });
+    }
+
+    sendSuccessResponse(res, 201, 'Fap envoyé en base de donné avec succès', result);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+const getFapById = async (req, res) => {
+  try {
+    const devis_id = req.params.devis_id;
+
+    console.log('Params reçus:', devis_id);
+
+    const result = await Service.getFapById(devis_id);
+    sendSuccessResponse(res, 200, `Fap avec ID ${devis_id} récupéré avec succès`, result);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
+export const Controller = {
+  createFap,
+  getFapById,
+};

@@ -22,12 +22,11 @@ btnOpenFap.classList.add('btnCreer');
 btnCreerPoste.addEventListener('click', () => {
   const urlParams = new URLSearchParams(window.location.search);
   const devis_id = urlParams.get('devis_id');
-  const ra_id = urlParams.get('ra_id');
-  if (!devis_id || !ra_id) {
-    alert("il manque le devis_id ou le ra_id dans l'URL");
+  if (!devis_id) {
+    alert("il manque le devis_id dans l'URL");
     return;
   }
-  window.location.href = `../pages/poste.html?devis_id=${devis_id}&ra_id=${ra_id}`;
+  window.location.href = `../pages/poste.html?devis_id=${devis_id}`;
 });
 
 divBtns.append(btnCreerPoste, btnOpenFap);

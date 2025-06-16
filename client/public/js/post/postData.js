@@ -11,13 +11,12 @@ export async function postData(url = '', data = {}) {
     },
     body: JSON.stringify(data),
   });
+  const json = await response.json();
   console.log('Réponse status :', response.status);
 
   if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`Erreur serveur : ${response.status} - ${errorText}`);
+    throw new Error(json.error || `Erreur serveur : ${response.status}`);
   }
-  const json = await response.json();
   handleApiError(json);
   console.log('Réponse JSON', json);
   return json;
