@@ -35,7 +35,14 @@ const getFapById = async devis_id => {
   return result;
 };
 
+const patchFap = async newData => {
+  const result = await Repository.patchFap(newData);
+
+  return result;
+};
+
 export const Service = {
   createFap,
   getFapById,
+  patchFap,
 };

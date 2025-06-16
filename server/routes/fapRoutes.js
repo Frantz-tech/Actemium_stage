@@ -8,5 +8,6 @@ const router = Router();
 
 router.post('/', authenticate, Controller.createFap);
 router.get('/:devis_id', authenticate, Controller.getFapById);
+router.patch('/:devis_id', Controller.patchFap);
 
 export default router;

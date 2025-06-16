@@ -31,7 +31,29 @@ const getFapById = async (req, res) => {
   }
 };
 
+const patchFap = async (req, res) => {
+  try {
+    const newData = req.body;
+    const devis_id = req.params.devis_id;
+
+    console.log('Données patch : ', newData);
+
+    console.log('Params reçus:', devis_id);
+
+    const result = await Service.patchFap(newData);
+    sendSuccessResponse(
+      res,
+      200,
+      `Fap avec le devis qui a pour ID ${devis_id} mis à jour avec succès`,
+      result
+    );
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
 export const Controller = {
   createFap,
   getFapById,
+  patchFap,
 };

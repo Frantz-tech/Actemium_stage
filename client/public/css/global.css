@@ -110,7 +110,8 @@ input {
 .btnCreer,
 .btnModal,
 .btnExporter,
-.btnValider {
+.btnValider,
+.btnPatch {
   cursor: pointer;
   border-radius: 25px;
   border: none;

@@ -32,7 +32,11 @@ export async function fetchFap(fapData = {}) {
     btnExporterPDF.classList.add('btnExporter');
     btnExporterPDF.textContent = `Exporter PDF`;
 
+    const btnPatch = document.createElement('button');
+    btnPatch.classList.add('btnPatch');
+    btnPatch.textContent = `Mettre à jour`;
     const buttons = document.createElement('div');
+
     buttons.classList.add('buttons');
 
     const postes = await getPostData(devis_id);
@@ -259,6 +263,7 @@ export async function fetchFap(fapData = {}) {
     garantieEP.textContent = 'Garantie ensemblier';
 
     const garantieETotal = document.createElement('div');
+    garantieETotal.id = 'garantieE';
     garantieETotal.textContent =
       fapData.GARANTIE_ENSEMBLIER !== undefined && fapData.GARANTIE_ENSEMBLIER !== null
         ? `${parseFloat(fapData.GARANTIE_ENSEMBLIER).toLocaleString('fr-FR')} €`
@@ -278,6 +283,7 @@ export async function fetchFap(fapData = {}) {
     divPriP.textContent = 'Prix de revient intermédiaire';
 
     const divPriTotal = document.createElement('div');
+    divPriTotal.id = 'pri';
     divPriTotal.classList.add('divTotal');
     divPriTotal.classList.add('divTotal_2');
     // Champ numérique/textuel, appliquer la logique de test existence
@@ -327,6 +333,7 @@ export async function fetchFap(fapData = {}) {
     margeFinaleP.textContent = 'Marge';
 
     const margeFinaleTotal = document.createElement('div');
+    margeFinaleTotal.id = 'margeF';
     margeFinaleTotal.classList.add('divTotal');
     margeFinaleTotal.classList.add('divTotal_2');
     margeFinaleTotal.textContent =
@@ -425,6 +432,7 @@ export async function fetchFap(fapData = {}) {
 
     const divFraisDssTotal = document.createElement('div');
     divFraisDssTotal.textContent = `${Math.round(totalFraisDss).toLocaleString('fr-FR')} €`;
+    divFraisDssTotal.id = 'fraisDss';
     divFraisDssTotal.classList.add('divTotal');
     divFraisDssTotal.classList.add('divTotal_2');
     divFraisDssTotal.classList.add('divTotal_Cout');
@@ -449,6 +457,7 @@ export async function fetchFap(fapData = {}) {
     divFraisFinanciersP.textContent = 'Frais Financiers';
 
     const divFraisFinanciersTotal = document.createElement('div');
+    divFraisFinanciersTotal.id = 'fraisF';
     divFraisFinanciersTotal.textContent = `${Math.round(totalFraisFinancier).toLocaleString('fr-FR')} €`;
     divFraisFinanciersTotal.classList.add('divTotal');
     divFraisFinanciersTotal.classList.add('divTotal_2');
@@ -474,6 +483,7 @@ export async function fetchFap(fapData = {}) {
     divFraisGroupeP.textContent = 'Frais de Groupe';
 
     const divFraisGroupeTotal = document.createElement('div');
+    divFraisGroupeTotal.id = 'fraisG';
     divFraisGroupeTotal.textContent = `${Math.round(totalFraisDeGroupe).toLocaleString('fr-FR')} €`;
     divFraisGroupeTotal.classList.add('divTotal');
     divFraisGroupeTotal.classList.add('divTotal_2');
@@ -491,6 +501,7 @@ export async function fetchFap(fapData = {}) {
     divPrP.textContent = 'Prix de revient';
 
     const divPrTotal = document.createElement('div');
+    divPrTotal.id = 'totalPr';
     divPrTotal.classList.add('divTotal');
     divPrTotal.classList.add('divTotal_2');
 
@@ -529,6 +540,7 @@ export async function fetchFap(fapData = {}) {
     divPveP.textContent = 'Prix de vente estimé';
 
     const divPveTotal = document.createElement('div');
+    divPveTotal.id = 'pve';
     divPveTotal.textContent =
       fapData.PRIX_VENTE_ESTIME !== undefined && fapData.PRIX_VENTE_ESTIME !== null
         ? `${parseFloat(fapData.PRIX_VENTE_ESTIME).toLocaleString('fr-FR')} €`
@@ -624,7 +636,7 @@ export async function fetchFap(fapData = {}) {
     );
 
     const main = document.querySelector('main');
-    buttons.append(btnValider, btnExporterPDF);
+    buttons.append(btnValider, btnExporterPDF, btnPatch);
 
     main.append(buttons, contenuPost, containerPrix);
   } catch (error) {

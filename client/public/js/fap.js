@@ -1,5 +1,6 @@
 import { fetchFap } from './fap/fetchFap.js';
 import { getFapData } from './fap/getFap.js';
+import { patchFap } from './patch/patchFap.js';
 
 document.querySelector('h1').innerText = 'FAP ACTEMIUM';
 
@@ -29,6 +30,52 @@ async function init() {
       }
       const margeFinaleElem = document.querySelector('#margeFinale');
       if (margeFinaleElem) margeFinaleElem.innerText = fap.data.MARGE;
+
+      const btnPatch = document.querySelector('.btnPatch');
+      if (btnPatch)
+        btnPatch.addEventListener('click', () => {
+          const margeVoulueElem = document.querySelector('#margeVoulue');
+          const garantieEElem = document.querySelector('#garantieE');
+          const priElem = document.getElementById('pri');
+          const fdssElem = document.getElementById('fraisDss');
+          const fraisFElem = document.getElementById('fraisF');
+          const fraisGElem = document.getElementById('fraisG');
+          const prixRElem = document.getElementById('totalPr');
+          const pveElem = document.getElementById('pve');
+          const pvrElem = document.getElementById('divPvrTotal');
+          const margeFinaleElem = document.getElementById('margeF');
+
+          const garantieE = garantieEElem.textContent.replace(/\s/g, '').replace('€', '');
+          const pri = priElem.textContent.replace(/\s/g, '').replace('€', '');
+          const fdss = fdssElem.textContent.replace(/\s/g, '').replace('€', '');
+          const fraisF = fraisFElem.textContent.replace(/\s/g, '').replace('€', '');
+          const fraisG = fraisGElem.textContent.replace(/\s/g, '').replace('€', '');
+          const prixR = prixRElem.textContent.replace(/\s/g, '').replace('€', '');
+          const pve = pveElem.textContent.replace(/\s/g, '').replace('€', '');
+          const pvr = pvrElem.value.replace(/\s/g, '').replace('€', '');
+          const margeVoulue = margeVoulueElem.value.replace(/\s/g, '').replace('%', '');
+          const margeFinale = margeFinaleElem.textContent
+            .replace(/\s/g, '')
+            .replace('€', '')
+            .replace(',', '.');
+
+          const dataToPatch = {
+            FAP_ID: fap.data.FAP_ID,
+            GARANTIE_ENSEMBLIER: parseFloat(garantieE.replace(',', '.')),
+            PRIX_REVIENT_INTER: parseFloat(pri.replace(',', '.')),
+            FRAIS_DEVIS_SANS_SUITE: parseFloat(fdss),
+            FRAIS_DE_GROUPE: parseFloat(fraisG),
+            FRAIS_FINANCIERS: parseFloat(fraisF),
+            PRIX_REVIENT: parseFloat(prixR),
+            MARGE_VOULUE: parseFloat(margeVoulue.replace(',', '.')),
+            PRIX_VENTE_ESTIME: parseFloat(pve),
+            PRIX_VENTE_RETENUE: parseFloat(pvr),
+            MARGE: parseFloat(margeFinale.replace(',', '.').replace('%', '')),
+          };
+          console.log('donnée a modifier ', dataToPatch);
+
+          patchFap(devis_id, dataToPatch);
+        });
     } else {
       await fetchFap(); // affichage d’un formulaire vide (création)
     }
