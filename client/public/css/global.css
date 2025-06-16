@@ -119,6 +119,9 @@ input {
   color: var(--color-white);
   padding: 0.2rem 1rem;
 }
+.hidePatch {
+  display: none;
+}
 .btnCreerPoste,
 .btnCreerClient {
   order: 2;

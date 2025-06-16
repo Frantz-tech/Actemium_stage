@@ -16,7 +16,8 @@ async function init() {
       await fetchFap(fap.data); // affichage des données existantes
 
       const garantieElem = document.querySelector('#garantieE');
-      if (garantieElem) garantieElem.innerText = fap.data.GARANTIE_ENSEMBLIER;
+      if (garantieElem)
+        garantieElem.innerText = `${parseFloat(fap.data.GARANTIE_ENSEMBLIER).toLocaleString('fr-FR')} €`;
 
       const margeElem = document.querySelector('#margeVoulue');
       if (margeElem) margeElem.value = fap.data.MARGE_VOULUE;
@@ -32,7 +33,11 @@ async function init() {
       if (margeFinaleElem) margeFinaleElem.innerText = fap.data.MARGE;
 
       const btnPatch = document.querySelector('.btnPatch');
-      if (btnPatch)
+      btnPatch.classList.remove('hidePatch');
+
+      const btnValider = document.querySelector('.btnValider');
+      btnValider.classList.add('hidePatch');
+      if (btnPatch) {
         btnPatch.addEventListener('click', () => {
           const margeVoulueElem = document.querySelector('#margeVoulue');
           const garantieEElem = document.querySelector('#garantieE');
@@ -76,6 +81,7 @@ async function init() {
 
           patchFap(devis_id, dataToPatch);
         });
+      }
     } else {
       await fetchFap(); // affichage d’un formulaire vide (création)
     }

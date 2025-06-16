@@ -33,6 +33,7 @@ export async function fetchFap(fapData = {}) {
     btnExporterPDF.textContent = `Exporter PDF`;
 
     const btnPatch = document.createElement('button');
+    btnPatch.classList.add('hidePatch');
     btnPatch.classList.add('btnPatch');
     btnPatch.textContent = `Mettre à jour`;
     const buttons = document.createElement('div');
