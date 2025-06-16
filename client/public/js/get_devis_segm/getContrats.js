@@ -1,3 +1,4 @@
+import { segmList } from '../lists/semgentionList.js';
 import { handleApiError } from '../tokenHandler/handleApi.js';
 
 export function fetchContrats() {
@@ -7,22 +8,31 @@ export function fetchContrats() {
       handleApiError(data);
       console.log('Contrats récupérés : ', data);
 
-      const contratSelect = document.getElementById('contratSegm');
       const contrats = data.data;
-      if (Array.isArray(contrats) && contrats.length > 0) {
-        contrats.forEach(contrat => {
+
+      const urlCheck = window.location.pathname;
+
+      if (urlCheck.includes('/devis') && Array.isArray(contrats) && contrats.length > 0) {
+        contratSelect(contrats);
+      }
+      if (urlCheck.includes('adminDashboard') && Array.isArray(contrats) && contrats.length > 0) {
+        segmList(contrats);
+      }
+
+      function contratSelect(contrat) {
+        contrat.forEach(contrat => {
+          const select = document.getElementById('contratSegm');
+
           const option = document.createElement('option');
           option.value = contrat.CONTRAT_ID;
           option.textContent = `${contrat.CODE} - ${contrat.TYPE}`;
-          contratSelect.appendChild(option);
+          select.appendChild(option);
         });
-      } else {
-        contratSelect.innerHTML = '<option> Aucun contrat trouvé </option>';
       }
     })
     .catch(error => {
       console.error('Erreur lors de la récupération des contrats:', error);
-      const contratSelect = document.getElementById('contratSegm');
-      contratSelect.innerHTML = '<option>Erreur de récupération des contrats</option>';
+      const select = document.getElementById('contratSegm');
+      select.innerHTML = '<option>Erreur de récupération des contrats</option>';
     });
 }

@@ -64,6 +64,7 @@ function clientList(commanditaires) {
 
   commanditaires.forEach(c => {
     c.NOM = c.NOM.toUpperCase();
+
     // Parent de client Item et les boutons
     const clientContent = document.createElement('div');
     clientContent.classList.add('clientContent');

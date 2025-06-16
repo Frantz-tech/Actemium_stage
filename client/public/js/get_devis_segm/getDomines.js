@@ -1,3 +1,4 @@
+import { segmList } from '../lists/semgentionList.js';
 import { handleApiError } from '../tokenHandler/handleApi.js';
 
 export function fetchDomaines() {
@@ -7,22 +8,29 @@ export function fetchDomaines() {
       handleApiError(data);
       console.log('Domaine récupérées :', data);
 
-      const domaineSelect = document.getElementById('domaineSegm');
       const domaines = data.data;
-      if (Array.isArray(domaines) && domaines.length > 0) {
-        domaines.forEach(domaine => {
+
+      const urlCheck = window.location.pathname;
+
+      if (urlCheck.includes('/devis') && Array.isArray(domaines) && domaines.length > 0) {
+        domaineSelect(domaines);
+      }
+      if (urlCheck.includes('/adminDashboard') && Array.isArray(domaines) && domaines.length > 0) {
+        segmList(domaines);
+      }
+      function domaineSelect(domaine) {
+        const select = document.getElementById('domaineSegm');
+        domaine.forEach(domaine => {
           const option = document.createElement('option');
           option.value = domaine.DOMAINE_ID;
           option.textContent = `${domaine.CODE} - ${domaine.TYPE}`;
-          domaineSelect.appendChild(option);
+          select.appendChild(option);
         });
-      } else {
-        domaineSelect.innerHTML = '<option>Erreur de récupération des domaines</option>';
       }
     })
     .catch(error => {
       console.error(' Erreur lors de la récupération des domaines', error);
-      const domaineSelect = document.getElementById('domaineSegm');
-      domaineSelect.innerHTML = '<option>Erreur de récupération des domaines</option>';
+      const select = document.getElementById('domaineSegm');
+      select.innerHTML = '<option>Erreur de récupération des domaines</option>';
     });
 }

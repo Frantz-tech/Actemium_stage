@@ -164,3 +164,89 @@ h2 {
   width: 70%;
   gap: 1em;
 }
+
+/* Style pour les boxesContainer */
+
+.boxeContainer {
+  flex: 0 1 30%;
+  margin: 1rem;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  border-radius: 5px;
+  background-color: var(--color-white);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.boxeContainer:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.segmItem {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  cursor: pointer;
+  width: 100%;
+  gap: 2vw;
+  border: 1px solid var(--color-black);
+  padding: 1em 1.5em;
+  border-radius: 4px;
+  box-shadow: var(--color-box-shadow);
+  background-color: var(--color-white);
+  max-width: 750px;
+}
+
+.btnUpdateSegm {
+  order: -1;
+  font-size: 1.8rem;
+  display: flex;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#containerSegmList {
+  display: flex;
+  width: 100%;
+}
+
+#segList {
+  display: flex;
+  flex-direction: column;
+  gap: 1vw;
+  width: 100%;
+  margin-top: 5vw;
+}
+
+.segmContent {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5vw;
+}
+
+.segmInfo {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.segmCode {
+  flex: 2;
+}
+
+.segmType {
+  flex: 3;
+}

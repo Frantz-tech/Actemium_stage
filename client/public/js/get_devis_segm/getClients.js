@@ -1,3 +1,4 @@
+import { segmList } from '../lists/semgentionList.js';
 import { handleApiError } from '../tokenHandler/handleApi.js';
 
 export function fetchClients() {
@@ -7,22 +8,29 @@ export function fetchClients() {
       handleApiError(data);
       console.log('Clients récupérés : ', data);
 
-      const contratSelect = document.getElementById('clientSegm');
       const clients = data.data;
-      if (Array.isArray(clients) && clients.length > 0) {
+
+      const urlCheck = window.location.pathname;
+
+      if (urlCheck.includes('/devis') && Array.isArray(clients) && clients.length > 0) {
+        clientSelect(clients);
+      }
+      if (urlCheck.includes('/adminDashboard') && Array.isArray(clients) && clients.length > 0) {
+        segmList(clients);
+      }
+      function clientSelect(clients) {
+        const select = document.getElementById('clientSegm');
         clients.forEach(client => {
           const option = document.createElement('option');
           option.value = client.CLIENT_ID;
           option.textContent = `${client.CODE} - ${client.TYPE} `;
-          contratSelect.appendChild(option);
+          select.appendChild(option);
         });
-      } else {
-        contratSelect.innerHTML = '<option> Aucun client trouvé </option>';
       }
     })
     .catch(error => {
       console.error('Erreur lors de la récupération des clients:', error);
-      const contratSelect = document.getElementById('contratSegm');
-      contratSelect.innerHTML = '<option>Erreur de récupération des clients</option>';
+      const select = document.getElementById('clientSegm');
+      select.innerHTML = '<option>Erreur de récupération des clients</option>';
     });
 }

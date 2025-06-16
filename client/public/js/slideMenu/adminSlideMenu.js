@@ -1,12 +1,13 @@
 import { tableDevisContent } from '../adminMenu/adminDevisList.js';
 import { tableContent } from '../adminMenu/adminUsersList.js';
+import { paramsContainer } from '../adminMenu/parametres.js';
 
 const h1 = document.querySelector('h1');
 
 export const sections = {
   'Liste des utilisateurs': tableContent,
   'Liste des devis': tableDevisContent,
-  // Tu pourras ajouter d'autres sections ici plus tard, comme 'Liste des devis': tableDevisContent, etc.
+  Paramètres: paramsContainer,
 };
 
 // Menu slide de la gauche
