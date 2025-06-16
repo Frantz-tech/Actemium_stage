@@ -40,10 +40,27 @@ const updateCommanditaire = async (id, commanditaireData) => {
 const deleteCommanditaire = async id => {
   return await pool.query('DELETE FROM COMMANDITAIRE WHERE CMDT_ID = ?', [id]);
 };
+
+// Patch un commanditaire
+const patchCommanditaire = async newData => {
+  const sql = `
+  UPDATE COMMANDITAIRE
+  SET 
+    NOM = ?,
+    EMAIL = ?,
+    LOGO= ?
+  WHERE CMDT_ID = ? `;
+
+  const params = [newData.NOM, newData.EMAIL, newData.LOGO, newData.CMDT_ID];
+
+  const [result] = await pool.query(sql, params);
+  return result;
+};
 export const Repository = {
   createCommanditaire,
   getAllCommanditaires,
   getCommanditaireById,
   updateCommanditaire,
   deleteCommanditaire,
+  patchCommanditaire,
 };

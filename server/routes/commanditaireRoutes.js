@@ -11,5 +11,6 @@ router.get('/', Controller.getAllCommanditaires);
 router.get('/:id', Controller.getCommanditaireById);
 router.put('/:id', Controller.updateCommanditaire);
 router.delete('/:id', Controller.deleteCommanditaire);
+router.patch('/:id', upload.single('logo'), Controller.patchCommanditaire);
 
 export default router;

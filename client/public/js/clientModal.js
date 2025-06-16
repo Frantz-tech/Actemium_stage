@@ -1,6 +1,7 @@
+import { fetchCommanditaires } from './get_devis_segm/getCommanditaire.js';
 import { postdatawithfiles } from './post/postData.js';
 
-export function creerClientModal() {
+export async function creerClientModal(client = null) {
   const main = document.querySelector('main');
 
   const modal = document.createElement('div');
@@ -91,6 +92,15 @@ export function creerClientModal() {
   btnCreer.classList.add('btnCreer');
   btnCreer.textContent = 'Créer';
 
+  if (client) {
+    btnCreer.textContent = 'Modifier';
+    nomClient.value = client.NOM;
+    emailClient.value = client.EMAIL;
+    // pas possible de pré-remplir le champ file input pour le logo.
+  } else {
+    btnCreer.textContent = 'Créer';
+  }
+
   // Event sur le bouton créer un commanditaire
   btnCreer.addEventListener('click', async e => {
     e.preventDefault();
@@ -111,8 +121,16 @@ export function creerClientModal() {
     };
 
     try {
-      await postdatawithfiles(`http://localhost:3000/api/commanditaires`, data, files);
-
+      if (client) {
+        await postdatawithfiles(
+          `http://localhost:3000/api/commanditaires/${client.CMDT_ID}`,
+          data,
+          files,
+          'PATCH'
+        );
+      } else {
+        await postdatawithfiles(`http://localhost:3000/api/commanditaires`, data, files);
+      }
       // Fermeture du modal
       modal.classList.add('hide');
       document.body.classList.remove('noscroll');
@@ -123,8 +141,10 @@ export function creerClientModal() {
           document.body.removeChild(modal); // Ferme le modal
         }
       }, 200);
+
+      fetchCommanditaires();
     } catch (error) {
-      console.error('Erreur lors de la création du commanditaire', error);
+      console.error('Erreur lors de la création/modif du commanditaire', error);
     }
   });
 

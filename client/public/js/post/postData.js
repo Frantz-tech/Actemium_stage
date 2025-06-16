@@ -22,7 +22,7 @@ export async function postData(url = '', data = {}) {
   return json;
 }
 
-export async function postdatawithfiles(url = '', data = {}, files = {}) {
+export async function postdatawithfiles(url = '', data = {}, files = {}, method = 'POST') {
   const token = localStorage.getItem('token');
 
   // Création du formdata
@@ -39,7 +39,7 @@ export async function postdatawithfiles(url = '', data = {}, files = {}) {
   }
 
   const reponse = await fetch(url, {
-    method: 'POST',
+    method,
     headers: {
       ...(token && { Authorization: `Bearer${token}` }),
     },

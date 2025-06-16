@@ -1,3 +1,4 @@
+import { creerClientModal } from '../clientModal.js';
 import { deleteClient } from '../delete/deleteClient.js';
 import { handleApiError } from '../tokenHandler/handleApi.js';
 
@@ -105,6 +106,9 @@ function clientList(commanditaires) {
     btnUpdateClient.textContent = '✎';
 
     // Ecouteur sur le bouton
+    btnUpdateClient.addEventListener('click', () => {
+      creerClientModal(c);
+    });
 
     const btnDeleteClient = document.createElement('button');
     btnDeleteClient.classList.add('deletebtn');

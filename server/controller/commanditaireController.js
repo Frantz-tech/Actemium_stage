@@ -82,10 +82,38 @@ const deleteCommanditaire = async (req, res) => {
   }
 };
 
+const patchCommanditaire = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { NOM, EMAIL } = req.body;
+    const logo = req.file;
+
+    console.log('req.body', req.body);
+    console.log('req.file', req.file);
+
+    if (!NOM || !EMAIL) {
+      return res.status(400).json({ message: 'Nom ou email manquant' });
+    }
+    req.body.CMDT_ID = id;
+    console.log('donnée recu pour la création : ', req.body);
+
+    const result = await Service.patchCommanditaire(req.body, logo);
+
+    if (result.errors && result.errors.length > 0) {
+      return res.status(400).json({ message: result.errors });
+    }
+    sendSuccessResponse(res, 201, 'Commanditaire modifier avec succès', result);
+  } catch (error) {
+    console.error('Erreur lors de la modification du commanditaire', error);
+    return res.status(500).json({ error: error.message });
+  }
+};
+
 export const Controller = {
   createCommanditaire,
   getAllCommanditaires,
   getCommanditaireById,
   updateCommanditaire,
   deleteCommanditaire,
+  patchCommanditaire,
 };

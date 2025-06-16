@@ -40,10 +40,38 @@ const deleteCommanditaire = async id => {
   return await Repository.deleteCommanditaire(id);
 };
 
+const patchCommanditaire = async (newData, logo) => {
+  try {
+    const errors = [];
+    if (!newData) {
+      errors.push('Données requises pour la création du commanditaire');
+    }
+    if (!newData.NOM || newData.NOM.trim().length < 3) {
+      errors.push('Le nom du commanditaire doit faire au minimum 3 charactères');
+    }
+    if (!validateEmail(newData.EMAIL)) {
+      errors.push("L'email est invalide");
+    }
+    if (errors.length > 0) {
+      return { errors };
+    }
+
+    if (logo) {
+      newData.LOGO = logo.filename;
+    }
+    const result = await Repository.patchCommanditaire(newData, logo);
+    return result;
+  } catch (error) {
+    console.error('Erreur lors de la création du commanditaire', error);
+    return { errors: ['Erreurs lors de la création du commanditaire'] };
+  }
+};
+
 export const Service = {
   createCommanditaire,
   getAllCommanditaires,
   getCommanditaireById,
   updateCommanditaire,
   deleteCommanditaire,
+  patchCommanditaire,
 };
