@@ -1,34 +1,45 @@
-// Repository pour les frais
-
 import pool from '../config/db.js';
 
-// Créer une nouvelle frais :
+// créer un nouveau frais global
+const createFraisGlobaux = async fraisGlobauxData => {
+  const { NOM_FRAIS, POURCENTAGE } = fraisGlobauxData;
+  const [result] = await pool.query(
+    'INSERT INTO FRAIS_GLOBAUX (NOM_FRAIS, POURCENTAGE) VALUES (?,?)',
+    [NOM_FRAIS, POURCENTAGE]
+  );
+  return result.insertId;
+};
 
-// const createFrais = async fraisData => {};
+// Récupérer tout les frais
 
-// Récuperer toutes les frais
-const getAllFrais = async () => {
+const getAllFraisGlobaux = async () => {
   const [rows] = await pool.query('SELECT * FROM FRAIS_GLOBAUX');
   return rows;
 };
 
-// // Récuperer une frais par ID
-// const getFraisById = async id => {
-//   const [rows] = await pool.query('SELECT * FROM FRAIS WHERE FRAIS_ID = ?', [id]);
-//   return rows[0];
-// };
+const patchFraisGlobaux = async newData => {
+  const sql = `
+  UPDATE FRAIS_GLOBAUX 
+  SET 
+    NOM_FRAIS = ?,
+    POURCENTAGE = ?
+  WHERE FRAIS_GLOBAUX_ID = ?
+  `;
 
-// // Mettre à jour une frais
-// const updateFrais = async (id, fraisData) => {};
+  const params = [newData.NOM_FRAIS, newData.POURCENTAGE, newData.FRAIS_GLOBAUX_ID];
 
-// // Supprimer une frais
-// const deleteFrais = async id => {
-//   return await pool.query('DELETE FROM FRAIS WHERE FRAIS_ID = ?', [id]);
-// };
+  const result = await pool.query(sql, params);
+
+  return result;
+};
+
+const deleteFraisGlobaux = async fraisId => {
+  return await pool.query('DELETE FROM FRAIS_GLOBAUX WHERE FRAIS_GLOBAUX_ID = ?', [fraisId]);
+};
+
 export const Repository = {
-  // createFrais,
-  getAllFrais,
-  // getFraisById,
-  // updateFrais,
-  // deleteFrais,
+  createFraisGlobaux,
+  getAllFraisGlobaux,
+  patchFraisGlobaux,
+  deleteFraisGlobaux,
 };

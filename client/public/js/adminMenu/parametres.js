@@ -1,3 +1,4 @@
+import { fetchFraisGlobaux } from '../fap/fetchFrais.js';
 import { fetchClients } from '../get_devis_segm/getClients.js';
 import { fetchContrats } from '../get_devis_segm/getContrats.js';
 import { fetchDomaines } from '../get_devis_segm/getDomines.js';
@@ -32,6 +33,7 @@ boxes.forEach(b => {
     else if (b === 'Gérer les Expertises') fetchExpertises();
     else if (b === 'Gérer les Contrats') fetchContrats();
     else if (b === 'Gérer les Domaines') fetchDomaines();
+    else if (b === 'Gérer les Frais') fetchFraisGlobaux();
   });
 
   paramsContainer.appendChild(boxeContainer);

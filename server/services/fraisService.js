@@ -1,25 +1,22 @@
 import { Repository } from '../repository/fraisRepository.js';
 
-// const createFrais = async fraisData => {
-//   return await Repository.createFrais(fraisData);
-// };
-const getAllFrais = async () => {
-  return await Repository.getAllFrais();
+const createFraisGlobaux = async fraisGlobauxData => {
+  return await Repository.createFraisGlobaux(fraisGlobauxData);
 };
-// const getFraisById = async id => {
-//   return await Repository.getFraisById(id);
-// };
-// const updateFrais = async (id, fraisData) => {
-//   return await Repository.updateFrais(id, fraisData);
-// };
-// const deleteFrais = async id => {
-//   return await Repository.deleteFrais(id);
-// };
+const getAllFraisGlobaux = async () => {
+  return await Repository.getAllFraisGlobaux();
+};
+
+const patchFraisGlobaux = async newData => {
+  return await Repository.patchFraisGlobaux(newData);
+};
+const deleteFraisGlobaux = async fraisId => {
+  return await Repository.deleteFraisGlobaux(fraisId);
+};
 
 export const Service = {
-  // createFrais,
-  getAllFrais,
-  // getFraisById,
-  // updateFrais,
-  // deleteFrais,
+  createFraisGlobaux,
+  getAllFraisGlobaux,
+  patchFraisGlobaux,
+  deleteFraisGlobaux,
 };
