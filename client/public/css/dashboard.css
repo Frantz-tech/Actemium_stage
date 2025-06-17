@@ -54,7 +54,7 @@ table {
 }
 
 .tableUser {
-  width: 80%;
+  width: 100%;
 }
 
 h2 {
@@ -219,6 +219,7 @@ h2 {
 #containerSegmList {
   display: flex;
   width: 100%;
+  flex-direction: column;
 }
 
 #segList {
@@ -226,7 +227,7 @@ h2 {
   flex-direction: column;
   gap: 1vw;
   width: 100%;
-  margin-top: 5vw;
+  margin-bottom: 2vh;
 }
 
 .segmContent {
@@ -249,4 +250,18 @@ h2 {
 
 .segmType {
   flex: 3;
+}
+
+.showMoreBtn {
+  width: fit-content;
+  align-self: center;
+}
+
+.paramsContainer {
+  margin-bottom: 2vh;
+}
+
+#containerSegmTitle {
+  margin-top: 2vw;
+  color: var(--color-white);
 }

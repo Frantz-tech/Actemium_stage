@@ -1,7 +1,7 @@
 import { segmList } from '../lists/semgentionList.js';
 import { handleApiError } from '../tokenHandler/handleApi.js';
 
-export function fetchExpertises() {
+export async function fetchExpertises() {
   fetch('http://localhost:3000/api/expertises')
     .then(response => response.json())
     .then(data => {
@@ -21,6 +21,7 @@ export function fetchExpertises() {
         expertises.length > 0
       ) {
         segmList(expertises);
+        document.querySelector('h2').textContent = 'Liste des  Expertises';
       }
 
       function expertiseSelect(expertise) {

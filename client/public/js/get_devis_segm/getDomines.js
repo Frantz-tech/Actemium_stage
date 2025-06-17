@@ -1,7 +1,7 @@
 import { segmList } from '../lists/semgentionList.js';
 import { handleApiError } from '../tokenHandler/handleApi.js';
 
-export function fetchDomaines() {
+export async function fetchDomaines() {
   fetch('http://localhost:3000/api/domaines')
     .then(response => response.json())
     .then(data => {
@@ -17,6 +17,7 @@ export function fetchDomaines() {
       }
       if (urlCheck.includes('/adminDashboard') && Array.isArray(domaines) && domaines.length > 0) {
         segmList(domaines);
+        document.querySelector('h2').textContent = 'Liste des Domaines';
       }
       function domaineSelect(domaine) {
         const select = document.getElementById('domaineSegm');

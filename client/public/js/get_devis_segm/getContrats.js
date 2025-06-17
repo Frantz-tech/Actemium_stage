@@ -1,7 +1,7 @@
 import { segmList } from '../lists/semgentionList.js';
 import { handleApiError } from '../tokenHandler/handleApi.js';
 
-export function fetchContrats() {
+export async function fetchContrats() {
   fetch('http://localhost:3000/api/contrats')
     .then(response => response.json())
     .then(data => {
@@ -17,6 +17,7 @@ export function fetchContrats() {
       }
       if (urlCheck.includes('adminDashboard') && Array.isArray(contrats) && contrats.length > 0) {
         segmList(contrats);
+        document.querySelector('h2').textContent = 'Liste des Contrats';
       }
 
       function contratSelect(contrat) {

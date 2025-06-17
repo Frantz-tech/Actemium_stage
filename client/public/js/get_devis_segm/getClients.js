@@ -1,7 +1,7 @@
 import { segmList } from '../lists/semgentionList.js';
 import { handleApiError } from '../tokenHandler/handleApi.js';
 
-export function fetchClients() {
+export async function fetchClients() {
   fetch('http://localhost:3000/api/clients')
     .then(response => response.json())
     .then(data => {
@@ -17,6 +17,7 @@ export function fetchClients() {
       }
       if (urlCheck.includes('/adminDashboard') && Array.isArray(clients) && clients.length > 0) {
         segmList(clients);
+        document.querySelector('h2').textContent = 'Liste des Clients';
       }
       function clientSelect(clients) {
         const select = document.getElementById('clientSegm');

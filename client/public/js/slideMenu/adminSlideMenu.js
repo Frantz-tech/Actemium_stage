@@ -43,6 +43,10 @@ menuItem.forEach(itemText => {
     Object.values(sections).forEach(section => {
       section.style.display = 'none';
     });
+    const oldSegmList = document.getElementById('containerSegmList');
+    if (oldSegmList && oldSegmList.parentNode) {
+      oldSegmList.parentNode.removeChild(oldSegmList);
+    }
     if (itemText === 'Se déconnecter') {
       localStorage.removeItem('token'); // Déconnecter la session
 
