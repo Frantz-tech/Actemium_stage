@@ -55,7 +55,6 @@ loginForm.addEventListener('submit', async e => {
         console.log('Role détecté:', role);
         if (role === 'administrateur') {
           window.location.href = '../pages/adminDashboard.html';
-          alert('Connexion réussie, vous allez être redirigé vers la page admin');
         } else if (role === 'responsable d affaire' || role === 'chargé d affaire') {
           const mustChangePassword = data.data.user.MUST_CHANGE_PASSWORD;
           const mustChangePasswordBool = Boolean(Number(mustChangePassword));

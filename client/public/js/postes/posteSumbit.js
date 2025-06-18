@@ -112,7 +112,6 @@ export async function sendPostes() {
       alert('Aucune donnée reçue après l’envoi du post');
       return;
     }
-    // Ici tu peux ajouter une redirection ou un message utilisateur
   } catch (error) {
     console.error("Erreur lors de l'envoi du poste : ", error);
     alert('Erreur lors de l envoie du poste');
