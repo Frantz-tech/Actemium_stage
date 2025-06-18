@@ -1,3 +1,4 @@
+import { fraisList } from '../lists/fraisList.js';
 import { handleApiError } from '../tokenHandler/handleApi.js';
 
 export async function fetchFraisGlobaux() {
@@ -30,7 +31,7 @@ export async function fetchFraisGlobaux() {
 
     if (urlParams.includes('/adminDashboard')) {
       console.log('Liste des frais récups : ', fraisGlobaux);
-      // fraisList(fraisGlobaux.data);
+      fraisList(fraisGlobaux.data);
       document.querySelector('h2').textContent = 'Liste des Frais';
 
       return fraisGlobaux;

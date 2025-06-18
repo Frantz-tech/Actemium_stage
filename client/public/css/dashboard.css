@@ -174,7 +174,6 @@ h2 {
   box-sizing: border-box;
   border-radius: 5px;
   background-color: var(--color-white);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
@@ -186,13 +185,22 @@ h2 {
   font-size: 1.2rem;
   text-align: center;
 }
-
-.boxeContainer:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+.boxeContainer.active {
+  box-shadow: 0 10px var(--color-primary);
+  transform: scale(1.1);
+}
+.boxeContainer.inactive {
+  background-color: var(--color-notSelected);
+  color: var(--color-white);
+  box-shadow: 0 0 10px var(--color-white);
 }
 
-.segmItem {
+.boxeContainer:hover {
+  transform: scale(1.1);
+}
+
+.segmItem,
+.fraisItem {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -207,7 +215,8 @@ h2 {
   max-width: 750px;
 }
 
-.btnUpdateSegm {
+.btnUpdateSegm,
+.btnUpdateFrais {
   order: -1;
   font-size: 1.8rem;
   display: flex;
@@ -216,13 +225,15 @@ h2 {
   cursor: pointer;
 }
 
-#containerSegmList {
+#containerSegmList,
+#containerFraisList {
   display: flex;
   width: 100%;
   flex-direction: column;
 }
 
-#segList {
+#segList,
+#fraisList {
   display: flex;
   flex-direction: column;
   gap: 1vw;
@@ -230,7 +241,8 @@ h2 {
   margin-bottom: 2vh;
 }
 
-.segmContent {
+.segmContent,
+.fraisContent {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -238,18 +250,23 @@ h2 {
   gap: 1.5vw;
 }
 
-.segmInfo {
+.segmInfo,
+.fraisInfo {
   display: flex;
   justify-content: space-between;
   width: 100%;
 }
 
-.segmCode {
+.segmCode,
+.fraisNom {
   flex: 2;
 }
 
 .segmType {
   flex: 3;
+}
+.fraisPourcentage {
+  flex: 1;
 }
 
 .showMoreBtn {
@@ -261,6 +278,7 @@ h2 {
   margin-bottom: 2vh;
 }
 
+#containerFraisTitle,
 #containerSegmTitle {
   margin-top: 2vw;
   color: var(--color-white);

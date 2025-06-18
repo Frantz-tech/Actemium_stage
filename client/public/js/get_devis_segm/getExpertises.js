@@ -1,4 +1,4 @@
-import { segmList } from '../lists/semgentionList.js';
+import { segmList } from '../lists/segmentionList.js';
 import { handleApiError } from '../tokenHandler/handleApi.js';
 
 export async function fetchExpertises() {

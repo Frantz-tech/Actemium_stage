@@ -1,6 +1,7 @@
 import { tableDevisContent } from '../adminMenu/adminDevisList.js';
 import { tableContent } from '../adminMenu/adminUsersList.js';
 import { paramsContainer } from '../adminMenu/parametres.js';
+import { statsContainer } from '../adminMenu/statistiques.js';
 
 const h1 = document.querySelector('h1');
 
@@ -8,6 +9,7 @@ export const sections = {
   'Liste des utilisateurs': tableContent,
   'Liste des devis': tableDevisContent,
   Paramètres: paramsContainer,
+  Statistiques: statsContainer,
 };
 
 // Menu slide de la gauche
@@ -43,10 +45,24 @@ menuItem.forEach(itemText => {
     Object.values(sections).forEach(section => {
       section.style.display = 'none';
     });
+
+    // Retirer les div fraisList et segm list lorsque l'on clique sur un element du slideMenu
     const oldSegmList = document.getElementById('containerSegmList');
+    const oldFraisList = document.getElementById('containerFraisList');
+    const allBoxeContainers = document.querySelectorAll('.boxeContainer');
+
     if (oldSegmList && oldSegmList.parentNode) {
       oldSegmList.parentNode.removeChild(oldSegmList);
     }
+    if (oldFraisList && oldFraisList.parentNode) {
+      oldFraisList.parentNode.removeChild(oldFraisList);
+    }
+    // Retire également le style sur la box sélectionné auparavent
+    allBoxeContainers.forEach(box => {
+      box.classList.remove('active');
+      box.classList.add('inactive');
+    });
+
     if (itemText === 'Se déconnecter') {
       localStorage.removeItem('token'); // Déconnecter la session
 

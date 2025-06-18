@@ -1,7 +1,7 @@
 import { fetchFraisGlobaux } from '../fap/fetchFrais.js';
 import { fetchClients } from '../get_devis_segm/getClients.js';
 import { fetchContrats } from '../get_devis_segm/getContrats.js';
-import { fetchDomaines } from '../get_devis_segm/getDomines.js';
+import { fetchDomaines } from '../get_devis_segm/getDomaines.js';
 import { fetchExpertises } from '../get_devis_segm/getExpertises.js';
 
 export const paramsContainer = document.createElement('div');
@@ -20,15 +20,27 @@ const boxes = [
   'Gérer les Expertises',
   'Gérer les Clients',
   'Gérer les Contrats',
-  'Gérer les Utilisateurs',
 ];
 
 boxes.forEach(b => {
   const boxeContainer = document.createElement('div');
   boxeContainer.classList.add('boxeContainer');
+  boxeContainer.classList.add('inactive');
   boxeContainer.textContent = b;
 
   boxeContainer.addEventListener('click', () => {
+    const allBoxes = document.querySelectorAll('.boxeContainer');
+
+    // Par défaut chaque box a la classe inactive donc fond noir avec bordure
+    allBoxes.forEach(box => {
+      box.classList.remove('active');
+      box.classList.add('inactive');
+    });
+
+    // Lors du clic sur une boxe on retire la classe inactive et on ajoute la classe active
+    boxeContainer.classList.remove('inactive');
+    boxeContainer.classList.add('active');
+
     if (b === 'Gérer les Clients') fetchClients();
     else if (b === 'Gérer les Expertises') fetchExpertises();
     else if (b === 'Gérer les Contrats') fetchContrats();

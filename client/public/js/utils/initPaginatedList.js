@@ -2,11 +2,15 @@ export function initPaginatedList({ data, container, button, step = 5, renderIte
   let visibleCount = 0;
   let forward = true;
 
-  function render() {
-    while (container.firstChild) {
-      container.removeChild(container.firstChild);
-    }
+  if (!button || !step) {
+    data.forEach(item => {
+      const element = renderItem(item);
+      container.appendChild(element);
+    });
+    return;
+  }
 
+  function render() {
     for (let i = 0; i < visibleCount && i < data.length; i++) {
       const element = renderItem(data[i]);
       container.appendChild(element);

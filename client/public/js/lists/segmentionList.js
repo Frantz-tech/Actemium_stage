@@ -1,6 +1,8 @@
 import { initPaginatedList } from '../utils/initPaginatedList.js';
+import { clearAllLists } from './clearLists.js';
 
 export function segmList(segm) {
+  clearAllLists();
   const existList = document.getElementById('containerSegmList');
   if (existList) {
     existList.remove();
