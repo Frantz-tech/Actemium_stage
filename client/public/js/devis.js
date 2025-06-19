@@ -1,8 +1,10 @@
+import { getDevisById } from './get/fetchDevisById.js';
 import { fetchClients } from './get_devis_segm/getClients.js';
 import { fetchCommanditaires } from './get_devis_segm/getCommanditaire.js';
 import { fetchContrats } from './get_devis_segm/getContrats.js';
 import { fetchDomaines } from './get_devis_segm/getDomaines.js';
 import { fetchExpertises } from './get_devis_segm/getExpertises.js';
+import { patchDevis } from './patch/patchDevis.js';
 import { postData } from './post/postData.js';
 
 document.querySelector('h1').innerText = 'DEVIS';
@@ -10,6 +12,9 @@ document.querySelector('h1').innerText = 'DEVIS';
 // Récupérer le RA_ID depuis localStorage
 const utilisateur = JSON.parse(localStorage.getItem('utilisateur'));
 const ra_id = utilisateur?.RA_ID;
+
+const urlParams = new URLSearchParams(window.location.search);
+const devis_id = urlParams.get('devis_id');
 
 async function refreshCmdtSelect(selectedId) {
   try {
@@ -41,7 +46,6 @@ async function refreshCmdtSelect(selectedId) {
       [...selectCmdt.options].map(o => o.value)
     );
     console.log('selectedId attendu:', selectedId);
-    alert('Commanditaire ajouté avec succès');
 
     if (selectedId) {
       selectCmdt.value = selectedId;
@@ -241,52 +245,94 @@ btnCreer.type = 'submit';
 btnCreer.classList.add('btnCreer');
 btnCreer.textContent = 'Créer';
 
-// Event sur le button btnCreer
+// Event sur le button btnCreer ou modifier
 form.addEventListener('submit', async e => {
   e.preventDefault();
 
-  const inputLibelle = document.getElementById('libelleDevis');
-  const libelle = inputLibelle.value.trim();
-
-  const selectCmdt = document.getElementById('cmdt');
-  const clientSegm = document.getElementById('clientSegm');
-  const expertiseSegm = document.getElementById('expertiseSegm');
-  const domaineSegm = document.getElementById('domaineSegm');
-  const contratSegm = document.getElementById('contratSegm');
-
-  if (
-    !libelle ||
-    selectCmdt.value === 'commanditaire' ||
-    selectCmdt.value === 'add_new' ||
-    clientSegm.value === 'CLIENT' ||
-    contratSegm.value === 'CONTRAT' ||
-    domaineSegm.value === 'DOMAINE' ||
-    expertiseSegm.value === 'EXPERTISE'
-  ) {
-    alert('Merci de bien remplir tous les champs');
-    return;
-  }
-
-  // Crée un objet avec les valeurs des options sélectionnées
-  const devisData = {
-    LIBELLE: libelle,
-    RA_ID: ra_id,
-    CMDT_ID: selectCmdt.value,
-    CLIENT_ID: clientSegm.value,
-    DOM_ID: domaineSegm.value,
-    EXP_ID: expertiseSegm.value,
-    CONTRAT_ID: contratSegm.value,
-  };
-  console.log('ID envoyés :', devisData);
   try {
-    const createDevis = await postData('http://localhost:3000/api/devis', devisData);
-    if (createDevis.errors) {
-      alert('Erreurs : ' + createDevis.errors.join(','));
-      return;
-    }
-    alert(`✅ Devis ${devisData.LIBELLE} crée avec succès`);
+    if (devis_id) {
+      const libelle = document.getElementById('libelleDevis').value;
+      const ra = document.getElementById('raId').value;
+      const cmdt = document.getElementById('cmdt').value;
+      const client = document.getElementById('clientSegm').value;
+      const expert = document.getElementById('expertiseSegm').value;
+      const domaine = document.getElementById('domaineSegm').value;
+      const contrat = document.getElementById('contratSegm').value;
+      if (
+        !libelle ||
+        selectCmdt.value === 'commanditaire' ||
+        selectCmdt.value === 'add_new' ||
+        clientSegm.value === 'CLIENT' ||
+        contratSegm.value === 'CONTRAT' ||
+        domaineSegm.value === 'DOMAINE' ||
+        expertiseSegm.value === 'EXPERTISE'
+      ) {
+        alert('Merci de bien remplir tous les champs');
+        return;
+      }
+      const dataToPatch = {
+        LIBELLE: libelle,
+        RA_ID: ra,
+        CMDT_ID: cmdt,
+        CLIENT_ID: client,
+        EXP_ID: expert,
+        DOM_ID: domaine,
+        CONTRAT_ID: contrat,
+        DEVIS_ID: devis_id,
+      };
+      console.log('data to patch devis : ', dataToPatch);
+      const res = await patchDevis(devis_id, dataToPatch);
 
-    window.location.href = `../pages/devisList.html?ra_id=${devisData.RA_ID}`;
+      if (res.errors) {
+        alert('Erreurs : ' + res.errors.join(','));
+        return;
+      }
+      alert(`✅ Devis ${dataToPatch.LIBELLE} modifié avec succès`);
+      window.location.href = `../pages/devisList.html?ra_id=${dataToPatch.RA_ID}`;
+    } else {
+      const inputLibelle = document.getElementById('libelleDevis');
+      const libelle = inputLibelle.value.trim();
+
+      const selectCmdt = document.getElementById('cmdt');
+      const clientSegm = document.getElementById('clientSegm');
+      const expertiseSegm = document.getElementById('expertiseSegm');
+      const domaineSegm = document.getElementById('domaineSegm');
+      const contratSegm = document.getElementById('contratSegm');
+
+      if (
+        !libelle ||
+        selectCmdt.value === 'commanditaire' ||
+        selectCmdt.value === 'add_new' ||
+        clientSegm.value === 'CLIENT' ||
+        contratSegm.value === 'CONTRAT' ||
+        domaineSegm.value === 'DOMAINE' ||
+        expertiseSegm.value === 'EXPERTISE'
+      ) {
+        alert('Merci de bien remplir tous les champs');
+        return;
+      }
+
+      // Crée un objet avec les valeurs des options sélectionnées
+      const devisData = {
+        LIBELLE: libelle,
+        RA_ID: ra_id,
+        CMDT_ID: selectCmdt.value,
+        CLIENT_ID: clientSegm.value,
+        DOM_ID: domaineSegm.value,
+        EXP_ID: expertiseSegm.value,
+        CONTRAT_ID: contratSegm.value,
+      };
+      console.log('Données de devisData :', devisData);
+
+      const createDevis = await postData('http://localhost:3000/api/devis', devisData);
+      if (createDevis.errors) {
+        alert('Erreurs : ' + createDevis.errors.join(','));
+        return;
+      }
+      alert(`✅ Devis ${devisData.LIBELLE} crée avec succès`);
+
+      window.location.href = `../pages/devisList.html?ra_id=${devisData.RA_ID}`;
+    }
   } catch (error) {
     console.error('Erreur lors de la création du devis', error);
   }
@@ -317,3 +363,30 @@ fetchContrats();
 fetchExpertises();
 fetchDomaines();
 fetchCommanditaires();
+
+if (devis_id) {
+  document.querySelector('h1').innerText = 'MODIFIER LE DEVIS';
+  btnCreer.textContent = 'Modifier';
+
+  async function init() {
+    const devis = await getDevisById(devis_id);
+    console.log('Devis existant récupéré : ', devis);
+    await refreshCmdtSelect(devis.data.CMDT_ID);
+
+    const libelle = document.getElementById('libelleDevis');
+    if (libelle) libelle.value = `${devis.data.LIBELLE}`;
+    const ra = document.getElementById('raId');
+    if (ra) ra.value = `${devis.data.RA_ID}`;
+    const cmdt = document.getElementById('cmdt');
+    if (cmdt) cmdt.value = `${devis.data.CMDT_ID}`;
+    const client = document.getElementById('clientSegm');
+    if (client) client.value = `${devis.data.CLIENT_ID}`;
+    const expert = document.getElementById('expertiseSegm');
+    if (expert) expert.value = `${devis.data.EXP_ID}`;
+    const domaine = document.getElementById('domaineSegm');
+    if (domaine) domaine.value = `${devis.data.DOM_ID}`;
+    const contrat = document.getElementById('contratSegm');
+    if (contrat) contrat.value = `${devis.data.CONTRAT_ID}`;
+  }
+  init();
+}

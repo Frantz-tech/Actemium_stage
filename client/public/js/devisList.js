@@ -105,6 +105,8 @@ function fetchDevisByRaId() {
           /* -- Action lors du clique sur le devis -- */
           devisItem.addEventListener('click', e => {
             e.preventDefault();
+            console.log('devisItem data : ', d);
+
             // devisItem.addEventListener suite ..
             const modal = document.createElement('div');
             modal.classList.add('modalDevis');
@@ -179,7 +181,7 @@ function fetchDevisByRaId() {
             btnModifier.classList.add('btnModal');
             btnModifier.innerText = 'Modifier';
             btnModifier.addEventListener('click', () => {
-              alert('Modifier le devis');
+              window.location.href = `../pages/devis.html?ra_id=${ra_id}&devis_id=${d.DEVIS_ID}`;
             });
 
             // AppendChild && Append

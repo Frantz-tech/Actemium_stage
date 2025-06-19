@@ -14,6 +14,7 @@ const createDevis = async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
 };
+
 const getAllDevis = async (req, res) => {
   try {
     const result = await Service.getAllDevis();
@@ -70,6 +71,20 @@ const getDevisByRaId = async (req, res) => {
   }
 };
 
+const patchDevis = async (req, res) => {
+  try {
+    const result = await Service.patchDevis(req.body);
+    console.log('Résultat controller.patchDevis :', result);
+
+    if (result.errors && result.errors.length > 0) {
+      return res.status(400).json({ errors: result.errors });
+    }
+    sendSuccessResponse(res, 200, 'Devis modifié avec succès', result);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
 export const Controller = {
   createDevis,
   getAllDevis,
@@ -77,4 +92,5 @@ export const Controller = {
   updateDevis,
   deleteDevis,
   getDevisByRaId,
+  patchDevis,
 };

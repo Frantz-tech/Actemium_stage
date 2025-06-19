@@ -28,7 +28,7 @@ export async function fetchExpertises() {
         const select = document.getElementById('expertiseSegm');
         expertise.forEach(expertise => {
           const option = document.createElement('option');
-          option.value = expertise.EXPERTISE_ID;
+          option.value = expertise.EXP_ID;
           option.textContent = `${expertise.CODE} - ${expertise.TYPE} `;
           select.appendChild(option);
         });

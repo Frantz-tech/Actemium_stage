@@ -69,12 +69,42 @@ const deleteDevis = async id => {
   return await pool.query('DELETE FROM DEVIS WHERE DEVIS_ID = ?', [id]);
 };
 
+// Afficher la liste des devis par RA
 const getDevisByRaId = async id => {
   const [rows] = await pool.query(
-    'SELECT d.DEVIS_ID, d.DEVIS_REF,d.LIBELLE,d.RA_ID, d.ETAT, c.NOM AS NOM, cl.TYPE AS NOM_CLIENT, dom.TYPE AS NOM_DOMAINE, e.TYPE AS NOM_EXPERTISE, ctr.TYPE AS NOM_CONTRAT FROM DEVIS d LEFT JOIN COMMANDITAIRE c on d.CMDT_ID = c.CMDT_ID LEFT JOIN CLIENT cl ON d.CLIENT_ID = cl.CLIENT_ID LEFT JOIN DOMAINE dom ON d.DOM_ID = dom.DOMAINE_ID LEFT JOIN EXPERTISE e ON d.EXP_ID = e.EXP_ID LEFT JOIN CONTRAT ctr ON d.CONTRAT_ID = ctr.CONTRAT_ID WHERE  d.RA_ID = ? ORDER BY d.DEVIS_REF ASC',
+    'SELECT d.DEVIS_ID, d.DEVIS_REF,d.LIBELLE,d.RA_ID, d.ETAT, c.NOM AS NOM, cl.TYPE AS NOM_CLIENT, dom.TYPE AS NOM_DOMAINE, e.TYPE AS NOM_EXPERTISE, ctr.TYPE AS NOM_CONTRAT FROM DEVIS d LEFT JOIN COMMANDITAIRE c on d.CMDT_ID = c.CMDT_ID LEFT JOIN CLIENT cl ON d.CLIENT_ID = cl.CLIENT_ID LEFT JOIN DOMAINE dom ON d.DOM_ID = dom.DOMAINE_ID LEFT JOIN EXPERTISE e ON d.EXP_ID = e.EXP_ID LEFT JOIN CONTRAT ctr ON d.CONTRAT_ID = ctr.CONTRAT_ID WHERE  d.RA_ID = ? ORDER BY d.DEVIS_ID DESC',
     [id]
   );
   return rows;
+};
+
+// Patch un devis
+
+const patchDevis = async newData => {
+  const sql = `
+  UPDATE DEVIS
+  SET 
+    LIBELLE = ?,
+    RA_ID = ?,
+    CMDT_ID = ?,
+    CLIENT_ID = ?,
+    EXP_ID = ?,
+    DOM_ID = ?,
+    CONTRAT_ID =?
+  WHERE DEVIS_ID = ? `;
+  const params = [
+    newData.LIBELLE,
+    newData.RA_ID,
+    newData.CMDT_ID,
+    newData.CLIENT_ID,
+    newData.EXP_ID,
+    newData.DOM_ID,
+    newData.CONTRAT_ID,
+    newData.DEVIS_ID,
+  ];
+
+  const [result] = await pool.query(sql, params);
+  return result;
 };
 export const Repository = {
   createDevis,
@@ -83,4 +113,5 @@ export const Repository = {
   updateDevis,
   deleteDevis,
   getDevisByRaId,
+  patchDevis,
 };

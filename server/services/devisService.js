@@ -57,6 +57,37 @@ const getDevisByRaId = async id => {
   }
 };
 
+const patchDevis = async newData => {
+  const errors = [];
+  if (!newData) {
+    errors.push('Données requises pour la modification du devis');
+  }
+  if (!newData.LIBELLE || newData.LIBELLE.trim().length < 3) {
+    errors.push(
+      'Le libellé du devis doit faire au moins 3 charactères pour être valable à la modif'
+    );
+  }
+  if (!newData.RA_ID) {
+    errors.push('RA_ID est requis');
+  }
+  if (
+    !newData.CMDT_ID ||
+    !newData.CLIENT_ID ||
+    !newData.EXP_ID ||
+    !newData.DOM_ID ||
+    !newData.CONTRAT_ID
+  ) {
+    errors.push('La segmentation doit être complète pour pouvoir modifier le devis');
+  }
+  if (errors.length > 0) {
+    return { errors };
+  }
+
+  const updateDevis = await Repository.patchDevis(newData);
+  console.log('✅ Devis modifié :', updateDevis);
+  return updateDevis;
+};
+
 export const Service = {
   createDevis,
   getAllDevis,
@@ -64,4 +95,5 @@ export const Service = {
   updateDevis,
   deleteDevis,
   getDevisByRaId,
+  patchDevis,
 };
