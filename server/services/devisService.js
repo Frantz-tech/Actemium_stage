@@ -40,6 +40,9 @@ const getAllDevis = async () => {
 const getDevisById = async id => {
   return await Repository.getDevisById(id);
 };
+const getDevisByCmdt = async cmdtId => {
+  return await Repository.getDevisByCmdt(cmdtId);
+};
 const updateDevis = async (id, devisData) => {
   return await Repository.updateDevis(id, devisData);
 };
@@ -92,6 +95,7 @@ export const Service = {
   createDevis,
   getAllDevis,
   getDevisById,
+  getDevisByCmdt,
   updateDevis,
   deleteDevis,
   getDevisByRaId,

@@ -11,7 +11,13 @@ const app = e();
 
 app.use(e.json());
 
-app.use(cors());
+app.use(
+  cors({
+    origin: 'http://localhost:4000',
+    methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  })
+);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

@@ -54,6 +54,16 @@ const getDevisById = async id => {
   return rows[0];
 };
 
+// Récupérer des devis par commanditaires
+
+const getDevisByCmdt = async cmdtId => {
+  const [rows] = await pool.query(
+    'SELECT DEVIS_ID, DEVIS_REF, LIBELLE, RA_ID, DATE_CREATION FROM DEVIS WHERE CMDT_ID = ? ORDER BY DATE_CREATION ASC',
+    [cmdtId]
+  );
+  return rows;
+};
+
 // Mettre à jour un devis
 const updateDevis = async (id, devisData) => {
   const { code, type } = devisData;
@@ -77,6 +87,7 @@ const getDevisByRaId = async id => {
   );
   return rows;
 };
+// Mettre a jour un devis_ref si on change de client ( des erreurs ca arrive )
 
 // Patch un devis
 
@@ -110,6 +121,7 @@ export const Repository = {
   createDevis,
   getAllDevis,
   getDevisById,
+  getDevisByCmdt,
   updateDevis,
   deleteDevis,
   getDevisByRaId,

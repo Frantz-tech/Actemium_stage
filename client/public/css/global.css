@@ -123,11 +123,14 @@ input {
 .hidePatch {
   display: none;
 }
-.btnCreerPoste,
-.btnCreerClient {
+.btnCreerPoste {
   order: 2;
 }
 
+.btnCreerClient {
+  margin-top: 0px !important;
+  margin-bottom: 3vw;
+}
 .btnCreer {
   margin-top: 3vw;
 }

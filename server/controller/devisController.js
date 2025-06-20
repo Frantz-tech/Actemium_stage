@@ -32,6 +32,21 @@ const getDevisById = async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
 };
+
+const getDevisByCmdt = async (req, res) => {
+  try {
+    const cmdtId = req.params;
+    const result = await Service.getDevisByCmdt(cmdtId);
+    sendSuccessResponse(
+      res,
+      200,
+      `Liste des devis associé au commanditaire Id : ${cmdtId} récupérés avec succès`,
+      result
+    );
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
 const updateDevis = async (req, res) => {
   try {
     const { id } = req.params;
@@ -89,6 +104,7 @@ export const Controller = {
   createDevis,
   getAllDevis,
   getDevisById,
+  getDevisByCmdt,
   updateDevis,
   deleteDevis,
   getDevisByRaId,
