@@ -35,12 +35,14 @@ const getDevisById = async (req, res) => {
 
 const getDevisByCmdt = async (req, res) => {
   try {
-    const cmdtId = req.params;
-    const result = await Service.getDevisByCmdt(cmdtId);
+    const { id } = req.params;
+    console.log('Ce que je veux ', id);
+
+    const result = await Service.getDevisByCmdt(id);
     sendSuccessResponse(
       res,
       200,
-      `Liste des devis associé au commanditaire Id : ${cmdtId} récupérés avec succès`,
+      `Liste des devis associé au commanditaire Id : ${id} récupérés avec succès`,
       result
     );
   } catch (error) {

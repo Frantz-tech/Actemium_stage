@@ -180,13 +180,14 @@
   gap: 1vw;
 }
 
-.devisLibelle,
 .postLibelle,
-.devis_ref,
 .poste_ref {
   padding: 0 3vw;
 }
-
+.devisLibelle,
+.devis_ref {
+  padding: 0 1.5vw;
+}
 .clientItem,
 .devisItem,
 .postItem,

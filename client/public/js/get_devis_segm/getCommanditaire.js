@@ -1,5 +1,6 @@
 import { creerClientModal } from '../clientModal.js';
 import { deleteClient } from '../delete/deleteClient.js';
+import { getDevisByCmdtId } from '../get/fetchDevisByCmdt.js';
 import { handleApiError } from '../tokenHandler/handleApi.js';
 
 export function fetchCommanditaires() {
@@ -82,6 +83,13 @@ function clientList(commanditaires) {
     );
     nomClient.appendChild(document.createTextNode(c.NOM));
 
+    // Event sur le nom du client pour afficher les devis lié a ce commanditaire
+    // Cela permet de vérifier si aucun devis n'est affecté a ce client pour le supprimer
+    // Sinon il est bloqué par une clé étrangère
+
+    nomClient.addEventListener('click', async () => {
+      await getDevisByCmdtId(c.CMDT_ID);
+    });
     const emailClient = document.createElement('p');
     emailClient.classList.add('emailClient');
     emailClient.appendChild(
