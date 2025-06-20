@@ -71,6 +71,10 @@
   align-items: center;
   width: 100%;
 }
+
+.modalDevis_content {
+  padding: 0 0 1vw;
+}
 .modalUser_content,
 .modalAdmin_content {
   position: relative;
