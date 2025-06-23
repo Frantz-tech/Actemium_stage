@@ -1,5 +1,5 @@
-import { fetchCommanditaires } from './get_devis_segm/getCommanditaire.js';
-import { postdatawithfiles } from './post/postData.js';
+import { fetchCommanditaires } from '../get_devis_segm/getCommanditaire.js';
+import { postdatawithfiles } from '../post/postData.js';
 
 export async function creerClientModal(client = null) {
   const main = document.querySelector('main');
@@ -16,7 +16,7 @@ export async function creerClientModal(client = null) {
   closeBtn.classList.add('close-btn');
   closeBtn.classList.add('close-btnClient');
 
-  // overlay ( blur ) du poste
+  // overlay ( blur )
   const overlay = document.createElement('div');
   overlay.classList.add('modalClient-overlay');
   overlay.appendChild(modal);

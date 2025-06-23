@@ -36,15 +36,19 @@ const getDevisById = async (req, res) => {
 const getDevisByCmdt = async (req, res) => {
   try {
     const { id } = req.params;
-    console.log('Ce que je veux ', id);
+    console.log('Id du commanditaire : ', id);
 
     const result = await Service.getDevisByCmdt(id);
-    sendSuccessResponse(
-      res,
-      200,
-      `Liste des devis associé au commanditaire Id : ${id} récupérés avec succès`,
-      result
-    );
+    if (result.length > 0) {
+      sendSuccessResponse(
+        res,
+        200,
+        `Liste des devis associé au commanditaire Id : ${id} récupérés avec succès`,
+        result
+      );
+    } else {
+      sendSuccessResponse(res, 200, `Aucun devis trouvé pour le commanditaire Id : ${id}`, []);
+    }
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }

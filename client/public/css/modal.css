@@ -63,6 +63,7 @@
 .modalDevis_content,
 .modalPost_content,
 .modalPassword_content,
+.modalDevisByCmdt_content,
 .modalCmdt_content {
   padding: 1vw;
   display: flex;
@@ -92,6 +93,7 @@
 }
 
 .modalDevis,
+.modalDevisByCmdt,
 .modalClient {
   display: flex;
   flex-direction: column-reverse;
@@ -212,6 +214,7 @@
 .modalUser,
 .modalUserConnected,
 .modalAdminConnected,
+.modalDevisByCmdt,
 .modalPasswordLogin,
 .modal,
 .modalCmdt {
@@ -227,6 +230,7 @@
 .modalClient.show,
 .modalDetail.show,
 .modalPasswordLogin.show,
+.modalDevisByCmdt.show,
 .modal.show,
 .modalCmdt.show {
   animation-name: popIn;
@@ -246,11 +250,14 @@
 .modalClient.hide,
 .modalDetail.hide,
 .modalPasswordLogin.hide,
+.modalDevisByCmdt.hide,
 .modalCmdt.hide {
   animation-name: popOut;
 }
 
 .modalDevis-overlay,
+.modalDevisByCmdt-overlay,
+.modalClient-overlay,
 .modalPost-overlay,
 .modalClient-overlay,
 .modalDetail-overlay,
@@ -533,4 +540,10 @@
   position: absolute;
   top: 0;
   right: 0;
+}
+
+.list {
+  display: flex;
+  justify-content: center;
+  list-style: circle;
 }

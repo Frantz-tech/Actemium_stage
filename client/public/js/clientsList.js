@@ -1,4 +1,4 @@
-import { creerClientModal } from './clientModal.js';
+import { creerClientModal } from './get/clientModal.js';
 import { fetchCommanditaires } from './get_devis_segm/getCommanditaire.js';
 
 document.querySelector('h1').innerText = 'CLIENTS';
