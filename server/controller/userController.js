@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import { sendSuccessResponse } from '../helper/responseHelper.js';
 import { Service } from '../services/userService.js';
 
-const createUser = async (req, res) => {
+const createUser = async (req, res, next) => {
   try {
     const result = await Service.createUser(req.body);
     console.log('Résultat service.createUser :', result);
@@ -11,28 +11,28 @@ const createUser = async (req, res) => {
       return res.status(400).json({ errors: result.errors });
     }
     sendSuccessResponse(res, 201, 'User créer avec succès', result);
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+  } catch (err) {
+    next(err);
   }
 };
-const getAllUsers = async (req, res) => {
+const getAllUsers = async (req, res, next) => {
   try {
     const result = await Service.getAllUsers(req.body);
     sendSuccessResponse(res, 200, 'Users récupérés avec succès', result);
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+  } catch (err) {
+    next(err);
   }
 };
-const getUserById = async (req, res) => {
+const getUserById = async (req, res, next) => {
   try {
     const { id } = req.params;
     const result = await Service.getUserById(id);
     sendSuccessResponse(res, 200, `User avec ID ${id} récupéré avec succès`, result);
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+  } catch (err) {
+    next(err);
   }
 };
-const loginUser = async (req, res) => {
+const loginUser = async (req, res, next) => {
   const { email, password } = req.body;
   try {
     const user = await Service.authenticateUser(email, password);
@@ -58,12 +58,12 @@ const loginUser = async (req, res) => {
       user: userSansPassword,
       token: token,
     });
-  } catch (error) {
-    res.status(401).json({ message: error.message });
+  } catch (err) {
+    next(err);
   }
 };
 
-const updateUserPassword = async (req, res) => {
+const updateUserPassword = async (req, res, next) => {
   try {
     const { email, newPassword } = req.body;
     const result = await Service.updateUserPassword(email, newPassword);
@@ -72,35 +72,35 @@ const updateUserPassword = async (req, res) => {
       return res.status(400).json({ errors: result.errors });
     }
     sendSuccessResponse(res, 200, 'Mot de passe mit à jour avec succès', result);
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+  } catch (err) {
+    next(err);
   }
 };
-const updateUser = async (req, res) => {
+const updateUser = async (req, res, next) => {
   try {
     const { id } = req.params;
     const result = await Service.updateUser(id, req.body);
     sendSuccessResponse(res, 200, 'User mis à jour avec succès', result);
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+  } catch (err) {
+    next(err);
   }
 };
-const deleteUser = async (req, res) => {
+const deleteUser = async (req, res, next) => {
   try {
     const { id } = req.params;
     const result = await Service.deleteUser(id);
     sendSuccessResponse(res, 200, 'User supprimé avec succès', result);
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+  } catch (err) {
+    next(err);
   }
 };
 
-const getAllRole = async (req, res) => {
+const getAllRole = async (req, res, next) => {
   try {
     const result = await Service.getAllRole();
     sendSuccessResponse(res, 200, 'Roles récupérés avec succès', result);
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+  } catch (err) {
+    next(err);
   }
 };
 

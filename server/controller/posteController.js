@@ -1,7 +1,7 @@
 import { sendSuccessResponse } from '../helper/responseHelper.js';
 import { Service } from '../services/posteService.js';
 
-const createPoste = async (req, res) => {
+const createPoste = async (req, res, next) => {
   try {
     const postes = req.body;
     console.log('Payload recu : ', postes);
@@ -12,24 +12,24 @@ const createPoste = async (req, res) => {
       return res.status(400).json({ errors });
     }
     sendSuccessResponse(res, 201, 'Poste créer avec succès', { resultats, errors });
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+  } catch (err) {
+    next(err);
   }
 };
 
-const getAllPostes = async (req, res) => {
+const getAllPostes = async (req, res, next) => {
   try {
     const { devis_id, ra_id } = req.query;
     console.log('Params recu dans le controller', { devis_id, ra_id });
 
     const result = await Service.getAllPostes(devis_id, ra_id);
     sendSuccessResponse(res, 200, 'Liste des postes lié au devis récupérés avec succès', result);
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+  } catch (err) {
+    next(err);
   }
 };
 
-const deletePoste = async (req, res) => {
+const deletePoste = async (req, res, next) => {
   try {
     const { devis_id, libelle } = req.query;
     console.log('req.query : ', req.query);
@@ -41,8 +41,8 @@ const deletePoste = async (req, res) => {
     }
     const result = await Service.deletePoste(devis_id, libelle);
     sendSuccessResponse(res, 200, 'Poste supprimé avec succès', result);
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+  } catch (err) {
+    next(err);
   }
 };
 

@@ -1,6 +1,7 @@
 import cors from 'cors';
 import dotenv from 'dotenv';
 import e from 'express';
+import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import pool from './config/db.js';
@@ -32,10 +33,34 @@ pool.getConnection((err, connection) => {
   }
 });
 app.use((req, res, next) => {
-  console.log(`➡️ Requête reçue : ${req.method}-${req.url}`);
+  const log = `${req.method} ${req.url} - ${new Date().toISOString()}\n`;
+
+  // Write logs into access.log
+  fs.appendFile(path.join(__dirname, 'access.log'), log, err => {
+    if (err) {
+      console.error('Failed to write to log file');
+    }
+  });
+  console.log(`➡️ Requête reçue (log) :`, log);
+
   next();
 });
 app.use('/api', routes);
+
+// Error logging middleware
+app.use((err, req, res, next) => {
+  const errorLog = `${err.stack} - ${new Date().toISOString()}\n`;
+
+  // Witre error logs into error.log
+  fs.appendFile(path.join(__dirname, 'error.log'), errorLog, err => {
+    if (err) {
+      console.error('Failed to write to error lg file');
+    }
+  });
+  console.log(`➡️ Erreur reçue (errorlog) :`, errorLog);
+
+  next();
+});
 
 const PORT = process.env.PORT;
 

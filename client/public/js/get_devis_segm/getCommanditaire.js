@@ -87,7 +87,7 @@ function clientList(commanditaires) {
     // Cela permet de vérifier si aucun devis n'est affecté a ce client pour le supprimer
     // car il est bloqué par une clé étrangère
 
-    nomClient.addEventListener('click', async () => {
+    clientInfo.addEventListener('click', async () => {
       await devisByCmdtModal(c);
     });
     const emailClient = document.createElement('p');

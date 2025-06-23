@@ -1,7 +1,7 @@
 import { sendSuccessResponse } from '../helper/responseHelper.js';
 import { Service } from '../services/devisService.js';
 
-const createDevis = async (req, res) => {
+const createDevis = async (req, res, next) => {
   try {
     const result = await Service.createDevis(req.body);
     console.log('Résultat controller.createDevis :', result);
@@ -10,30 +10,30 @@ const createDevis = async (req, res) => {
       return res.status(400).json({ errors: result.errors });
     }
     sendSuccessResponse(res, 201, 'Devis créer avec succès', result);
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+  } catch (err) {
+    next(err);
   }
 };
 
-const getAllDevis = async (req, res) => {
+const getAllDevis = async (req, res, next) => {
   try {
     const result = await Service.getAllDevis();
     sendSuccessResponse(res, 200, 'Devis récupérés avec succès', result);
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+  } catch (err) {
+    next(err);
   }
 };
-const getDevisById = async (req, res) => {
+const getDevisById = async (req, res, next) => {
   try {
     const { id } = req.params;
     const result = await Service.getDevisById(id);
     sendSuccessResponse(res, 200, `Devis avec ID ${id} récupéré avec succès`, result);
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+  } catch (err) {
+    next(err);
   }
 };
 
-const getDevisByCmdt = async (req, res) => {
+const getDevisByCmdt = async (req, res, next) => {
   try {
     const { id } = req.params;
     console.log('Id du commanditaire : ', id);
@@ -49,30 +49,30 @@ const getDevisByCmdt = async (req, res) => {
     } else {
       sendSuccessResponse(res, 200, `Aucun devis trouvé pour le commanditaire Id : ${id}`, []);
     }
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+  } catch (err) {
+    next(err);
   }
 };
-const updateDevis = async (req, res) => {
+const updateDevis = async (req, res, next) => {
   try {
     const { id } = req.params;
     const result = await Service.updateDevis(id, req.body);
     sendSuccessResponse(res, 200, 'Devis mis à jour avec succès', result);
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+  } catch (err) {
+    next(err);
   }
 };
-const deleteDevis = async (req, res) => {
+const deleteDevis = async (req, res, next) => {
   try {
     const { id } = req.params;
     const result = await Service.deleteDevis(id);
     sendSuccessResponse(res, 200, 'Devis supprimé avec succès', result);
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+  } catch (err) {
+    next(err);
   }
 };
 
-const getDevisByRaId = async (req, res) => {
+const getDevisByRaId = async (req, res, next) => {
   try {
     const { id } = req.params;
     const userId = req.user?.RA_ID;
@@ -87,12 +87,12 @@ const getDevisByRaId = async (req, res) => {
     } else {
       sendSuccessResponse(res, 200, 'Aucun devis trouvé', []);
     }
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+  } catch (err) {
+    next(err);
   }
 };
 
-const patchDevis = async (req, res) => {
+const patchDevis = async (req, res, next) => {
   try {
     const result = await Service.patchDevis(req.body);
     console.log('Résultat controller.patchDevis :', result);
@@ -101,8 +101,8 @@ const patchDevis = async (req, res) => {
       return res.status(400).json({ errors: result.errors });
     }
     sendSuccessResponse(res, 200, 'Devis modifié avec succès', result);
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+  } catch (err) {
+    next(err);
   }
 };
 

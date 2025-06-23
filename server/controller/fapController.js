@@ -1,8 +1,8 @@
 import { sendSuccessResponse } from '../helper/responseHelper.js';
 import { Service } from '../services/fapService.js';
 
-const createFap = async (req, res) => {
-  console.log('Requete recu par fab body ', req.body);
+const createFap = async (req, res, next) => {
+  console.log('Requete recu par fap body ', req.body);
 
   try {
     const result = await Service.createFap(req.body);
@@ -13,12 +13,12 @@ const createFap = async (req, res) => {
     }
 
     sendSuccessResponse(res, 201, 'Fap envoyé en base de donné avec succès', result);
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+  } catch (err) {
+    next(err);
   }
 };
 
-const getFapById = async (req, res) => {
+const getFapById = async (req, res, next) => {
   try {
     const devis_id = req.params.devis_id;
 
@@ -26,12 +26,12 @@ const getFapById = async (req, res) => {
 
     const result = await Service.getFapById(devis_id);
     sendSuccessResponse(res, 200, `Fap avec ID ${devis_id} récupéré avec succès`, result);
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+  } catch (err) {
+    next(err);
   }
 };
 
-const patchFap = async (req, res) => {
+const patchFap = async (req, res, next) => {
   try {
     const newData = req.body;
     const devis_id = req.params.devis_id;
@@ -47,8 +47,8 @@ const patchFap = async (req, res) => {
       `Fap avec le devis qui a pour ID ${devis_id} mis à jour avec succès`,
       result
     );
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+  } catch (err) {
+    next(err);
   }
 };
 

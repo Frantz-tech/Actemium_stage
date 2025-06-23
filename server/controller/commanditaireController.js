@@ -6,7 +6,7 @@ import { Service } from '../services/commanditaireService.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const createCommanditaire = async (req, res) => {
+const createCommanditaire = async (req, res, next) => {
   try {
     const { NOM, EMAIL } = req.body;
     const logo = req.file;
@@ -25,38 +25,37 @@ const createCommanditaire = async (req, res) => {
       return res.status(400).json({ message: result.errors });
     }
     sendSuccessResponse(res, 201, 'Commanditaire créer avec succès', result);
-  } catch (error) {
-    console.error('Erreur lors de la création du commanditaire', error);
-    return res.status(500).json({ error: error.message });
+  } catch (err) {
+    next(err);
   }
 };
-const getAllCommanditaires = async (req, res) => {
+const getAllCommanditaires = async (req, res, next) => {
   try {
     const result = await Service.getAllCommanditaires();
     sendSuccessResponse(res, 200, 'Commanditaires récupérés avec succès', result);
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+  } catch (err) {
+    next(err);
   }
 };
-const getCommanditaireById = async (req, res) => {
+const getCommanditaireById = async (req, res, next) => {
   try {
     const { id } = req.params;
     const result = await Service.getCommanditaireById(id);
     sendSuccessResponse(res, 200, `Commanditaire avec ID ${id} récupéré avec succès`, result);
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+  } catch (err) {
+    next(err);
   }
 };
-const updateCommanditaire = async (req, res) => {
+const updateCommanditaire = async (req, res, next) => {
   try {
     const { id } = req.params;
     const result = await Service.updateCommanditaire(id, req.body);
     sendSuccessResponse(res, 200, 'Commanditaire mis à jour avec succès', result);
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+  } catch (err) {
+    next(err);
   }
 };
-const deleteCommanditaire = async (req, res) => {
+const deleteCommanditaire = async (req, res, next) => {
   try {
     const { id } = req.params;
 
@@ -77,12 +76,12 @@ const deleteCommanditaire = async (req, res) => {
       }
     }
     sendSuccessResponse(res, 200, 'Commanditaire supprimé avec succès', result);
-  } catch (error) {
-    return res.status(500).json({ error: error.message });
+  } catch (err) {
+    next(err);
   }
 };
 
-const patchCommanditaire = async (req, res) => {
+const patchCommanditaire = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { NOM, EMAIL } = req.body;
@@ -103,9 +102,8 @@ const patchCommanditaire = async (req, res) => {
       return res.status(400).json({ message: result.errors });
     }
     sendSuccessResponse(res, 201, 'Commanditaire modifier avec succès', result);
-  } catch (error) {
-    console.error('Erreur lors de la modification du commanditaire', error);
-    return res.status(500).json({ error: error.message });
+  } catch (err) {
+    next(err);
   }
 };
 
