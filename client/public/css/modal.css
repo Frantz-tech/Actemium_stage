@@ -60,6 +60,7 @@
 }
 
 .modalClient_content,
+.modalFrais_content,
 .modalDevis_content,
 .modalPost_content,
 .modalPassword_content,
@@ -93,6 +94,7 @@
 }
 
 .modalDevis,
+.modalFrais,
 .modalDevisByCmdt,
 .modalClient {
   display: flex;
@@ -117,7 +119,8 @@
   width: 100%;
 }
 
-.fsClient {
+.fsClient,
+.fsFrais {
   border: none;
   padding: 0;
   display: flex;
@@ -207,6 +210,8 @@
     transform: translate(0, 8vh) scale(0.7);
   }
 }
+
+.modalFrais,
 .modalDevis,
 .modalPost,
 .modalClient,
@@ -224,6 +229,7 @@
   animation-timing-function: ease-out;
 }
 
+.modalFrais.show,
 .modalUser.show,
 .modalDevis.show,
 .modalPost.show,
@@ -244,6 +250,8 @@
 .modalAdminConnected.hide {
   animation-name: popOutConnected;
 }
+
+.modalFrais.hide,
 .modalUser.hide,
 .modalDevis.hide,
 .modalPost.hide,
@@ -255,6 +263,7 @@
   animation-name: popOut;
 }
 
+.modalFrais-overlay,
 .modalDevis-overlay,
 .modalDevisByCmdt-overlay,
 .modalClient-overlay,

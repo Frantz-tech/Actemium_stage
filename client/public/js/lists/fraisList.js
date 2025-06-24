@@ -1,3 +1,4 @@
+import { modalFraisAdmin } from '../adminMenu/modalFrais.js';
 import { initPaginatedList } from '../utils/initPaginatedList.js';
 import { clearAllLists } from './clearLists.js';
 
@@ -23,7 +24,7 @@ export function fraisList(frais) {
     button: null,
     step: null,
     renderItem: function (s) {
-      s.NOM_FRAIS = s.NOM_FRAIS.toUpperCase();
+      s.NOM_FRAIS = s.NOM_FRAIS.toLowerCase();
 
       const fraisContent = document.createElement('div');
       fraisContent.classList.add('fraisContent');
@@ -52,14 +53,16 @@ export function fraisList(frais) {
       btnUpdateFrais.classList.add('btnUpdateFrais');
       btnUpdateFrais.textContent = '✎';
 
+      btnUpdateFrais.addEventListener('click', () => {
+        modalFraisAdmin(s);
+      });
+
       const btnDeleteFrais = document.createElement('button');
       btnDeleteFrais.classList.add('deletebtn');
 
       btnDeleteFrais.addEventListener('click', async () => {
-        // const confirmation = confirm(
-        //   `Êtes-vous sûr de vouloir supprimer cet élément ? Cette action est irréversible.`
-        // );
-        // TODO: Delete action
+        // Fonctionnalité non disponible car cela comprommet toute la logique des devis
+        alert('Fonctionnalité non disponible');
       });
 
       fraisInfo.append(fraisNom, fraisPourcentage);

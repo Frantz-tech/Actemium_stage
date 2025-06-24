@@ -140,7 +140,7 @@ export async function totalGarantieEnsemblier(prixVenteRetenu, garantie_ensembli
       return;
     }
     const taux = await fetchFraisGlobaux();
-    const fraisGE = parseFloat(taux['garantie_E']) || 0;
+    const fraisGE = parseFloat(taux['garantie_e']) || 0;
     const ge = pvr * fraisGE;
     garantie_ensemblier.textContent = `${Math.round(ge).toLocaleString('fr-FR')} €`;
 

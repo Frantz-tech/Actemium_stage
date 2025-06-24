@@ -7,7 +7,7 @@ const router = Router();
 
 router.post('/', Controller.createFraisGlobaux);
 router.get('/', Controller.getAllFraisGlobaux);
-router.put('/:fraisId', Controller.patchFraisGlobaux);
+router.patch('/:id', /*verifyAdmin,*/ Controller.patchFraisGlobaux);
 router.delete('/:fraisId', Controller.deleteFraisGlobaux);
 
 export default router;

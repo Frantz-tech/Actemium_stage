@@ -94,7 +94,7 @@ const patchCommanditaire = async (req, res, next) => {
       return res.status(400).json({ message: 'Nom ou email manquant' });
     }
     req.body.CMDT_ID = id;
-    console.log('donnée recu pour la création : ', req.body);
+    console.log('donnée recu pour la mise à jour : ', req.body);
 
     const result = await Service.patchCommanditaire(req.body, logo);
 

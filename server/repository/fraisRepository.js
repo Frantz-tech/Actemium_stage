@@ -28,7 +28,7 @@ const patchFraisGlobaux = async newData => {
 
   const params = [newData.NOM_FRAIS, newData.POURCENTAGE, newData.FRAIS_GLOBAUX_ID];
 
-  const result = await pool.query(sql, params);
+  const [result] = await pool.query(sql, params);
 
   return result;
 };

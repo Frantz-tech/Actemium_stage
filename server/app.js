@@ -22,8 +22,10 @@ app.use(
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
 app.use('/api/upload', e.static(path.resolve(__dirname, 'public', 'uploads')));
 // Vérification la connexion de MYSQL
+
 pool.getConnection((err, connection) => {
   if (err) {
     console.error(' ❌ Erreur lors de la connexion à MYSQL : ', err.message);

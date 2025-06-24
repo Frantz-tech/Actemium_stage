@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import { sendSuccessResponse } from '../helper/responseHelper.js';
 import { Service } from '../services/adminService.js';
 
-const loginAdmin = async (req, res, next) => {
+const loginAdmin = async (req, res) => {
   const { email, password } = req.body;
   try {
     const admin = await Service.authenticateAdmin(email, password);
@@ -24,8 +24,8 @@ const loginAdmin = async (req, res, next) => {
       user: adminSansPassword,
       token: token,
     });
-  } catch (err) {
-    next(err);
+  } catch (error) {
+    res.status(401).json({ message: error.message });
   }
 };
 
