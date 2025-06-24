@@ -1,5 +1,5 @@
-import { deletePost } from '../delete/deletePost.js';
 import { handleApiError } from '../tokenHandler/handleApi.js';
+import { deletePost } from './deletePoste.js';
 import { openPostModal } from './openPostModal.js';
 
 const urlParams = new URLSearchParams(window.location.search);

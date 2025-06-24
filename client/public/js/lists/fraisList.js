@@ -1,4 +1,4 @@
-import { modalFraisAdmin } from '../adminMenu/modalFrais.js';
+import { modalFraisAdmin } from '../adminMenu/modal/modalFrais.js';
 import { initPaginatedList } from '../utils/initPaginatedList.js';
 import { clearAllLists } from './clearLists.js';
 

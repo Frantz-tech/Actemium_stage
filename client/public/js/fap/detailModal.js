@@ -1,4 +1,4 @@
-import { getDetailPostData } from './getDetailPostData.js';
+import { getDetailPostData } from './get/getDetailPostData.js';
 
 export async function detailModal(devis_id, ra_id, context) {
   const detail = await getDetailPostData(devis_id, ra_id);

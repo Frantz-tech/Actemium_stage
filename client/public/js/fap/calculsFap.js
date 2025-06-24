@@ -1,4 +1,4 @@
-import { fetchFraisGlobaux } from './fetchFrais.js';
+import { fetchFraisGlobaux } from './get/fetchFrais.js';
 
 export function totalParContext(postes) {
   const totalCtx = {};

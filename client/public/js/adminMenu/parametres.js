@@ -1,8 +1,8 @@
-import { fetchFraisGlobaux } from '../fap/fetchFrais.js';
-import { fetchClients } from '../get_devis_segm/getClients.js';
-import { fetchContrats } from '../get_devis_segm/getContrats.js';
-import { fetchDomaines } from '../get_devis_segm/getDomaines.js';
-import { fetchExpertises } from '../get_devis_segm/getExpertises.js';
+import { fetchClients } from '../devis/get_devis_segm/getClients.js';
+import { fetchContrats } from '../devis/get_devis_segm/getContrats.js';
+import { fetchDomaines } from '../devis/get_devis_segm/getDomaines.js';
+import { fetchExpertises } from '../devis/get_devis_segm/getExpertises.js';
+import { fetchFraisGlobaux } from '../fap/get/fetchFrais.js';
 
 export const paramsContainer = document.createElement('div');
 

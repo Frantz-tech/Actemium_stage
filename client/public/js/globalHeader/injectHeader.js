@@ -1,5 +1,5 @@
-import { openAdminPresentation } from './modalAdmin.js';
-import { openUserPresentation } from './modalUser.js';
+import { openAdminPresentation } from '../adminMenu/modal/modalAdmin.js';
+import { openUserPresentation } from '../adminMenu/modal/modalUser.js';
 
 fetch('../pages/header.html')
   .then(res => res.text())
