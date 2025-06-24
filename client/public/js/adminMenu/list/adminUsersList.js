@@ -52,10 +52,10 @@ newUser.addEventListener('click', e => {
   email.id = 'emailLogin';
   email.placeholder = 'Adresse Email';
 
-  const password = document.createElement('input');
-  password.type = 'password';
-  password.placeholder = 'Mot de passe';
-  password.id = 'passwordLogin';
+  // const password = document.createElement('input');
+  // password.type = 'password';
+  // password.placeholder = 'Mot de passe';
+  // password.id = 'passwordLogin';
 
   const role = document.createElement('select');
   role.id = 'roleLogin';
@@ -117,12 +117,12 @@ newUser.addEventListener('click', e => {
         NOM: document.getElementById('nameLogin').value,
         PRENOM: document.getElementById('firstNameLogin').value,
         EMAIL: document.getElementById('emailLogin').value,
-        PASSWORD: document.getElementById('passwordLogin').value,
+        // PASSWORD: document.getElementById('passwordLogin').value,
         ROLE: role.value,
       };
 
       // Envoie les données au backend
-      fetch('http://localhost:3000/api/users/', {
+      fetch('http://localhost:3000/api/users', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -142,7 +142,7 @@ newUser.addEventListener('click', e => {
             document.getElementById('nameLogin').value = '';
             document.getElementById('firstNameLogin').value = '';
             document.getElementById('emailLogin').value = '';
-            document.getElementById('passwordLogin').value = '';
+            // document.getElementById('passwordLogin').value = '';
             document.getElementById('roleLogin').value = '';
             fetchUsers(tableUserBody);
             modal.classList.add('hide');
@@ -165,7 +165,7 @@ newUser.addEventListener('click', e => {
   overlay.appendChild(modal);
   document.body.appendChild(overlay);
   divBtn.append(sumbitNewUser, cancelBtn);
-  form.append(inputName, inputFirstName, email, password, role, divBtn);
+  form.append(inputName, inputFirstName, email, /*password,*/ role, divBtn);
   role.appendChild(optionRole);
   modal.appendChild(modalContent);
   modalContent.appendChild(form);
