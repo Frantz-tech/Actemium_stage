@@ -5,7 +5,7 @@ import pool from '../../config/db.js';
 // Récupérer toutes les sections selon un contexte donné
 const getAllSections = async context => {
   const sql =
-    'SELECT c.CODE_ID, c.LIBELLE, c.CONTEXT,  h.TAUX FROM CODE c LEFT JOIN HEURES_POSTE h ON c.CODE_ID = h.CODE_ID WHERE c.CONTEXT = ? AND c.CODE_ID BETWEEN 1 and 11';
+    'SELECT c.CODE_ID, c.LIBELLE, c.CONTEXT,  h.TAUX FROM CODE c LEFT JOIN HEURES_POSTE h ON c.CODE_ID = h.CODE_ID WHERE c.CONTEXT = ? AND c.CODE_ID BETWEEN 1 and 17';
   const [rows] = await pool.query(sql, [context]);
   console.log('Donnée bdd ', rows);
 
