@@ -19,7 +19,7 @@ const tableDevisBody = document.createElement('tbody');
 const headersDevis = [
   'Devis_ref',
   'Libelle',
-  'Nom C',
+  'Nom Client',
   'Client',
   'Expertise',
   'Domaine',

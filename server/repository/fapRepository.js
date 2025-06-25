@@ -43,7 +43,7 @@ const createFap = async fapData => {
       MARGE,
     ]
   );
-  console.log('Insertion dans la BDD avec données :', [
+  console.log(' [Repository] Insertion dans la BDD avec données :', [
     DEVIS_ID,
     TOTAL_MDVR,
     TOTAL_ACHAT,

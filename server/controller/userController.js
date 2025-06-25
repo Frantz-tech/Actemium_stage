@@ -36,8 +36,8 @@ const loginUser = async (req, res, next) => {
   const { email, password } = req.body;
   try {
     const user = await Service.authenticateUser(email, password);
-    if (!user || user === null || user === undefined) {
-      throw new Error('Utilisateur non trouvé');
+    if (user.errors && user.errors.length > 0) {
+      return res.status(400).json({ errors: user.errors });
     }
 
     // eslint-disable-next-line no-unused-vars

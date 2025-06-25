@@ -2,7 +2,10 @@ import { Repository } from '../repository/fapRepository.js';
 
 const createFap = async fapData => {
   const errors = [];
-  const existingFap = await Repository.getFapByDevisId(fapData.DEVIS_ID);
+  console.log('Voici fapdataCreatefap id  = ', fapData.DEVIS_ID);
+
+  const existingFap = await Repository.getFapById(fapData.DEVIS_ID);
+
   if (existingFap) {
     throw new Error(
       'Il existe déja une fap pour ce devis, il est pas possible d avoir plusieurs fap pour le meme devis, cependant vous pouvez la modifier si nécessaire'
@@ -24,7 +27,6 @@ const createFap = async fapData => {
   }
   console.log('SERVICE - Données envoyées au repository :', fapData);
   const newFap = await Repository.createFap(fapData);
-  console.log('✅ Nouvelle fap créé avec ID : ', newFap);
 
   return newFap;
 };

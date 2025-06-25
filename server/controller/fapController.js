@@ -6,7 +6,7 @@ const createFap = async (req, res, next) => {
 
   try {
     const result = await Service.createFap(req.body);
-    console.log('Résultat controller.createFap : ', result);
+    console.log('✅ Nouvelle fap créé avec ID : ', result);
 
     if (result.errors && result.errors.length > 0) {
       return res.status(400).json({ errors: result.errors });
@@ -22,8 +22,6 @@ const getFapById = async (req, res, next) => {
   try {
     const devis_id = req.params.devis_id;
 
-    console.log('Params reçus:', devis_id);
-
     const result = await Service.getFapById(devis_id);
     sendSuccessResponse(res, 200, `Fap avec ID ${devis_id} récupéré avec succès`, result);
   } catch (err) {
@@ -37,8 +35,6 @@ const patchFap = async (req, res, next) => {
     const devis_id = req.params.devis_id;
 
     console.log('Données patch : ', newData);
-
-    console.log('Params reçus:', devis_id);
 
     const result = await Service.patchFap(newData);
     sendSuccessResponse(

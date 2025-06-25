@@ -68,16 +68,21 @@ const createUser = async userData => {
 
 const authenticateUser = async (email, plainPassword) => {
   const user = await Repository.findUserByEmail(email);
+  const errors = [];
 
   if (!user) {
-    throw new Error('User non trouvé avec cet email');
+    errors.push('User non trouvé avec cet email');
+    return { errors };
   }
   if (user.ROLE !== 'Responsable d affaire' && user.ROLE !== 'Chargé d affaire') {
-    throw new Error('Accès refusé : rôle non autorisé');
+    errors.push('Accès refusé : rôle non autorisé');
   }
   const isPasswordValid = await bcrypt.compare(plainPassword, user.PASSWORD);
   if (!isPasswordValid) {
-    throw new Error('Mot de passe incorrect');
+    errors.push('Mot de passe incorrect');
+  }
+  if (errors.length > 0) {
+    return { errors };
   }
   return user;
 };

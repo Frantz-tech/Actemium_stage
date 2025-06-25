@@ -6,13 +6,22 @@ const btnSignIn = document.querySelector('.btnSignIn');
 btnSignIn.innerText = 'Se Connecter';
 
 const tryLogin = async (url, email, password) => {
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email, password }),
-  });
-  const data = await response.json();
-  return { response, data };
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
+
+    console.log(`Réponse de ${url} :'`, response.status, response.statusText);
+
+    const data = await response.json();
+
+    return { response, data };
+  } catch (error) {
+    console.error(`Erreur fetch sur ${url}: `, error);
+    throw error;
+  }
 };
 // Écoute la soumission du formulaire
 loginForm.addEventListener('submit', async e => {
@@ -43,6 +52,8 @@ loginForm.addEventListener('submit', async e => {
         password
       ));
     }
+
+    // Si les deux routes ne sont pas ok, on envoie un message d'erreur clair :
 
     if (response.ok) {
       localStorage.setItem('token', data.data.token);
@@ -173,10 +184,10 @@ loginForm.addEventListener('submit', async e => {
         console.log('Aucun rôle détecté dans data.data.user');
       }
     } else {
-      alert('Erreur : ' + data.message);
+      alert(data.errors ? data.errors[0] : data.message || 'Erreur inconnue');
     }
   } catch (error) {
-    alert('Erreur réseau ou serveur');
+    alert('Erreur réseau ou serveur' + error.message);
     console.error(error);
   }
 });

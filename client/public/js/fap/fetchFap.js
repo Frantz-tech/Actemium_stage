@@ -19,6 +19,7 @@ import { detailModal } from './detailModal.js';
 export async function fetchFap(fapData = {}) {
   const urlParams = new URLSearchParams(window.location.search);
   const devis_id = urlParams.get('devis_id');
+  const DEVIS_ID = devis_id;
   const ra_id = urlParams.get('ra_id');
 
   try {
@@ -571,40 +572,52 @@ export async function fetchFap(fapData = {}) {
         alert('Le prix de vente retenu ne peut pas être inférieur au prix de revient');
       }
       // Récupération des éléments a envoyer
-      const garantieEns = garantieETotal.textContent.replace(/\s/g, '').replace('€', '');
-      const totalMd = mdvrTotal.textContent.replace(/\s/g, '').replace('€', '');
-      const totalAch = achatTotal.textContent.replace(/\s/g, '').replace('€', '');
-      const prixRevientInter = divPriTotal.textContent.replace(/\s/g, '').replace('€', '');
-      const fraisDevisSS = divFraisDssTotal.textContent.replace(/\s/g, '').replace('€', '');
-      const fraisFin = divFraisFinanciersTotal.textContent.replace(/\s/g, '').replace('€', '');
-      const fraisGrp = divFraisGroupeTotal.textContent.replace(/\s/g, '').replace('€', '');
-      const margeVoulueVal = margeVoulueValue.value.replace(/\s/g, '').replace('%', '');
-      const prixRevt = divPrTotal.textContent.replace(/\s/g, '').replace('€', '');
+      const garantieEns = parseFloat(
+        garantieETotal.textContent.replace(/\s/g, '').replace('€', '')
+      );
+      const totalMd = parseFloat(mdvrTotal.textContent.replace(/\s/g, '').replace('€', '')) || 0;
+      const totalAch = parseFloat(achatTotal.textContent.replace(/\s/g, '').replace('€', ''));
+      const prixRevientInter = parseFloat(
+        divPriTotal.textContent.replace(/\s/g, '').replace('€', '').replace(',', '.')
+      );
+      const fraisDevisSS = parseFloat(
+        divFraisDssTotal.textContent.replace(/\s/g, '').replace('€', '')
+      );
+      const fraisFin = parseFloat(
+        divFraisFinanciersTotal.textContent.replace(/\s/g, '').replace('€', '')
+      );
+      const fraisGrp = parseFloat(
+        divFraisGroupeTotal.textContent.replace(/\s/g, '').replace('€', '')
+      );
+      const margeVoulueVal = parseFloat(margeVoulueValue.value.replace(/\s/g, '').replace('%', ''));
+      const prixRevt = parseFloat(divPrTotal.textContent.replace(/\s/g, '').replace('€', ''));
       const totalFFBC = parseFloat(totalFraisFourniture_BC);
       const totalFSTE = parseFloat(fraisSTEtudes);
-      const totalAF = fraisAchatsTotal.textContent.replace(/\s/g, '').replace('€', '');
-      const totalFC = fraisChantierTotal.textContent.replace(/\s/g, '').replace('€', '');
-      const prixVenteEsti = divPveTotal.textContent.replace(/\s/g, '').replace('€', '');
-      const prixVenteRetenu = divPvrTotal.value.replace(/\s/g, '').replace('€', '');
+      const totalAF = parseFloat(fraisAchatsTotal.textContent.replace(/\s/g, '').replace('€', ''));
+      const totalFC = parseFloat(
+        fraisChantierTotal.textContent.replace(/\s/g, '').replace('€', '')
+      );
+      const prixVenteEsti = parseFloat(divPveTotal.textContent.replace(/\s/g, '').replace('€', ''));
+      const prixVenteRetenu = parseFloat(divPvrTotal.value.replace(/\s/g, '').replace('€', ''));
 
       const dataFap = {
-        devis_id,
-        garantieE: garantieEns,
-        total_Main_d_oeuvre: totalMd,
-        total_achats: totalAch,
-        total_frais_achat_fourniture: totalFFBC,
-        total_frais_achat_ste: totalFSTE,
-        total_frais_d_achat: totalAF,
-        total_frais_chantier: totalFC,
-        prix_revient_inter: prixRevientInter,
-        frais_dss: fraisDevisSS,
-        frais_financier: fraisFin,
-        frais_groupe: fraisGrp,
-        prix_revient: prixRevt,
-        marge_voulue: margeVoulueVal,
-        prix_vente_esti: prixVenteEsti,
-        prix_vente_retenu: prixVenteRetenu,
-        marge_finale: margeFinaleNum,
+        DEVIS_ID,
+        GARANTIE_ENSEMBLIER: garantieEns,
+        TOTAL_MDVR: totalMd,
+        TOTAL_ACHAT: totalAch,
+        TOTAL_FRAIS_ACHAT_FOURNITURE: totalFFBC,
+        TOTAL_FRAIS_ACHAT_SOUSTRAITANCE_ETUDE: totalFSTE,
+        TOTAL_FRAIS_ACHAT: totalAF,
+        TOTAL_FRAIS_CHANTIER: totalFC,
+        PRIX_REVIENT_INTER: prixRevientInter,
+        FRAIS_DEVIS_SANS_SUITE: fraisDevisSS,
+        FRAIS_FINANCIERS: fraisFin,
+        FRAIS_DE_GROUPE: fraisGrp,
+        PRIX_REVIENT: prixRevt,
+        MARGE_VOULUE: margeVoulueVal,
+        PRIX_VENTE_ESTIME: prixVenteEsti,
+        PRIX_VENTE_RETENUE: prixVenteRetenu,
+        MARGE: margeFinaleNum,
       };
       console.log('données à envoyer en bdd :', dataFap);
 

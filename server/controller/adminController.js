@@ -7,6 +7,10 @@ const loginAdmin = async (req, res) => {
   try {
     const admin = await Service.authenticateAdmin(email, password);
 
+    if (admin.errors && admin.errors.length > 0) {
+      return res.status(400).json({ errors: admin.errors });
+    }
+
     // eslint-disable-next-line no-unused-vars
     const { PASSWORD: _PASSWORD, ...adminSansPassword } = admin;
     const token = jwt.sign(

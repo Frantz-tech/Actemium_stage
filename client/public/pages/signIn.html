@@ -11,9 +11,9 @@
   <div class="header_container" data-type="simple"></div>
   <main>
     <h1></h1>
-    <form action="" class="loginForm">
-      <input type="email" name="email" id="emailLogin" placeholder="Adresse email" />
-      <input type="password" id="passwordLogin" placeholder="Mot de passe" required />
+    <form action="" class="loginForm" autocomplete="on">
+      <input type="email" name="email" id="emailLogin" placeholder="Adresse email" autocomplete="email" />
+      <input type="password" id="passwordLogin" placeholder="Mot de passe" required autocomplete="current-password" />
       <div class="form-separator"></div>
       <button class="btnSignIn"></button>
     </form>
