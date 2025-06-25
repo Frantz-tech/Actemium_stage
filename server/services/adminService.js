@@ -3,22 +3,30 @@ import { Repository } from '../repository/adminRepository.js';
 
 const authenticateAdmin = async (email, plainPassword) => {
   const user = await Repository.findUserByEmail(email);
-  const isPasswordValid = await bcrypt.compare(plainPassword, user.PASSWORD);
+  console.log('DOnnées a avoir : ', user);
+
   const errors = [];
 
   if (!user) {
-    errors.push('Admin non trouvé avec cet email');
-  }
-  if (!isPasswordValid) {
-    errors.push('Mot de passe incorrect');
-  }
-  if (user.ROLE !== 'Administrateur') {
-    errors.push('Accès refusé : rôle non autorisé');
-  }
+    console.log('User non trouvé avec cet email');
 
-  if (errors.length > 0) {
+    errors.push('Admin non trouvé avec cet email');
     return { errors };
   }
+  const isPasswordValid = await bcrypt.compare(plainPassword, user.PASSWORD);
+  if (!isPasswordValid) {
+    console.log('Pass incorrect');
+
+    errors.push('Mot de passe incorrect');
+    return { errors };
+  }
+  if (user.ROLE !== 'Administrateur') {
+    console.log('Role non autorisé');
+
+    errors.push('Accès refusé : rôle non autorisé');
+    return { errors };
+  }
+
   return user;
 };
 export const Service = {
