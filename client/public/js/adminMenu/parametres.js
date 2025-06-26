@@ -3,6 +3,7 @@ import { fetchContrats } from '../devis/get_devis_segm/getContrats.js';
 import { fetchDomaines } from '../devis/get_devis_segm/getDomaines.js';
 import { fetchExpertises } from '../devis/get_devis_segm/getExpertises.js';
 import { fetchFraisGlobaux } from '../fap/get/fetchFrais.js';
+import { fetchTauxH } from '../postes/getTauxH.js';
 
 export const paramsContainer = document.createElement('div');
 
@@ -20,6 +21,7 @@ const boxes = [
   'Gérer les Expertises',
   'Gérer les Clients',
   'Gérer les Contrats',
+  'Gérer les Taux/h',
 ];
 
 boxes.forEach(b => {
@@ -46,6 +48,7 @@ boxes.forEach(b => {
     else if (b === 'Gérer les Contrats') fetchContrats();
     else if (b === 'Gérer les Domaines') fetchDomaines();
     else if (b === 'Gérer les Frais') fetchFraisGlobaux();
+    else if (b === 'Gérer les Taux/h') fetchTauxH();
   });
 
   paramsContainer.appendChild(boxeContainer);

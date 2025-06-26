@@ -199,6 +199,7 @@ h2 {
   transform: scale(1.1);
 }
 
+.tauxHItem,
 .segmItem,
 .fraisItem {
   display: flex;
@@ -215,6 +216,7 @@ h2 {
   max-width: 750px;
 }
 
+.btnUpdateTauxH,
 .btnUpdateSegm,
 .btnUpdateFrais {
   order: -1;
@@ -225,6 +227,7 @@ h2 {
   cursor: pointer;
 }
 
+#containerTauxHList,
 #containerSegmList,
 #containerFraisList {
   display: flex;
@@ -233,7 +236,8 @@ h2 {
 }
 
 #segList,
-#fraisList {
+#fraisList,
+#tauxHList {
   display: flex;
   flex-direction: column;
   gap: 1vw;
@@ -241,6 +245,7 @@ h2 {
   margin-bottom: 2vh;
 }
 
+.tauxHContent,
 .segmContent,
 .fraisContent {
   display: flex;
@@ -250,6 +255,7 @@ h2 {
   gap: 1.5vw;
 }
 
+.tauxHInfo,
 .segmInfo,
 .fraisInfo {
   display: flex;
@@ -262,9 +268,13 @@ h2 {
   flex: 2;
 }
 
+.libelleTauxH,
 .segmType {
   flex: 3;
 }
+
+.codeTauxH,
+.tauxHPourcentage,
 .fraisPourcentage {
   flex: 1;
 }
@@ -277,7 +287,7 @@ h2 {
 .paramsContainer {
   margin-bottom: 2vh;
 }
-
+#containerTauxHTitle,
 #containerFraisTitle,
 #containerSegmTitle {
   margin-top: 2vw;
