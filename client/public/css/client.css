@@ -1,3 +1,4 @@
+.formCreateTauxH,
 .formCreateClient,
 .formCreateFrais {
   display: flex;
@@ -5,8 +6,10 @@
   align-items: center;
   justify-content: center;
   gap: 1vw;
+  width: 40vw;
 }
 
+.formCreateTauxH > .btnCreer,
 .formCreateClient > .btnCreer,
 .formCreateFrais > .btnCreer {
   margin-top: 0;

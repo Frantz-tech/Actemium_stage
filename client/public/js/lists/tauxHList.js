@@ -1,3 +1,4 @@
+import { modalTauxHAdmin } from '../adminMenu/modal/modalTauxH.js';
 import { initPaginatedList } from '../utils/initPaginatedList.js';
 import { clearAllLists } from './clearLists.js';
 
@@ -62,7 +63,7 @@ export function tauxHList(tauxH) {
       btnUpdateTauxH.textContent = '✎';
 
       btnUpdateTauxH.addEventListener('click', () => {
-        // modalTauxH(s)
+        modalTauxHAdmin(s);
       });
 
       const btnDeleteTauxH = document.createElement('button');

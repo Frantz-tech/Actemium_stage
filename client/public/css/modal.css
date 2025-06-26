@@ -59,6 +59,8 @@
   border: 2px solid var(--primary-blue);
 }
 
+.modal,
+.modalTauxH_content,
 .modalClient_content,
 .modalFrais_content,
 .modalDevis_content,
@@ -95,6 +97,7 @@
 
 .modalDevis,
 .modalFrais,
+.modalTauxH,
 .modalDevisByCmdt,
 .modalClient {
   display: flex;
@@ -119,6 +122,7 @@
   width: 100%;
 }
 
+.fsTauxH,
 .fsClient,
 .fsFrais {
   border: none;
@@ -211,6 +215,7 @@
   }
 }
 
+.modalTauxH,
 .modalFrais,
 .modalDevis,
 .modalPost,
@@ -229,6 +234,7 @@
   animation-timing-function: ease-out;
 }
 
+.modalTauxH.show,
 .modalFrais.show,
 .modalUser.show,
 .modalDevis.show,
@@ -251,6 +257,7 @@
   animation-name: popOutConnected;
 }
 
+.modalTauxH.hide,
 .modalFrais.hide,
 .modalUser.hide,
 .modalDevis.hide,
@@ -263,6 +270,7 @@
   animation-name: popOut;
 }
 
+.modalTauxH-overlay,
 .modalFrais-overlay,
 .modalDevis-overlay,
 .modalDevisByCmdt-overlay,
