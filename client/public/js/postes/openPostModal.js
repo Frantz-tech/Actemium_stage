@@ -72,6 +72,10 @@ export function openPostModal(p, postes) {
     tauxDiv.textContent = `${post.TAUX} €/h`;
     tauxDiv.classList.add('prixUnitaire');
 
+    if (codeLibelleDiv.textContent.includes('Déplacements')) {
+      tauxDiv.textContent = `${post.PRIX_U} €/h`;
+    }
+
     const totalDiv = document.createElement('div');
     totalDiv.textContent = `${parseFloat(post.TOTAL || 0).toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €`;
     totalDiv.classList.add('total');

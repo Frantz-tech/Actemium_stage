@@ -65,6 +65,7 @@ function createPosteForm() {
   // Input nbr heures
   const inputNbHeures = document.createElement('input');
   inputNbHeures.type = 'number';
+  inputNbHeures.style.order = '0';
   inputNbHeures.className = 'nbHeures';
   inputNbHeures.placeholder = "nbr d'h";
   inputNbHeures.required = true;
@@ -72,6 +73,7 @@ function createPosteForm() {
   // Input totalSection (disabled)
   const inputTotalSection = document.createElement('input');
   inputTotalSection.type = 'text';
+  inputTotalSection.style.order = '2';
   inputTotalSection.className = 'totalSection';
   inputTotalSection.placeholder = 'Total (€)';
   inputTotalSection.disabled = true;
@@ -343,24 +345,55 @@ function ajouterBloc(modeleSelector, containerSelector) {
   const selectCodeSection = clone.querySelector('.codeSection');
   const inputNbHeures = clone.querySelector('.nbHeures');
   const inputTotalSection = clone.querySelector('.totalSection');
+  const divInputSection = clone.querySelector('.inputSection');
 
   // Fonction de calcul du total section
   if (selectCodeSection && inputNbHeures && inputTotalSection) {
     function updateTotalSection() {
       const selectedOption = selectCodeSection.options[selectCodeSection.selectedIndex];
-      const taux =
-        selectedOption && selectedOption.dataset && selectedOption.dataset.taux
-          ? parseFloat(selectedOption.dataset.taux)
-          : 0;
-      const nbHeures = parseFloat(inputNbHeures.value) || 0;
-      const total = taux * nbHeures;
-      console.log('Taux:', taux, 'Heures:', nbHeures, 'Total:', total);
+      const libelle = selectedOption?.textContent?.toLowerCase() || '';
+      const isDeplacement = libelle.includes('déplacement');
 
-      inputTotalSection.value = total ? total.toFixed(2) + ' €' : '';
+      const nbHeures = parseFloat(inputNbHeures.value) || 0;
+
+      // Si "Déplacement" est sélectionné
+      if (isDeplacement) {
+        // Supprimer le champ taux et ajouter un champ prix unitaire
+        if (!divInputSection.querySelector('.prixDeplacement')) {
+          const inputPrix = document.createElement('input');
+          inputPrix.type = 'number';
+          inputPrix.className = 'prixDeplacement';
+          inputPrix.style.order = 1;
+          inputPrix.placeholder = 'prix (€)';
+          inputPrix.required = true;
+          divInputSection.appendChild(inputPrix);
+          inputPrix.addEventListener('input', updateTotalSection);
+        }
+
+        const inputPrix = divInputSection.querySelector('.prixDeplacement');
+        const prix = parseFloat(inputPrix?.value) || 0;
+        const total = nbHeures * prix;
+        inputTotalSection.value = total ? total.toFixed(2) + ' €' : '';
+      } else {
+        // Supprimer l'input prix déplacement s'il existe
+        const existingInput = divInputSection.querySelector('.prixDeplacement');
+        if (existingInput) {
+          existingInput.remove();
+        }
+
+        const taux =
+          selectedOption && selectedOption.dataset && selectedOption.dataset.taux
+            ? parseFloat(selectedOption.dataset.taux)
+            : 0;
+        const total = taux * nbHeures;
+        inputTotalSection.value = total ? total.toFixed(2) + ' €' : '';
+      }
     }
     selectCodeSection.addEventListener('change', updateTotalSection);
     inputNbHeures.addEventListener('input', updateTotalSection);
-    updateTotalSection();
+    setTimeout(() => {
+      updateTotalSection();
+    }, 0);
   }
 
   const selectCodeAchat = clone.querySelector('.codeAchat');

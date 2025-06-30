@@ -94,7 +94,7 @@ input {
   padding: 0.5em 1em;
   border-radius: 4px;
   width: 80%;
-  max-width: 450px;
+  max-width: 500px;
   border: 2px solid var(--primary-blue);
   box-shadow: none;
 }

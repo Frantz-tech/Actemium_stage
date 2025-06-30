@@ -25,6 +25,7 @@ export async function fetchTauxH(context = 'main_doeuvre') {
       console.log('Taux horaire : ', tauxH);
 
       tauxHList(tauxH.data);
+
       // On récupère l'année du taux du RA : [0] pour l'afficher dans le titre
       document.querySelector('h2').textContent =
         `Liste des Taux Horaires ( ${tauxH.data[0].ANNEE} )`;

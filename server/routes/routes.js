@@ -13,6 +13,7 @@ import posteRoutes from './posteRoutes.js';
 import achatRoutes from './segmentationRoutes/achatRoutes.js';
 import fraisFournitureRoutes from './segmentationRoutes/fraisFournitureRoutes.js';
 import sectionRoutes from './segmentationRoutes/sectionRoutes.js';
+import tauxHRoutes from './tauxHRoutes.js';
 import userRoutes from './userRoutes.js';
 const router = Router();
 
@@ -31,4 +32,5 @@ router.use('/frais', fraisFournitureRoutes);
 router.use('/postes', posteRoutes);
 router.use('/postesDetail', detailModalRoutes);
 router.use('/fap', fapRoutes);
+router.use('/taux', tauxHRoutes);
 export default router;

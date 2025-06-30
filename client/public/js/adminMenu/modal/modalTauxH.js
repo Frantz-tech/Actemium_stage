@@ -1,5 +1,5 @@
 import { fetchTauxH } from '../../postes/getTauxH.js';
-import { handleApiError } from '../../tokenHandler/handleApi.js';
+import { patchTauxH } from '../patch/patchTauxH.js';
 
 export async function modalTauxHAdmin(taux = null) {
   const main = document.querySelector('main');
@@ -65,7 +65,7 @@ export async function modalTauxHAdmin(taux = null) {
   const tauxH = document.createElement('input');
   tauxH.id = 'tauxH';
   tauxH.classList.add('tauxH');
-  tauxH.placeholder = 'Taux horaire %';
+  tauxH.placeholder = 'Taux horaire € / H';
   tauxH.required = true;
 
   // Fieldset pour l'année
@@ -85,7 +85,7 @@ export async function modalTauxHAdmin(taux = null) {
   year.placeholder = 'Taux horaire €';
   year.required = true;
 
-  // Btn créer le frais
+  // Btn créer le taux
   const btnCreer = document.createElement('button');
   btnCreer.type = 'submit';
   btnCreer.classList.add('btnCreer');
@@ -95,7 +95,7 @@ export async function modalTauxHAdmin(taux = null) {
     modalTitle.textContent = 'Update taux horaire';
     btnCreer.textContent = 'Modifier';
     nomTauxH.value = `${taux.LIBELLE}`;
-    tauxH.value = `${taux.TAUX} %`;
+    tauxH.value = `${taux.TAUX}`;
     year.value = `${taux.ANNEE}`;
     nomTauxH.disabled = true;
   } else {
@@ -110,48 +110,34 @@ export async function modalTauxHAdmin(taux = null) {
   formCreateTauxH.addEventListener('submit', async e => {
     e.preventDefault();
 
-    const taux = document.getElementById('tauxH').value.trim().replace('%', '');
+    const tauxValue = document.getElementById('tauxH').value.trim().replace('%', '');
     const annee = document.getElementById('year').value.trim();
 
-    if (isNaN(taux) || taux < 0) {
+    if (isNaN(tauxValue) || tauxValue < 0) {
       alert('Veuillez saisir un taux horaire supérieur à 0 ');
       return;
     }
-    if (isNaN(year) || year.value.length !== 4) {
+    if (isNaN(annee) || annee.length !== 4) {
       alert('Veuillez saisir un année au format YYYY');
     }
 
     const dataToPatch = {
-      TAUX: taux,
+      TAUX: tauxValue,
       ANNEE: annee,
+      CODE_ID: taux.CODE_ID,
     };
 
     try {
       if (taux) {
         console.log('Envoi du PATCH avec :', dataToPatch);
-        const token = localStorage.getItem('token');
+        // const token = localStorage.getItem('token');
         const id = taux.CODE_ID;
 
         console.log('Id du taux à modifier : ', id);
 
         try {
-          const response = await fetch(``, {
-            method: 'PATCH',
-            headers: {
-              'Content-Type': 'application/json',
-              ...(token && { Authorization: `Bearer ${token}` }),
-            },
-            body: JSON.stringify(dataToPatch),
-          });
-          if (!response.ok) {
-            const errorData = await response.json();
-            await handleApiError(errorData);
-
-            throw new Error(errorData.message || ' Erreur lors de la modification du taux ');
-          }
-
-          const res = await response.json();
-          console.log('Voici la res du patch ', res);
+          const response = await patchTauxH(id, dataToPatch);
+          console.log('Voici la res du patch :', response);
         } catch (error) {
           console.error('Erreur update du taux', error);
           throw error;

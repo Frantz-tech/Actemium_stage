@@ -12,30 +12,38 @@ export async function sendPostes() {
 
   const libelle = document.querySelector('#libelleDevis')?.value || '';
 
-  const sections = Array.from(document.querySelectorAll('.contenuSection'))
-    .map(section => {
-      const codeId = section.querySelector('.codeSection').value;
-      const nbH = parseFloat(section.querySelector('.nbHeures').value) || 0;
-      const taux =
-        parseFloat(section.querySelector('.codeSection').selectedOptions[0].dataset.taux) || 0;
-      const total = nbH * taux;
+  const rawSections = Array.from(document.querySelectorAll('.contenuSection')).filter(section => {
+    const codeVal = section.querySelector('.codeSection')?.value;
+    return codeVal && codeVal.trim() !== '';
+  });
 
-      return {
-        DEVIS_ID: devisId,
-        CODE_ID: codeId,
-        LIBELLE: libelle,
-        PRODUIT: null,
-        QTE: 0,
-        UNITE: null,
-        NB_H: nbH,
-        PRIX_U: taux,
-        TOTAL: total,
-      };
-    })
-    .filter(
-      section =>
-        section.CODE_ID && !['Code Section', 'undefined', null, ''].includes(section.CODE_ID)
-    );
+  const sections = rawSections.map(section => {
+    const selectedOption = section.querySelector('.codeSection').selectedOptions[0];
+    const codeId = selectedOption.value;
+    const libelleOption = selectedOption.textContent.toLowerCase();
+    const isDeplacement = libelleOption.includes('déplacement');
+
+    const taux = parseFloat(selectedOption.dataset.taux) || 0;
+    const prixDepInput = section.querySelector('.prixDeplacement');
+    const prixDep = prixDepInput ? parseFloat(prixDepInput.value) || 0 : 0;
+    const prixU = isDeplacement ? prixDep : taux;
+    const nbH = parseFloat(section.querySelector('.nbHeures').value) || 0;
+    const total = nbH * prixU;
+    console.log('prixDep (input prix déplacement) :', prixDep);
+    console.log('isDeplacement:', isDeplacement);
+
+    return {
+      DEVIS_ID: devisId,
+      CODE_ID: codeId,
+      LIBELLE: libelle,
+      PRODUIT: null,
+      QTE: 0, // toujours 0
+      UNITE: null,
+      NB_H: nbH,
+      PRIX_U: prixU,
+      TOTAL: total,
+    };
+  });
 
   const achats = Array.from(document.querySelectorAll('.contenuAchat'))
     .map(achat => {
