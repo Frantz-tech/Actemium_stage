@@ -6,7 +6,7 @@ document.querySelector('h1').innerText = 'CLIENTS';
 const main = document.querySelector('main');
 
 const btnCreerClient = document.createElement('button');
-btnCreerClient.innerText = 'Créer un client';
+btnCreerClient.innerText = 'Créer';
 btnCreerClient.classList.add('btnCreerClient');
 btnCreerClient.classList.add('btnCreer');
 

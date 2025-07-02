@@ -128,8 +128,7 @@ input {
 }
 
 .btnCreerClient {
-  margin-top: 0px !important;
-  margin-bottom: 3vw;
+  order: 2;
 }
 .btnCreer {
   margin-top: 3vw;

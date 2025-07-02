@@ -1,5 +1,5 @@
-import { handleApiError } from '../tokenHandler/handleApi.js';
 import { deleteDevis } from '../devis/delete/deleteDevis.js';
+import { handleApiError } from '../tokenHandler/handleApi.js';
 
 document.querySelector('h1').innerText = 'DEVIS';
 
@@ -102,6 +102,7 @@ function fetchDevisByRaId() {
           devisContent.append(devisItem, btnGoToPost, btnDeleteDevis);
           devisItem.append(libelleRef);
           libelleRef.append(libelle, devis_ref);
+
           /* -- Action lors du clique sur le devis -- */
           devisItem.addEventListener('click', e => {
             e.preventDefault();
@@ -244,7 +245,7 @@ function fetchDevisByRaId() {
 
         const btnCreerDevis = document.createElement('button');
         btnCreerDevis.classList.add('btnCreer');
-        btnCreerDevis.textContent = 'Créer un devis';
+        btnCreerDevis.textContent = 'Créer';
 
         btnCreerDevis.addEventListener('click', () => {
           window.location.href = `../pages/devis.html?ra_id=${ra_id}`;

@@ -114,6 +114,10 @@ selectCmdt.addEventListener('change', () => {
     const modalContent = document.createElement('div');
     modalContent.classList.add('modalCmdt_content');
 
+    const title = document.createElement('h3');
+    title.classList.add('modalTitle');
+    title.textContent = 'Nouveau Client';
+
     const form = document.createElement('form');
     form.classList.add('newCmdtForm');
 
@@ -201,7 +205,7 @@ selectCmdt.addEventListener('change', () => {
     form.append(inputNameCmdt, inputEmailCmdt, divBtn);
     inputNameCmdt.focus();
 
-    modalContent.appendChild(form);
+    modalContent.append(title, form);
     modal.appendChild(modalContent);
     overlay.appendChild(modal);
     document.body.appendChild(overlay);

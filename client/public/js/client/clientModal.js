@@ -93,6 +93,7 @@ export async function creerClientModal(client = null) {
   btnCreer.textContent = 'Créer';
 
   if (client) {
+    modalTitle.textContent = 'Modifier client';
     btnCreer.textContent = 'Modifier';
     nomClient.value = client.NOM;
     emailClient.value = client.EMAIL;
