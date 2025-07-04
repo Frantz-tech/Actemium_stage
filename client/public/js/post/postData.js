@@ -15,6 +15,7 @@ export async function postData(url = '', data = {}) {
   console.log('Réponse status :', response.status);
 
   if (!response.ok) {
+    alert(json.errors ? json.errors[0] : json.message || 'Erreur inconnue');
     throw new Error(json.error || `Erreur serveur : ${response.status}`);
   }
   handleApiError(json);
@@ -46,11 +47,10 @@ export async function postdatawithfiles(url = '', data = {}, files = {}, method 
     body: formData,
   });
 
-  if (!reponse.ok) {
-    const errorText = await reponse.text();
-    throw new Error(`Erreur serveur : ${reponse.status} - ${errorText}`);
-  }
   const json = await reponse.json();
+  if (!reponse.ok) {
+    alert(json.errors ? json.errors[0] : json.message || 'Erreur inconnue');
+  }
   handleApiError(json);
   console.log('Réponse JSON', json);
   return json;

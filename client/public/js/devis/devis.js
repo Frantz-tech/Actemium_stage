@@ -330,7 +330,7 @@ form.addEventListener('submit', async e => {
 
       const createDevis = await postData('http://localhost:3000/api/devis', devisData);
       if (createDevis.errors) {
-        alert('Erreurs : ' + createDevis.errors.join(','));
+        alert('Erreurs : ' + devisData.errors[0] || devisData.message);
         return;
       }
       alert(`✅ Devis ${devisData.LIBELLE} crée avec succès`);
