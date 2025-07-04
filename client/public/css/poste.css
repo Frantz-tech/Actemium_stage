@@ -24,22 +24,30 @@
 
 .inputSection {
   display: flex;
-  width: 80%;
-  height: 3vh;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
   margin-top: 1vh;
   max-width: 500px;
-  gap: 4.2vh;
 }
 
 .inputAchat,
 .inputFrais {
   display: flex;
-  justify-content: space-between;
-  width: 80%;
+  width: 100%;
+  justify-content: center;
   flex-wrap: wrap;
   max-width: 500px;
 }
 
+.nomAchat,
+.nomFrais {
+  margin-top: 2vh !important;
+}
+
+.prixDeplacement,
+.nbHeures,
+.totalSection,
 .nomAchat,
 .nomFrais,
 .qteAchat,
@@ -51,17 +59,8 @@
 .prixUFraisChantier,
 .totalFraisChantier {
   margin-top: 1vh;
-  width: 48%;
-  height: 3vh;
-}
-.nomAchat,
-.nomFrais {
   width: 80%;
-  height: 4vh;
-}
-
-.nbHeures {
-  width: 80%;
+  height: 3.5vh;
 }
 .btnOpenFap {
   order: 3;
@@ -69,7 +68,7 @@
 .btnGoToPost,
 #btnUpdateClient {
   order: -1;
-  font-size: 1.8rem;
+  font-size: clamp(1.4rem, 2vw, 2rem);
   display: flex;
   color: white;
   border-radius: 5px;
@@ -77,6 +76,7 @@
 }
 .divBtnPoste_fap {
   display: flex;
+  flex-direction: column;
   order: 2;
   gap: 1vw;
 }
@@ -115,7 +115,7 @@
 .groupePoste {
   display: flex;
   flex-direction: column;
-  gap: 2vw;
+  gap: 4vh;
 }
 
 #hidden {
@@ -159,12 +159,12 @@
   flex-direction: column;
   justify-content: center;
   gap: 2vh;
-}
-#clientList,
-#devisList,
-#postList {
   width: 80%;
   max-width: 800px;
+}
+
+#clientList {
+  max-width: 600px;
 }
 .devisContent,
 .clientContent,
@@ -191,15 +191,14 @@
 }
 .clientItem,
 .devisItem,
-.postItem,
-.sectionItem,
-.achatItem,
-.posteFap {
+.postItem {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   width: 100%;
+  font-size: clamp(0.8rem, 3vw, 1rem);
   gap: 2vw;
   border: 1px solid var(--color-black);
   padding: 1em 1.5em;
@@ -219,4 +218,49 @@ ul {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+@media screen and (width > 530px) {
+  .clientItem {
+    flex-wrap: nowrap;
+  }
+}
+@media screen and (width > 600px) {
+  .clientItem {
+    justify-content: space-between;
+  }
+}
+
+@media screen and (width > 768px) {
+  .prixDeplacement,
+  .nbHeures,
+  .totalSection,
+  .qteAchat,
+  .uniteAchat,
+  .prixUAchat,
+  .totalAchat,
+  .qteFraisChantier,
+  .uniteFraisChantier,
+  .prixUFraisChantier,
+  .totalFraisChantier {
+    margin-top: 1vh;
+    width: 48%;
+    height: 3.5vh;
+  }
+
+  .inputSection,
+  .inputAchat,
+  .inputFrais {
+    gap: 4%;
+  }
+
+  .nomAchat,
+  .nomFrais {
+    margin-top: 1vh;
+    width: 100%;
+    height: 4.5vh;
+  }
+  .divBtnPoste_fap {
+    flex-direction: row;
+  }
 }

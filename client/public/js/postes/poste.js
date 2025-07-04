@@ -50,7 +50,6 @@ function createPosteForm() {
   const selectCodeSection = document.createElement('select');
   selectCodeSection.name = 'codeSection';
   selectCodeSection.className = 'codeSection';
-  selectCodeSection.id = 'codeSection';
   const optionCodeSection = document.createElement('option');
   optionCodeSection.textContent = 'Code Section';
   optionCodeSection.selected = true;
@@ -67,7 +66,7 @@ function createPosteForm() {
   inputNbHeures.type = 'number';
   inputNbHeures.style.order = '0';
   inputNbHeures.className = 'nbHeures';
-  inputNbHeures.placeholder = "nbr d'h";
+  inputNbHeures.placeholder = "Nombre d'heures";
   inputNbHeures.required = true;
 
   // Input totalSection (disabled)

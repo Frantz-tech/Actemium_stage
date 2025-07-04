@@ -8,7 +8,7 @@ const divBtns = document.createElement('div');
 divBtns.classList.add('divBtnPoste_fap');
 
 const btnCreerPoste = document.createElement('button');
-btnCreerPoste.innerText = 'Créer un poste';
+btnCreerPoste.innerText = 'Créer';
 btnCreerPoste.classList.add('btnCreerPoste');
 btnCreerPoste.classList.add('btnCreer');
 

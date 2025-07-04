@@ -19,6 +19,10 @@ select {
   width: 80%;
 }
 
+#libelleDevis {
+  width: 100%;
+}
+
 #libelleDevis,
 #raId,
 #cmdt,

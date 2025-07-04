@@ -74,8 +74,8 @@ main {
 }
 h1 {
   color: var(--color-white);
-  padding: 8vh 0;
-  font-size: clamp(3.5rem, 8vw, 5rem);
+  padding: 4vh 0;
+  font-size: clamp(3rem, 8vw, 5rem);
 }
 .loginForm,
 .createDevisForm {
@@ -131,7 +131,7 @@ input {
   order: 2;
 }
 .btnCreer {
-  margin-top: 3vw;
+  margin-top: 2vh;
 }
 .btnCreerFap {
   display: flex; /* -- A voir si il ne faut pas mettre un display none plus tard -- */
@@ -270,6 +270,7 @@ footer {
 }
 .ra_id_user,
 .ra_id_admin {
+  margin-bottom: 2vw;
   position: relative;
   width: clamp(45px, 6vw, 70px);
   height: clamp(45px, 6vw, 70px);
@@ -282,14 +283,14 @@ footer {
   position: fixed;
   right: -6px;
   bottom: -12px;
-  font-size: clamp(1rem, 2.5vw, 2rem);
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
   color: var(--color-border);
 }
 .roleUser,
 .roleAdmin,
 .helloUser,
 .helloAdmin {
-  font-size: clamp(1.4rem, 1.3vw, 2rem);
+  font-size: clamp(0.8rem, 1.3vw, 2rem);
 }
 .roleUser,
 .roleAdmin {
@@ -307,7 +308,7 @@ footer {
   transform: scale(1);
   transition: transform 0.2s ease color 0.3s ease;
   padding: 0.2vw 1vw;
-  width: 180px;
+  width: clamp(9rem, 16vw, 15rem);
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -317,6 +318,7 @@ footer {
 .btnText {
   position: relative;
   z-index: 2;
+  font-size: clamp(0.8rem, 1.5vw, 1.5rem);
 }
 
 .deconnectBtn::after {
@@ -327,7 +329,7 @@ footer {
   text-align: center;
   color: var(--color-white);
   transition: transform color 0.3s ease;
-  font-size: 1.5em;
+  font-size: clamp(0.8rem, 1.5vw, 1.5em);
 }
 .deconnectBtn:hover::after {
   color: var(--primary-blue);
@@ -424,4 +426,16 @@ footer {
 }
 .edit-btn {
   font-size: clamp(1.4rem, 2.3vw, 2.3rem);
+}
+
+@media screen and (width > 768px) {
+  h1 {
+    padding: 8vh 0;
+  }
+}
+@media screen and (width > 1024px) {
+  .ra_id_user,
+  .ra_id_admin {
+    margin-bottom: 0;
+  }
 }
