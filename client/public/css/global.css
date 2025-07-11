@@ -318,7 +318,7 @@ footer {
 .btnText {
   position: relative;
   z-index: 2;
-  font-size: clamp(0.8rem, 1.5vw, 1.5rem);
+  font-size: clamp(0.8rem, 1.3vw, 1.5rem);
 }
 
 .deconnectBtn::after {

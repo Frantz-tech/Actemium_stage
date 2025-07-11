@@ -18,8 +18,10 @@ export const sendPasswordEmail = async (destinataire, tempPassword) => {
       from: '"Service Informatique Actemium (TEST)" <no-reply-service-informatique@actemium.com>',
       to: destinataire,
       subject: 'Mot de passe temporaire - TEST',
-      text: `Bonjour,\n\nVoici votre mot de passe temporaire : ${tempPassword}\n\nVeuillez le changer lors de votre première connexion.`,
-      html: `<p>Bonjour,</p><p>Voici votre mot de passe temporaire : <strong>${tempPassword}</strong></p><p>Veuillez le changer lors de votre première connexion.</p>`,
+      text: `Bonjour,\n\nVoici votre mot de passe temporaire : ${tempPassword}\n\nVeuillez 
+      le changer lors de votre première connexion.`,
+      html: `<p>Bonjour,</p><p>Voici votre mot de passe temporaire :
+       <strong>${tempPassword}</strong></p><p>Veuillez le changer lors de votre première connexion.</p>`,
     });
 
     console.log('Message sent (test) : %s', info.messageId);

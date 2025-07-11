@@ -91,6 +91,11 @@ loginForm.addEventListener('submit', async e => {
             const modalContent = document.createElement('div');
             modalContent.classList.add('modalPassword_content');
 
+            // Modal title
+            const modalTitle = document.createElement('h3');
+            modalTitle.classList.add('modalTitle');
+            modalTitle.textContent = 'Nouveau mot de passe';
+
             const form = document.createElement('form');
             form.classList.add('changePasswordForm');
 
@@ -172,7 +177,7 @@ loginForm.addEventListener('submit', async e => {
             document.body.appendChild(overlay);
             overlay.appendChild(modal);
             modal.appendChild(modalContent);
-            modalContent.appendChild(form);
+            modalContent.append(modalTitle, form);
             form.append(inputNewPassword, inputConfirmPassword, submitButton);
             inputNewPassword.focus();
             ///

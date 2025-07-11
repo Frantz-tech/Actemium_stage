@@ -35,6 +35,11 @@ newUser.addEventListener('click', e => {
   const modalContent = document.createElement('div');
   modalContent.classList.add('modalUser_content');
 
+  // Modal title
+  const modalTitle = document.createElement('h3');
+  modalTitle.classList.add('modalTitle');
+  modalTitle.textContent = 'Compte';
+
   const form = document.createElement('form');
   form.classList.add('newUserForm');
   const inputName = document.createElement('input');
@@ -168,7 +173,7 @@ newUser.addEventListener('click', e => {
   form.append(inputName, inputFirstName, email, /*password,*/ role, divBtn);
   role.appendChild(optionRole);
   modal.appendChild(modalContent);
-  modalContent.appendChild(form);
+  modalContent.append(modalTitle, form);
   document.body.appendChild(modal);
   fetchRoles(role);
 });
