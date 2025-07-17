@@ -6,10 +6,10 @@ import { validateEmail, validatePassword, validateRole } from '../utils/validato
 import { sendPasswordEmail } from './emailService.js';
 
 const generateUniqueRaId = async (prenom, nom) => {
-  const baseRaId = (prenom[0] + nom[0]).toUpperCase(); // e.g. "DC"
+  const baseRaId = (prenom[0] + nom[0]).toUpperCase();
 
   if (!(await Repository.checkRaIdExists(baseRaId))) {
-    return baseRaId; // Return base ID if it doesn't exist
+    return baseRaId;
   }
 
   let suffix = 1;
@@ -151,3 +151,5 @@ export const Service = {
   authenticateUser,
   updateUserPassword,
 };
+
+export { generateUniqueRaId };
