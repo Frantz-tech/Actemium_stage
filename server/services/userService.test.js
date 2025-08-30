@@ -30,9 +30,11 @@ describe('generateUniqueRaId', () => {
       .mockResolvedValueOnce(true)
       .mockResolvedValueOnce(true)
       .mockResolvedValueOnce(true)
+      .mockResolvedValueOnce(true)
+      .mockResolvedValueOnce(true)
       .mockResolvedValueOnce(false);
     const raId = await generateUniqueRaId('Victor', 'Durant');
-    expect(raId).toBe('VD3');
+    expect(raId).toBe('VD5');
     console.log('resultat du raID ( test ) :', raId);
   });
 });
